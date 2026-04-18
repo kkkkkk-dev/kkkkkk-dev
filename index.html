@@ -47,25 +47,40 @@
     <!-- HERO -->
     <section id="home" class="hero">
       <div class="container hero-inner">
-        <div class="status-pill reveal">
-          <span class="dot"><span class="dot-ping"></span><span class="dot-core"></span></span>
-          <span class="status-text">Status: <strong>Online</strong></span>
-        </div>
-        <h1 class="hero-title text-gradient reveal" data-delay="1">
-          kkkkkk-dev
-          <span class="hero-sub">The Best Universal</span>
-          <span class="hero-sub2">Roblox Script Exploits</span>
+
+        <p class="hero-brand-label reveal">kkkkkk-dev</p>
+
+        <h1 class="hero-title reveal" data-delay="1">
+          The Best Universal<br>Roblox Script Exploits
         </h1>
-        <p class="hero-tag reveal" data-delay="2">Undetected Scripts • Daily Updates • Zero Exploiters</p>
-        <p class="hero-desc reveal" data-delay="3">Dark. Fast. Undetected. The premium scripting destination engineered for elite Roblox operators.</p>
+
+        <p class="hero-tag reveal" data-delay="2">
+          UNDETECTED SCRIPTS &nbsp;•&nbsp; DAILY UPDATES &nbsp;•&nbsp; ZERO EXPLOITERS
+        </p>
+
+        <p class="hero-desc reveal" data-delay="3">
+          Dark. Fast. Undetected. The premium scripting destination engineered for elite Roblox operators.
+        </p>
+
         <div class="hero-actions reveal" data-delay="4">
-          <a href="#scripts" class="btn-primary shimmer"><i data-lucide="terminal"></i> Get Scripts <i data-lucide="chevron-right"></i></a>
+          <a href="#scripts" class="btn-primary shimmer">&gt;_ GET SCRIPTS &nbsp;&gt;</a>
         </div>
-        <div class="stats">
-          <div class="stat glass reveal reveal-scale" data-delay="4"><div class="stat-v neon-text">12K+</div><div class="stat-l">Active Users</div></div>
-          <div class="stat glass reveal reveal-scale" data-delay="5"><div class="stat-v neon-text">98.7%</div><div class="stat-l">Undetect Rate</div></div>
-          <div class="stat glass reveal reveal-scale" data-delay="6"><div class="stat-v neon-text">24/7</div><div class="stat-l">Updates</div></div>
+
+        <div class="stats reveal" data-delay="5">
+          <div class="stat glass-stat">
+            <div class="stat-v">12K+</div>
+            <div class="stat-l">ACTIVE<br>USERS</div>
+          </div>
+          <div class="stat glass-stat">
+            <div class="stat-v">98.7%</div>
+            <div class="stat-l">UNDETECT<br>RATE</div>
+          </div>
+          <div class="stat glass-stat">
+            <div class="stat-v">24/7</div>
+            <div class="stat-l">UPDATES</div>
+          </div>
         </div>
+
       </div>
     </section>
 
@@ -192,7 +207,6 @@
       document.querySelector('.navbar').classList.toggle('scrolled', window.scrollY > 12);
     });
 
-    /* === Smooth Scroll Reveal === */
     const io = new IntersectionObserver((entries)=>{
       entries.forEach(entry=>{
         if (entry.isIntersecting) {
