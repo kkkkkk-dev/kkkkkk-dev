@@ -125,8 +125,72 @@ h1, h2, h3, h4 { font-family: "Rajdhani", sans-serif; letter-spacing: -0.01em; f
 
 .muted { color: var(--muted); }
 
-/* Lucide icons */
-[data-lucide] { width: 1em; height: 1em; stroke-width: 2; display: inline-block; vertical-align: -0.15em; }
+/* ============================================================
+   LUCIDE ICONS
+   ============================================================ */
+[data-lucide],
+svg.lucide {
+  width: 1em;
+  height: 1em;
+  stroke-width: 2;
+  stroke: currentColor;
+  fill: none;
+  display: inline-block;
+  vertical-align: -0.15em;
+  flex-shrink: 0;
+  transition: transform .3s ease, filter .3s ease, color .3s ease;
+}
+
+/* Brand / nav icons get a soft neon glow */
+.brand-icon svg.lucide,
+.brand-icon [data-lucide] {
+  width: 18px; height: 18px;
+  filter: drop-shadow(0 0 6px rgba(255,255,255,0.5));
+}
+
+/* Feature card icons — bigger, glowing, animate on hover */
+.card-icon svg.lucide,
+.card-icon [data-lucide] {
+  width: 22px; height: 22px;
+  color: var(--fg);
+  filter: drop-shadow(0 0 8px rgba(255,255,255,0.35));
+}
+.card:hover .card-icon svg.lucide {
+  transform: scale(1.15) rotate(-4deg);
+  filter: drop-shadow(0 0 14px rgba(255,255,255,0.7));
+}
+
+/* Nav link icons */
+.nav-links a svg.lucide,
+.mobile-menu a svg.lucide,
+.footer-links a svg.lucide {
+  width: 14px; height: 14px;
+  opacity: .8;
+}
+.nav-links a:hover svg.lucide,
+.footer-links a:hover svg.lucide { opacity: 1; filter: drop-shadow(0 0 6px rgba(255,255,255,0.6)); }
+
+/* Menu button icon */
+.menu-btn svg.lucide { width: 18px; height: 18px; }
+
+/* Button icons (primary / copy) */
+.btn-primary svg.lucide,
+.btn-copy svg.lucide {
+  width: 16px; height: 16px;
+  stroke-width: 2.4;
+}
+
+/* Script-card meta icon */
+.script-game svg.lucide { width: 12px; height: 12px; }
+
+/* Reasons (why-choose) check icons — green neon */
+.reasons li svg.lucide {
+  width: 18px; height: 18px;
+  color: #4ade80;
+  filter: drop-shadow(0 0 8px rgba(74,222,128,0.55));
+  flex-shrink: 0;
+  margin-top: .15rem;
+}
 
 /* ============================================================
    NAVBAR
