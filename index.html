@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="styles.css" />
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
 </head>
 <body>
   <div class="grid-bg"></div>
@@ -19,24 +20,24 @@
     <div class="container">
       <nav class="nav glass-strong">
         <a href="#home" class="brand">
-          <div class="brand-icon">⌘</div>
+          <div class="brand-icon"><i data-lucide="terminal"></i></div>
           <div class="brand-text">
             <span class="brand-name neon-text">kkkkkk-dev</span>
             <span class="brand-sub">zero exploiters</span>
           </div>
         </a>
         <ul class="nav-links">
-          <li><a href="#home">Home</a></li>
-          <li><a href="#scripts">Scripts</a></li>
-          <li><a href="https://discord.gg/Cu9acdzn4v">Contact Me</a></li>
+          <li><a href="#home"><i data-lucide="home"></i> Home</a></li>
+          <li><a href="#scripts"><i data-lucide="code-2"></i> Scripts</a></li>
+          <li><a href="https://discord.gg/Cu9acdzn4v"><i data-lucide="message-circle"></i> Contact Me</a></li>
         </ul>
-        <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">☰</button>
+        <button class="menu-btn" id="menuBtn" aria-label="Toggle menu"><i data-lucide="menu"></i></button>
       </nav>
       <div class="mobile-menu glass" id="mobileMenu">
         <ul>
-          <li><a href="#home">Home</a></li>
-          <li><a href="#scripts">Scripts</a></li>
-          <li><a href="https://discord.gg/Cu9acdzn4v">Contact Me</a></li>
+          <li><a href="#home"><i data-lucide="home"></i> Home</a></li>
+          <li><a href="#scripts"><i data-lucide="code-2"></i> Scripts</a></li>
+          <li><a href="https://discord.gg/Cu9acdzn4v"><i data-lucide="message-circle"></i> Contact Me</a></li>
         </ul>
       </div>
     </div>
@@ -59,7 +60,7 @@
         <p class="hero-tag">Undetected Scripts • Daily Updates • Zero Exploiters</p>
         <p class="hero-desc">Dark. Fast. Undetected. The premium scripting destination engineered for elite Roblox operators.</p>
         <div class="hero-actions">
-          <a href="#scripts" class="btn-primary shimmer">▶ Get Scripts →</a>
+          <a href="#scripts" class="btn-primary shimmer"><i data-lucide="play"></i> Get Scripts <i data-lucide="arrow-right"></i></a>
         </div>
         <div class="stats">
           <div class="stat glass"><div class="stat-v neon-text">12K+</div><div class="stat-l">Active Users</div></div>
@@ -77,12 +78,12 @@
           <p>Every line of code engineered for performance, stealth, and that premium feel.</p>
         </div>
         <div class="grid-3">
-          <div class="card glass neon-glow-hover"><div class="card-icon">🛡</div><h3>Undetected</h3><p>Bypass anti-cheat with bleeding-edge obfuscation and stealth injection.</p></div>
-          <div class="card glass neon-glow-hover"><div class="card-icon">⚡</div><h3>Lightning Fast</h3><p>Optimized execution path. Zero lag, instant load, maximum throughput.</p></div>
-          <div class="card glass neon-glow-hover"><div class="card-icon">👁</div><h3>Elegant GUI</h3><p>Frosted glass UI with neon accents. Built for control & speed.</p></div>
-          <div class="card glass neon-glow-hover"><div class="card-icon">🖥</div><h3>Daily Updates</h3><p>Patches pushed within hours of every Roblox engine update.</p></div>
-          <div class="card glass neon-glow-hover"><div class="card-icon">🔒</div><h3>Secure Vault</h3><p>Encrypted delivery. No key-loggers, no malware, no compromise.</p></div>
-          <div class="card glass neon-glow-hover"><div class="card-icon">✨</div><h3>Premium Tools</h3><p>Animation Changer, Music Player, Accessories Changer — all in one universal hub.</p></div>
+          <div class="card glass neon-glow-hover"><div class="card-icon"><i data-lucide="shield"></i></div><h3>Undetected</h3><p>Bypass anti-cheat with bleeding-edge obfuscation and stealth injection.</p></div>
+          <div class="card glass neon-glow-hover"><div class="card-icon"><i data-lucide="zap"></i></div><h3>Lightning Fast</h3><p>Optimized execution path. Zero lag, instant load, maximum throughput.</p></div>
+          <div class="card glass neon-glow-hover"><div class="card-icon"><i data-lucide="eye"></i></div><h3>Elegant GUI</h3><p>Frosted glass UI with neon accents. Built for control & speed.</p></div>
+          <div class="card glass neon-glow-hover"><div class="card-icon"><i data-lucide="monitor"></i></div><h3>Daily Updates</h3><p>Patches pushed within hours of every Roblox engine update.</p></div>
+          <div class="card glass neon-glow-hover"><div class="card-icon"><i data-lucide="lock"></i></div><h3>Secure Vault</h3><p>Encrypted delivery. No key-loggers, no malware, no compromise.</p></div>
+          <div class="card glass neon-glow-hover"><div class="card-icon"><i data-lucide="sparkles"></i></div><h3>Premium Tools</h3><p>Animation Changer, Music Player, Accessories Changer — all in one universal hub.</p></div>
         </div>
       </div>
     </section>
@@ -98,13 +99,13 @@
           <div class="script-card glass neon-glow-hover">
             <div class="script-head">
               <div>
-                <div class="script-game">⟨/⟩ Universal</div>
+                <div class="script-game"><i data-lucide="code-2"></i> Universal</div>
                 <h3>Zero Exploiters</h3>
               </div>
               <span class="badge">ONLINE</span>
             </div>
             <pre class="code-block"><code id="code1">loadstring(game:HttpGet("https://raw.githubusercontent.com/kkkkkk-dev/ZeroExploits/main/ZeroUniversal.lua"))()</code></pre>
-            <button class="btn-copy shimmer" onclick="copyCode('code1', this)">⧉ Copy Code</button>
+            <button class="btn-copy shimmer" onclick="copyCode('code1', this)"><i data-lucide="copy"></i> Copy Code</button>
           </div>
         </div>
       </div>
@@ -117,12 +118,12 @@
           <h2 class="text-gradient">Why Choose <span class="neon-text">kkkkkk-dev</span></h2>
           <p class="muted">We don't just ship scripts — we engineer the standard. Every release is audited, obfuscated, and battle-tested before it touches your client.</p>
           <ul class="reasons">
-            <li class="glass">✓ Zero downtime — 99.9% uptime SLA on all delivery endpoints</li>
-            <li class="glass">✓ Active dev team pushing patches within hours of Roblox updates</li>
-            <li class="glass">✓ Trusted by 12,000+ scripters across the global underground</li>
-            <li class="glass">✓ Encrypted obfuscation layers — your sessions stay invisible</li>
-            <li class="glass">✓ Premium support inside our private Discord vault</li>
-            <li class="glass">✓ Free tier available — no credit card, no hidden traps</li>
+            <li class="glass"><i data-lucide="check-circle-2"></i> Zero downtime — 99.9% uptime SLA on all delivery endpoints</li>
+            <li class="glass"><i data-lucide="check-circle-2"></i> Active dev team pushing patches within hours of Roblox updates</li>
+            <li class="glass"><i data-lucide="check-circle-2"></i> Trusted by 12,000+ scripters across the global underground</li>
+            <li class="glass"><i data-lucide="check-circle-2"></i> Encrypted obfuscation layers — your sessions stay invisible</li>
+            <li class="glass"><i data-lucide="check-circle-2"></i> Premium support inside our private Discord vault</li>
+            <li class="glass"><i data-lucide="check-circle-2"></i> Free tier available — no credit card, no hidden traps</li>
           </ul>
         </div>
         <div class="terminal glass neon-border">
@@ -148,7 +149,7 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <div class="brand">
-            <div class="brand-icon">⌘</div>
+            <div class="brand-icon"><i data-lucide="terminal"></i></div>
             <div class="brand-text">
               <span class="brand-name neon-text">kkkkkk-dev</span>
               <span class="brand-sub">zero exploiters</span>
@@ -159,9 +160,9 @@
         <div>
           <h4>Navigate</h4>
           <ul class="footer-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#scripts">Scripts</a></li>
-            <li><a href="https://discord.gg/Cu9acdzn4v">Contact Me</a></li>
+            <li><a href="#home"><i data-lucide="home"></i> Home</a></li>
+            <li><a href="#scripts"><i data-lucide="code-2"></i> Scripts</a></li>
+            <li><a href="https://discord.gg/Cu9acdzn4v"><i data-lucide="message-circle"></i> Contact Me</a></li>
           </ul>
         </div>
       </div>
@@ -173,6 +174,7 @@
   </footer>
 
   <script>
+    window.addEventListener('load', () => { if (window.lucide) lucide.createIcons(); });
     document.getElementById('year').textContent = new Date().getFullYear();
     const mb = document.getElementById('menuBtn');
     const mm = document.getElementById('mobileMenu');
@@ -180,8 +182,9 @@
     function copyCode(id, btn){
       const t = document.getElementById(id).innerText;
       navigator.clipboard.writeText(t).then(()=>{
-        const old = btn.innerHTML; btn.innerHTML = '✓ Copied';
-        setTimeout(()=>btn.innerHTML = old, 1800);
+        const old = btn.innerHTML; btn.innerHTML = '<i data-lucide="check"></i> Copied';
+        if (window.lucide) lucide.createIcons();
+        setTimeout(()=>{ btn.innerHTML = old; if (window.lucide) lucide.createIcons(); }, 1800);
       });
     }
     window.addEventListener('scroll', ()=>{
