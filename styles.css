@@ -270,9 +270,18 @@ svg.lucide {
 .status-text { color: var(--muted); }
 .status-text strong { color: #4ade80; }
 
-.hero-title { font-size: clamp(2.5rem, 7vw, 5rem); display: flex; flex-direction: column; gap: .25rem; }
-.hero-sub { font-size: clamp(1.1rem, 2.5vw, 1.6rem); font-weight: 500; color: var(--muted); }
-.hero-sub2 { font-size: clamp(1rem, 2vw, 1.3rem); font-weight: 400; color: var(--muted); }
+.hero-title { font-size: clamp(2.5rem, 7vw, 5rem); display: flex; flex-direction: column; gap: .25rem; line-height: 1.05; }
+/* Override transparan dari .text-gradient agar sub-judul tetap terlihat */
+.hero-title .hero-sub,
+.hero-title .hero-sub2 {
+  -webkit-background-clip: initial; background-clip: initial;
+  background: none;
+  color: #ffffff;
+  text-shadow: 0 0 18px rgba(255,255,255,0.35);
+  display: block; margin-top: .5rem;
+}
+.hero-sub { font-size: clamp(1.4rem, 3.5vw, 2.4rem); font-weight: 700; }
+.hero-sub2 { font-size: clamp(1.1rem, 2.8vw, 1.8rem); font-weight: 600; color: rgba(255,255,255,0.8) !important; text-shadow: 0 0 12px rgba(255,255,255,0.2); }
 
 .hero-tag { font-family: "JetBrains Mono", monospace; font-size: .85rem; color: var(--muted); letter-spacing: .1em; }
 .hero-desc { max-width: 620px; color: var(--muted); font-size: 1.05rem; line-height: 1.6; }
