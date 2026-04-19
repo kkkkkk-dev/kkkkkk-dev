@@ -3,525 +3,785 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>kkkkkk-dev — Zero Exploiters</title>
+<title>kkkkkk-dev — Zero Exploiters | Premium Roblox Scripts</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 :root{
-  --bg:#05060a;
-  --fg:#f5f7fa;
-  --muted:#8a93a6;
-  --glass-bg:rgba(18,22,32,0.45);
-  --glass-bg-strong:rgba(10,13,20,0.72);
-  --glass-border:rgba(255,255,255,0.09);
-  --glass-border-hi:rgba(255,255,255,0.20);
-  --shadow-glass:0 8px 32px rgba(0,0,0,0.55),inset 0 1px 0 rgba(255,255,255,0.07);
-  --shadow-neon:0 0 24px rgba(255,255,255,0.16),0 0 64px rgba(255,255,255,0.07);
-  --r:16px;
+  --black:#000000;
+  --fg:#f4f6fa;
+  --muted:#7a8499;
+  --green:#4ade80;
+  --gb:rgba(14,17,25,0.82);
+  --gbn:rgba(6,7,12,0.86);
+  --bd:rgba(255,255,255,0.08);
+  --bdh:rgba(255,255,255,0.18);
+  --sh:0 8px 32px rgba(0,0,0,0.75),inset 0 1px 0 rgba(255,255,255,0.06);
+  --shn:0 0 22px rgba(255,255,255,0.13),0 0 60px rgba(255,255,255,0.06);
+  --r:14px;
 }
-html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+html,body{width:100%;overflow-x:hidden}
 body{
   font-family:"Rajdhani",system-ui,sans-serif;
-  background:var(--bg);
+  background:#000;
   color:var(--fg);
-  overflow-x:hidden;
   min-height:100vh;
-  background-image:
-    radial-gradient(1200px 600px at 10% -10%,rgba(80,120,255,0.08),transparent 60%),
-    radial-gradient(900px 500px at 90% 10%,rgba(180,80,255,0.06),transparent 60%),
-    radial-gradient(800px 800px at 50% 110%,rgba(0,200,255,0.05),transparent 60%),
-    linear-gradient(180deg,#05060a 0%,#07090f 100%);
-  background-attachment:fixed;
+  position:relative;
 }
 
-/* GRID BG */
-.grid-bg{
+/* ── BACKGROUND: pure black + very subtle far glows ── */
+body::before{
+  content:"";
   position:fixed;inset:0;z-index:0;pointer-events:none;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.035) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,0.035) 1px,transparent 1px);
-  background-size:60px 60px;
-  mask-image:radial-gradient(ellipse at center,black 40%,transparent 90%);
+  background:
+    radial-gradient(ellipse 70% 45% at 10% 0%,rgba(50,80,200,0.07) 0%,transparent 65%),
+    radial-gradient(ellipse 55% 40% at 90% 5%,rgba(120,50,200,0.055) 0%,transparent 65%),
+    radial-gradient(ellipse 50% 50% at 50% 105%,rgba(0,140,200,0.05) 0%,transparent 65%),
+    #000;
 }
-.scanline{
-  position:fixed;inset:0;z-index:1;pointer-events:none;
-  background:repeating-linear-gradient(0deg,transparent 0,transparent 2px,rgba(255,255,255,0.01) 3px,transparent 4px);
-  mix-blend-mode:overlay;
-}
-main,.navbar,.footer{position:relative;z-index:2}
-.container{max-width:1160px;margin:0 auto;padding:0 1.25rem}
 
-/* GLASS */
-.glass{
-  background:var(--glass-bg);
-  backdrop-filter:blur(22px) saturate(160%);
-  -webkit-backdrop-filter:blur(22px) saturate(160%);
-  border:1px solid var(--glass-border);
-  box-shadow:var(--shadow-glass);
-  border-radius:var(--r);
-  position:relative;overflow:hidden;
+/* ── GRID ── */
+.grid-bg{
+  position:fixed;inset:0;z-index:1;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);
+  background-size:55px 55px;
+  -webkit-mask-image:radial-gradient(ellipse 85% 85% at 50% 45%,#000 25%,transparent 100%);
+  mask-image:radial-gradient(ellipse 85% 85% at 50% 45%,#000 25%,transparent 100%);
 }
+
+/* ── SCANLINES ── */
+.scanline{
+  position:fixed;inset:0;z-index:2;pointer-events:none;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,255,255,0.007) 3px,transparent 4px);
+}
+
+.navbar,.page,.footer{position:relative;z-index:3}
+.wrap{max-width:1140px;margin:0 auto;padding:0 clamp(.9rem,4vw,1.5rem)}
+
+h1,h2,h3,h4{font-family:"Rajdhani",sans-serif;font-weight:700;line-height:1.1}
+
+/* ── GLASS ── */
+.glass{
+  background:linear-gradient(135deg,rgba(38,40,52,1) 0%,rgba(14,14,18,1) 45%,rgba(0,0,0,1) 100%);
+  border-radius:var(--r);
+  border-top:1px solid rgba(180,210,230,0.50);
+  border-left:1px solid rgba(160,190,210,0.35);
+  border-right:1px solid rgba(18,18,20,0.98);
+  border-bottom:1px solid rgba(12,12,14,0.98);
+  box-shadow:0 0 0 1px rgba(0,0,0,0.85),0 12px 40px rgba(0,0,0,0.9),inset 0 1px 0 rgba(255,255,255,0.06);
+  position:relative;overflow:hidden;
+  cursor:default;
+  -webkit-tap-highlight-color:transparent;
+  transition:box-shadow .3s,transform .2s;
+}
+/* Diagonal gloss shine - top-left reflection */
 .glass::before{
   content:"";position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(255,255,255,0.055) 0%,transparent 40%);
+  background:linear-gradient(128deg,rgba(255,255,255,0.11) 0%,rgba(255,255,255,0.05) 22%,rgba(255,255,255,0.01) 38%,transparent 52%,rgba(0,0,0,0.18) 78%,rgba(0,0,0,0.32) 100%);
+  pointer-events:none;z-index:1;border-radius:inherit;
+}
+/* Inner highlight line top+left */
+.glass::after{
+  content:"";position:absolute;inset:1px;
+  border-radius:calc(var(--r) - 2px);
+  border-top:1px solid rgba(220,240,255,0.14);
+  border-left:1px solid rgba(200,220,240,0.09);
+  border-right:1px solid transparent;
+  border-bottom:1px solid transparent;
+  pointer-events:none;z-index:2;
+}
+.glass:active{
+  box-shadow:0 0 0 1px rgba(255,255,255,0.28),0 0 20px rgba(255,255,255,0.12),0 0 48px rgba(255,255,255,0.05),0 4px 14px rgba(0,0,0,0.95);
+  transform:scale(0.98);
+}
+/* CRITICAL: children must be above pseudo elements */
+.glass>*{position:relative;z-index:4}
+.gnav{
+  background:rgba(5,6,10,0.88);
+  backdrop-filter:blur(28px) saturate(150%);
+  -webkit-backdrop-filter:blur(28px) saturate(150%);
+  border:1px solid var(--bd);
+  box-shadow:var(--sh);
+}
+
+/* hover lift */
+.hov{transition:transform .35s,box-shadow .35s,border-color .3s}
+.hov:hover{transform:translateY(-4px);box-shadow:0 0 18px rgba(255,255,255,0.09),0 0 50px rgba(255,255,255,0.04);}
+
+/* shimmer */
+.shim{position:relative;overflow:hidden}
+.shim::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,0.15) 50%,transparent 70%);transform:translateX(-120%);transition:transform .75s}
+.shim:hover::after{transform:translateX(120%)}
+
+.grad{background:linear-gradient(175deg,#fff 0%,#8899bb 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.neon{text-shadow:0 0 10px rgba(255,255,255,0.55),0 0 26px rgba(255,255,255,0.24)}
+.dim{color:var(--muted)}
+
+/* ════ NAVBAR ════ */
+.navbar{position:fixed;top:0;left:0;right:0;z-index:100;padding:.85rem 0;transition:padding .4s}
+.navbar.stuck{padding:.4rem 0}
+.nav-in{display:flex;align-items:center;justify-content:space-between;padding:.65rem 1.1rem;border-radius:var(--r)}
+.brand{display:flex;align-items:center;gap:.55rem;text-decoration:none;color:var(--fg);flex-shrink:0}
+.bico{width:34px;height:34px;border-radius:8px;display:grid;place-items:center;border:1px solid var(--bdh);background:rgba(255,255,255,0.04)}
+.bico svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 5px rgba(255,255,255,0.45))}
+.btxt{display:flex;flex-direction:column;line-height:1}
+.bname{font-family:"JetBrains Mono",monospace;font-size:.82rem;letter-spacing:.14em}
+.bsub{font-family:"JetBrains Mono",monospace;font-size:.5rem;text-transform:uppercase;letter-spacing:.32em;color:var(--muted);margin-top:.2rem}
+.navlinks{display:flex;gap:1.8rem;list-style:none}
+.navlinks a{display:inline-flex;align-items:center;gap:.35rem;font-family:"JetBrains Mono",monospace;font-size:.72rem;text-transform:uppercase;letter-spacing:.11em;color:var(--muted);text-decoration:none;position:relative;transition:color .28s;white-space:nowrap}
+.navlinks a svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.navlinks a::after{content:"";position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--fg);transition:width .28s}
+.navlinks a:hover{color:var(--fg)}.navlinks a:hover::after{width:100%}
+.ham{display:none;width:36px;height:36px;border-radius:8px;border:1px solid var(--bdh);background:rgba(255,255,255,0.04);color:var(--fg);cursor:pointer;align-items:center;justify-content:center;flex-shrink:0}
+.ham svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.mob{display:none;margin-top:.4rem;border-radius:var(--r)}
+.mob.open{display:block;animation:fid .25s ease}
+.mob ul{list-style:none;padding:.55rem;display:flex;flex-direction:column;gap:.15rem}
+.mob a{display:flex;align-items:center;gap:.4rem;padding:.5rem .65rem;border-radius:8px;color:var(--muted);text-decoration:none;font-family:"JetBrains Mono",monospace;font-size:.72rem;text-transform:uppercase;letter-spacing:.09em;transition:all .22s}
+.mob a svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.mob a:hover{background:rgba(255,255,255,0.055);color:var(--fg)}
+@media(max-width:700px){.navlinks{display:none}.ham{display:flex}}
+
+/* ════ HERO ════ */
+.hero{padding:clamp(7rem,14vw,10rem) 0 clamp(4rem,8vw,6rem);position:relative}
+.hero-in{display:flex;flex-direction:column;align-items:center;text-align:center;gap:clamp(.8rem,2vw,1.15rem)}
+
+.spill{display:inline-flex;align-items:center;gap:.45rem;padding:.36rem .95rem;border-radius:999px;border:1px solid rgba(255,255,255,0.11);background:rgba(255,255,255,0.042);font-family:"JetBrains Mono",monospace;font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+.sdot{width:6px;height:6px;border-radius:50%;background:#4ade80;box-shadow:0 0 7px rgba(74,222,128,0.9),0 0 14px rgba(74,222,128,0.5);animation:pu 2s ease infinite;flex-shrink:0}
+@keyframes pu{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.75)}}
+
+.hlabel{font-family:"JetBrains Mono",monospace;font-size:clamp(.9rem,2vw,1.05rem);font-weight:700;letter-spacing:.08em;color:#fff;text-shadow:0 0 16px rgba(255,255,255,0.32)}
+.htitle{font-size:clamp(1.9rem,6vw,4.5rem);font-weight:800;color:#fff;text-shadow:0 0 40px rgba(255,255,255,0.09);letter-spacing:-.01em;max-width:680px}
+.htag{font-family:"JetBrains Mono",monospace;font-size:clamp(.62rem,.9vw,.78rem);color:var(--muted);letter-spacing:.17em;text-transform:uppercase;line-height:1.9}
+.hdesc{max-width:540px;color:var(--muted);font-size:clamp(.88rem,1.5vw,.98rem);line-height:1.7}
+
+.ctaw{margin-top:.25rem}
+.cta{display:inline-flex;align-items:center;gap:.4rem;padding:clamp(.75rem,2vw,.95rem) clamp(1.6rem,4vw,2.4rem);border-radius:999px;font-family:"JetBrains Mono",monospace;font-size:clamp(.7rem,1.2vw,.8rem);font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:#000;background:#fff;border:none;text-decoration:none;cursor:pointer;box-shadow:0 0 0 1px rgba(255,255,255,0.28),0 8px 26px rgba(255,255,255,0.17),inset 0 1px 0 rgba(255,255,255,0.9);transition:transform .25s,box-shadow .25s}
+.cta:hover{transform:translateY(-2px);box-shadow:0 0 0 1px rgba(255,255,255,0.34),0 14px 34px rgba(255,255,255,0.26),inset 0 1px 0 #fff}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.5rem,2vw,.85rem);margin-top:1.5rem;width:100%;max-width:560px}
+.stat{
+  background:linear-gradient(135deg,rgba(38,40,52,1) 0%,rgba(14,14,18,1) 45%,rgba(0,0,0,1) 100%);
+  border-radius:clamp(12px,3vw,18px);
+  padding:clamp(.85rem,2vw,1.25rem) clamp(.5rem,2vw,.85rem);
+  text-align:center;position:relative;overflow:hidden;
+  cursor:pointer;
+  border-top:1px solid rgba(180,210,230,0.50);
+  border-left:1px solid rgba(160,190,210,0.35);
+  border-right:1px solid rgba(18,18,20,0.98);
+  border-bottom:1px solid rgba(12,12,14,0.98);
+  box-shadow:0 0 0 1px rgba(0,0,0,0.85),0 12px 40px rgba(0,0,0,0.9),inset 0 1px 0 rgba(255,255,255,0.06);
+  transition:box-shadow .2s,transform .15s;
+  -webkit-tap-highlight-color:transparent;
+}
+.stat::before{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(128deg,rgba(255,255,255,0.11) 0%,rgba(255,255,255,0.05) 22%,transparent 52%,rgba(0,0,0,0.32) 100%);
+  pointer-events:none;z-index:1;border-radius:inherit;
+}
+.stat::after{
+  content:"";position:absolute;inset:1px;
+  border-radius:calc(clamp(12px,3vw,18px) - 2px);
+  border-top:1px solid rgba(220,240,255,0.14);
+  border-left:1px solid rgba(200,220,240,0.09);
+  border-right:1px solid transparent;
+  border-bottom:1px solid transparent;
+  pointer-events:none;z-index:2;
+}
+.stat:active{
+  transform:scale(0.96);
+  box-shadow:0 0 0 1px rgba(255,255,255,0.30),0 0 22px rgba(255,255,255,0.15),0 0 50px rgba(255,255,255,0.06);
+}
+.sv{font-family:"Rajdhani",sans-serif;font-size:clamp(1.3rem,3.5vw,1.9rem);font-weight:800;color:#fff;line-height:1;text-shadow:0 0 18px rgba(255,255,255,0.22);position:relative;z-index:5}
+.sl{font-family:"JetBrains Mono",monospace;font-size:clamp(.44rem,.7vw,.56rem);text-transform:uppercase;letter-spacing:.18em;color:var(--muted);margin-top:.38rem;line-height:1.55;position:relative;z-index:5}
+
+/* ════ SECTIONS ════ */
+.sec{padding:clamp(3rem,7vw,5.5rem) 0}
+.sech{text-align:center;max-width:680px;margin:0 auto clamp(2rem,4vw,3rem)}
+.sech h2{font-size:clamp(1.65rem,3.5vw,2.65rem);margin-bottom:.65rem}
+.sech p{color:var(--muted);font-size:clamp(.88rem,1.5vw,.97rem);line-height:1.65}
+
+/* 3 col */
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.7rem,1.5vw,1.15rem)}
+@media(max-width:860px){.g3{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.g3{grid-template-columns:1fr}}
+
+/* 2 col */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.5rem,3vw,2.5rem);align-items:center}
+@media(max-width:800px){.g2{grid-template-columns:1fr}}
+
+/* feature card */
+.fc{padding:clamp(1.1rem,2.5vw,1.7rem)}
+.fci{width:44px;height:44px;border-radius:10px;display:grid;place-items:center;background:rgba(255,255,255,0.05);border:1px solid var(--bd);margin-bottom:.9rem;transition:all .3s;position:relative;z-index:3}
+.fci svg{width:19px;height:19px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 7px rgba(255,255,255,0.26));transition:transform .3s,filter .3s}
+.fc:hover .fci svg{transform:scale(1.16) rotate(-5deg);filter:drop-shadow(0 0 12px rgba(255,255,255,0.65))}
+.fc h3{font-size:clamp(1rem,1.8vw,1.2rem);margin-bottom:.4rem;position:relative;z-index:3}
+.fc p{color:var(--muted);line-height:1.6;font-size:clamp(.84rem,1.3vw,.93rem);position:relative;z-index:3}
+
+/* script */
+.sgrid{max-width:760px;margin:0 auto;display:grid;gap:1.3rem}
+.sc{padding:clamp(1.1rem,2.5vw,1.5rem)}
+.sctp{display:flex;justify-content:space-between;align-items:flex-start;gap:.9rem;margin-bottom:.9rem;position:relative;z-index:3}
+.sclbl{font-family:"JetBrains Mono",monospace;font-size:.65rem;text-transform:uppercase;letter-spacing:.19em;color:var(--muted);margin-bottom:.28rem;display:inline-flex;align-items:center;gap:.28rem}
+.sclbl svg{width:10px;height:10px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.sc h3{font-size:clamp(1.1rem,2vw,1.35rem)}
+.badge{padding:.26rem .58rem;border-radius:6px;flex-shrink:0;font-family:"JetBrains Mono",monospace;font-size:.6rem;letter-spacing:.13em;background:rgba(74,222,128,0.11);color:var(--green);border:1px solid rgba(74,222,128,0.24)}
+.code{background:rgba(0,0,0,0.65);border:1px solid rgba(255,255,255,0.065);border-radius:9px;padding:.85rem .95rem;margin-bottom:.85rem;font-family:"JetBrains Mono",monospace;font-size:clamp(.7rem,1.2vw,.78rem);color:#ffffff;overflow-x:auto;white-space:pre-wrap;word-break:break-all;line-height:1.65}
+.bcopy{display:flex;align-items:center;justify-content:center;gap:.42rem;width:100%;padding:.75rem 1.3rem;border-radius:9px;cursor:pointer;font-family:"JetBrains Mono",monospace;font-size:clamp(.68rem,1.2vw,.76rem);text-transform:uppercase;letter-spacing:.11em;color:#ffffff;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.16);box-shadow:0 4px 16px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.08);transition:transform .28s,box-shadow .28s,background .28s}
+.bcopy:hover{transform:translateY(-2px);background:rgba(255,255,255,0.11);box-shadow:0 8px 24px rgba(255,255,255,0.1),inset 0 1px 0 rgba(255,255,255,0.12)}
+.bcopy svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* why */
+.whtxt h2{font-size:clamp(1.6rem,3.2vw,2.55rem)}
+.whtxt>p{color:var(--muted);margin-top:.65rem;font-size:clamp(.88rem,1.4vw,.95rem);line-height:1.65}
+.reas{list-style:none;display:flex;flex-direction:column;gap:.5rem;margin-top:1.25rem}
+.reas li{padding:clamp(.65rem,1.5vw,.82rem) clamp(.75rem,2vw,.95rem);border-radius:11px;display:flex;align-items:flex-start;gap:.55rem;color:var(--muted);font-size:clamp(.85rem,1.4vw,.93rem);line-height:1.55;position:relative;z-index:3}
+.reas li svg{width:16px;height:16px;stroke:var(--green);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 7px rgba(74,222,128,0.5));flex-shrink:0;margin-top:.1rem;position:relative;z-index:3}
+
+/* terminal */
+.term{padding:0;overflow:hidden}
+.termh{padding:.72rem 1rem;border-bottom:1px solid rgba(255,255,255,0.065);font-family:"JetBrains Mono",monospace;font-size:.7rem;color:var(--muted);display:flex;align-items:center;gap:.42rem;background:rgba(0,0,0,0.5)}
+.tdot{width:8px;height:8px;border-radius:50%;background:#ef4444;box-shadow:15px 0 0 #eab308,30px 0 0 var(--green);flex-shrink:0;margin-right:26px}
+.termb{padding:1.1rem 1.15rem;font-family:"JetBrains Mono",monospace;font-size:clamp(.75rem,1.3vw,.83rem);line-height:1.8}
+.pr{color:var(--green);margin-right:.4rem}
+.to{color:var(--muted)}
+.cur{animation:blink 1s steps(1) infinite;color:var(--fg)}
+.nb{box-shadow:0 0 0 1px rgba(255,255,255,0.11),0 0 24px rgba(255,255,255,0.07),inset 0 0 20px rgba(255,255,255,0.022)}
+
+/* ════ FOOTER ════ */
+.footer{padding:clamp(2.5rem,5vw,3.8rem) 0 1.8rem;border-top:1px solid rgba(255,255,255,0.06);margin-top:clamp(2.5rem,5vw,4rem);background:rgba(0,0,0,0.55);backdrop-filter:blur(12px)}
+.ftgrid{display:grid;grid-template-columns:2fr 1fr;gap:clamp(1.5rem,4vw,3rem);margin-bottom:1.8rem}
+@media(max-width:600px){.ftgrid{grid-template-columns:1fr;gap:1.6rem}}
+.ftbp{margin-top:.85rem;max-width:360px;color:var(--muted);font-size:clamp(.84rem,1.4vw,.9rem);line-height:1.6}
+.footer h4{font-size:.85rem;margin-bottom:.85rem;font-family:"JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:.14em}
+.flinks{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.flinks a{display:inline-flex;align-items:center;gap:.42rem;color:var(--muted);text-decoration:none;font-size:.9rem;transition:color .22s}
+.flinks a:hover{color:var(--fg)}
+.flinks a svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;opacity:.7}
+.ftbot{padding-top:1.25rem;border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;flex-wrap:wrap;gap:.9rem;font-family:"JetBrains Mono",monospace;font-size:.68rem;color:var(--muted)}
+
+/* ════ SCROLL REVEAL ════ */
+.rv{opacity:0;transform:translateY(34px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1);will-change:opacity,transform}
+.rv.on{opacity:1;transform:none}
+.rl{transform:translateX(-42px)}.rl.on{transform:none}
+.rr{transform:translateX(42px)}.rr.on{transform:none}
+.rs{transform:scale(.93)}.rs.on{transform:none}
+.rv[data-d="1"]{transition-delay:.07s}.rv[data-d="2"]{transition-delay:.14s}
+.rv[data-d="3"]{transition-delay:.21s}.rv[data-d="4"]{transition-delay:.28s}
+.rv[data-d="5"]{transition-delay:.35s}.rv[data-d="6"]{transition-delay:.42s}
+@media(prefers-reduced-motion:reduce){.rv,.rl,.rr,.rs{opacity:1;transform:none;transition:none}}
+
+
+/* ════ GLITCH EFFECT ════ */
+.glitch{
+  position:relative;
+  display:inline-block;
+}
+.glitch::before,.glitch::after{
+  content:attr(data-text);
+  position:absolute;
+  top:0;left:0;
+  width:100%;
+  overflow:hidden;
+  font-family:inherit;font-size:inherit;font-weight:inherit;
+  letter-spacing:inherit;color:inherit;
   pointer-events:none;
 }
-.glass-strong{
-  background:var(--glass-bg-strong);
-  backdrop-filter:blur(32px) saturate(180%);
-  -webkit-backdrop-filter:blur(32px) saturate(180%);
-  border:1px solid var(--glass-border);
-  box-shadow:var(--shadow-glass);
+.glitch::before{
+  left:2px;
+  text-shadow:-1px 0 rgba(255,80,80,0.7);
+  clip-path:polygon(0 0,100% 0,100% 35%,0 35%);
+  animation:glitch-top 1.2s infinite linear;
+  opacity:0;
+}
+.glitch::after{
+  left:-2px;
+  text-shadow:1px 0 rgba(80,180,255,0.7);
+  clip-path:polygon(0 65%,100% 65%,100% 100%,0 100%);
+  animation:glitch-bot 1.2s infinite linear;
+  opacity:0;
+}
+@keyframes glitch-top{
+  0%,89%,100%{opacity:0;transform:none}
+  90%{opacity:1;transform:translate(-2px,-1px) skewX(-4deg)}
+  91%{opacity:0}
+  92%{opacity:1;transform:translate(2px,0) skewX(3deg)}
+  93%,95%{opacity:0}
+  94%{opacity:1;transform:translate(-1px,0)}
+  96%{opacity:1;transform:translate(3px,-1px) skewX(-6deg)}
+  97%,99%{opacity:0}
+  98%{opacity:1;transform:translate(-2px,1px)}
+}
+@keyframes glitch-bot{
+  0%,89%,100%{opacity:0;transform:none}
+  90%{opacity:1;transform:translate(2px,1px) skewX(4deg)}
+  91%{opacity:0}
+  92%{opacity:1;transform:translate(-2px,0) skewX(-3deg)}
+  93%,95%{opacity:0}
+  94%{opacity:1;transform:translate(1px,0)}
+  96%{opacity:1;transform:translate(-3px,1px) skewX(6deg)}
+  97%,99%{opacity:0}
+  98%{opacity:1;transform:translate(2px,-1px)}
 }
 
-/* TYPOGRAPHY */
-h1,h2,h3,h4{font-family:"Rajdhani",sans-serif;font-weight:700;line-height:1.12}
-.neon-text{text-shadow:0 0 12px rgba(255,255,255,0.6),0 0 32px rgba(255,255,255,0.28)}
-.text-grad{
-  background:linear-gradient(180deg,#fff 0%,#9aa3b8 100%);
-  -webkit-background-clip:text;background-clip:text;color:transparent;
+/* hover triggers glitch faster */
+.glitch:hover::before,.glitch:hover::after{
+  animation-duration:0.4s;
 }
-.muted{color:var(--muted)}
-
-/* ICONS — inline SVG helper */
-.icon{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
-.icon svg{width:1em;height:1em;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vertical-align:middle}
-
-/* HOVER GLOW */
-.glow-hover{transition:box-shadow .4s,transform .35s,border-color .3s,background .3s}
-.glow-hover:hover{
-  box-shadow:var(--shadow-neon),inset 0 1px 0 rgba(255,255,255,0.09);
-  border-color:var(--glass-border-hi);
-  transform:translateY(-4px);
-  background:rgba(22,28,42,0.6);
-}
-
-/* SHIMMER */
-.shimmer{position:relative;overflow:hidden}
-.shimmer::after{
-  content:"";position:absolute;inset:0;
-  background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,0.18) 50%,transparent 70%);
-  transform:translateX(-100%);transition:transform .8s ease;pointer-events:none;
-}
-.shimmer:hover::after{transform:translateX(100%)}
-
-/* ===== NAVBAR ===== */
-.navbar{position:fixed;top:0;left:0;right:0;z-index:50;padding:1rem 0;transition:padding .4s}
-.navbar.scrolled{padding:.5rem 0}
-.navbar.scrolled .nav{box-shadow:var(--shadow-neon),var(--shadow-glass)}
-.nav{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:.75rem 1.25rem;border-radius:var(--r);transition:all .4s;
-}
-.brand{display:flex;align-items:center;gap:.65rem;text-decoration:none;color:var(--fg)}
-.brand-icon{
-  display:grid;place-items:center;width:38px;height:38px;
-  border-radius:10px;border:1px solid var(--glass-border-hi);
-  background:rgba(255,255,255,0.05);font-size:1.1rem;
-}
-.brand-icon svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 6px rgba(255,255,255,0.5))}
-.brand-text{display:flex;flex-direction:column;line-height:1}
-.brand-name{font-family:"JetBrains Mono",monospace;font-size:.9rem;letter-spacing:.15em}
-.brand-sub{font-family:"JetBrains Mono",monospace;font-size:.55rem;text-transform:uppercase;letter-spacing:.35em;color:var(--muted);margin-top:.25rem}
-.nav-links{display:flex;gap:2rem;list-style:none}
-.nav-links a{
-  display:inline-flex;align-items:center;gap:.4rem;
-  font-family:"JetBrains Mono",monospace;font-size:.8rem;
-  text-transform:uppercase;letter-spacing:.12em;
-  color:var(--muted);text-decoration:none;position:relative;transition:color .3s;
-}
-.nav-links a::after{content:"";position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--fg);transition:width .3s}
-.nav-links a:hover{color:var(--fg)}
-.nav-links a:hover::after{width:100%}
-.nav-links a svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;opacity:.8}
-.nav-links a:hover svg{opacity:1;filter:drop-shadow(0 0 5px rgba(255,255,255,0.6))}
-.menu-btn{
-  display:none;width:40px;height:40px;border-radius:10px;
-  border:1px solid var(--glass-border-hi);background:rgba(255,255,255,0.05);
-  color:var(--fg);cursor:pointer;align-items:center;justify-content:center;
-}
-.menu-btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.mobile-menu{display:none;margin-top:.5rem;padding:1rem;border-radius:var(--r)}
-.mobile-menu.open{display:block;animation:fadeInDown .3s ease}
-.mobile-menu ul{list-style:none;display:flex;flex-direction:column;gap:.25rem}
-.mobile-menu a{
-  display:flex;align-items:center;gap:.5rem;padding:.6rem .75rem;
-  border-radius:10px;color:var(--muted);text-decoration:none;
-  font-family:"JetBrains Mono",monospace;font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;transition:all .25s;
-}
-.mobile-menu a:hover{background:rgba(255,255,255,0.05);color:var(--fg)}
-.mobile-menu a svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-@media(max-width:768px){.nav-links{display:none}.menu-btn{display:flex}}
-
-/* ===== STATUS BADGE ===== */
-.status-badge{
-  display:inline-flex;align-items:center;gap:.5rem;
-  padding:.4rem 1.1rem;border-radius:999px;
-  border:1px solid rgba(255,255,255,0.14);
-  background:rgba(255,255,255,0.055);
-  font-family:"JetBrains Mono",monospace;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);
-}
-.status-dot{
-  width:7px;height:7px;border-radius:50%;background:#fff;
-  box-shadow:0 0 8px rgba(255,255,255,0.9);
-  animation:pdot 2s ease infinite;
-}
-@keyframes pdot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
-
-/* ===== HERO ===== */
-.hero{padding:9rem 0 5rem;position:relative;overflow:hidden}
-.hero-inner{display:flex;flex-direction:column;align-items:center;text-align:center;gap:1.1rem}
-.hero-brand-label{
-  font-family:"JetBrains Mono",monospace;font-size:1.1rem;font-weight:700;
-  letter-spacing:.08em;color:#fff;text-shadow:0 0 18px rgba(255,255,255,0.4);margin-bottom:-.2rem;
-}
-.hero-title{
-  font-family:"Rajdhani",sans-serif;font-size:clamp(2.2rem,7.5vw,4.8rem);
-  font-weight:800;line-height:1.07;color:#fff;
-  text-shadow:0 0 40px rgba(255,255,255,0.14);letter-spacing:-.01em;
-}
-.hero-tag{
-  font-family:"JetBrains Mono",monospace;font-size:.78rem;
-  color:var(--muted);letter-spacing:.18em;text-transform:uppercase;line-height:1.7;
-}
-.hero-desc{max-width:580px;color:var(--muted);font-size:1rem;line-height:1.65}
-.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin-top:.4rem}
-.btn-primary{
-  display:inline-flex;align-items:center;gap:.5rem;
-  padding:1rem 2.4rem;border-radius:999px;cursor:pointer;
-  font-family:"JetBrains Mono",monospace;font-size:.82rem;font-weight:700;
-  text-transform:uppercase;letter-spacing:.14em;text-decoration:none;
-  color:#000;background:#fff;border:none;
-  box-shadow:0 6px 28px rgba(255,255,255,0.2),inset 0 1px 0 rgba(255,255,255,0.9);
-  transition:transform .25s,box-shadow .25s;
-}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(255,255,255,0.3)}
-
-/* STATS */
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem;margin-top:1.8rem;width:100%;max-width:580px}
-.stat-card{
-  background:rgba(16,18,24,0.94);border-radius:20px;
-  border:1px solid rgba(255,255,255,0.07);padding:1.3rem 1rem;text-align:center;
-  position:relative;overflow:hidden;
-}
-.stat-card::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.04) 0%,transparent 50%);pointer-events:none}
-.stat-v{font-family:"Rajdhani",sans-serif;font-size:1.9rem;font-weight:800;color:#fff;line-height:1;text-shadow:0 0 20px rgba(255,255,255,0.28)}
-.stat-l{font-family:"JetBrains Mono",monospace;font-size:.58rem;text-transform:uppercase;letter-spacing:.22em;color:var(--muted);margin-top:.45rem;line-height:1.5}
-
-/* ===== SECTIONS ===== */
-.section{padding:5rem 0}
-.sec-head{text-align:center;max-width:720px;margin:0 auto 3rem}
-.sec-head h2{font-size:clamp(1.8rem,4vw,2.8rem);margin-bottom:.75rem}
-.sec-head p{color:var(--muted);font-size:1rem}
-.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem}
-.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:center}
-@media(max-width:880px){.grid-2{grid-template-columns:1fr}}
-
-/* FEATURE CARDS */
-.card{padding:1.75rem}
-.card-icon{
-  display:grid;place-items:center;width:48px;height:48px;
-  border-radius:12px;background:rgba(255,255,255,0.06);
-  border:1px solid var(--glass-border);font-size:1.2rem;margin-bottom:1rem;
-}
-.card-icon svg{width:22px;height:22px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 8px rgba(255,255,255,0.3))}
-.card:hover .card-icon svg{transform:scale(1.15) rotate(-4deg);filter:drop-shadow(0 0 14px rgba(255,255,255,0.7))}
-.card h3{font-size:1.25rem;margin-bottom:.5rem}
-.card p{color:var(--muted);line-height:1.6;font-size:.95rem}
-
-/* SCRIPTS */
-.script-grid{display:grid;gap:1.5rem;max-width:800px;margin:0 auto}
-.script-card{padding:1.5rem}
-.script-head{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:1rem}
-.script-game{
-  font-family:"JetBrains Mono",monospace;font-size:.7rem;text-transform:uppercase;
-  letter-spacing:.2em;color:var(--muted);margin-bottom:.35rem;
-  display:inline-flex;align-items:center;gap:.35rem;
-}
-.script-game svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.script-card h3{font-size:1.4rem}
-.badge{
-  padding:.3rem .65rem;border-radius:6px;
-  font-family:"JetBrains Mono",monospace;font-size:.65rem;letter-spacing:.15em;
-  background:rgba(74,222,128,0.12);color:#4ade80;border:1px solid rgba(74,222,128,0.28);
-  white-space:nowrap;
-}
-.code-block{
-  background:rgba(0,0,0,0.5);border:1px solid var(--glass-border);
-  border-radius:10px;padding:1rem;margin-bottom:1rem;
-  font-family:"JetBrains Mono",monospace;font-size:.8rem;
-  color:#a5f3fc;overflow-x:auto;white-space:pre-wrap;word-break:break-all;
-}
-.btn-copy{
-  display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
-  width:100%;padding:.85rem 1.6rem;border-radius:12px;cursor:pointer;
-  font-family:"JetBrains Mono",monospace;font-size:.8rem;
-  text-transform:uppercase;letter-spacing:.12em;
-  color:#05060a;background:linear-gradient(180deg,#fff,#d4d4d8);
-  border:1px solid rgba(255,255,255,0.4);
-  box-shadow:0 8px 24px rgba(255,255,255,0.14),inset 0 1px 0 rgba(255,255,255,0.6);
-  transition:transform .3s,box-shadow .3s;
-}
-.btn-copy:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(255,255,255,0.24),inset 0 1px 0 rgba(255,255,255,0.6)}
-.btn-copy svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-
-/* WHY CHOOSE */
-.reasons{list-style:none;display:flex;flex-direction:column;gap:.65rem;margin-top:1.5rem}
-.reasons li{
-  padding:.85rem 1rem;border-radius:12px;
-  display:flex;align-items:flex-start;gap:.65rem;
-  color:var(--muted);font-size:.95rem;line-height:1.5;
-}
-.reasons li svg{width:18px;height:18px;stroke:#4ade80;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 8px rgba(74,222,128,0.55));flex-shrink:0;margin-top:.1rem}
-
-/* TERMINAL */
-.terminal{padding:0;overflow:hidden}
-.terminal-head{
-  padding:.8rem 1rem;border-bottom:1px solid var(--glass-border);
-  font-family:"JetBrains Mono",monospace;font-size:.75rem;color:var(--muted);
-  display:flex;align-items:center;gap:.5rem;background:rgba(0,0,0,0.3);
-}
-.t-dot{width:10px;height:10px;border-radius:50%;background:#ef4444;box-shadow:18px 0 0 #eab308,36px 0 0 #4ade80;margin-right:30px;flex-shrink:0}
-.terminal-body{padding:1.25rem;font-family:"JetBrains Mono",monospace;font-size:.85rem;line-height:1.7}
-.prompt{color:#4ade80;margin-right:.5rem}
-.t-out{color:var(--muted)}
-.cursor{animation:blink 1s steps(1) infinite;color:var(--fg)}
-.neon-border{box-shadow:0 0 0 1px rgba(255,255,255,0.14),0 0 28px rgba(255,255,255,0.09),inset 0 0 24px rgba(255,255,255,0.03)}
-
-/* FOOTER */
-.footer{padding:4rem 0 2rem;border-top:1px solid var(--glass-border);margin-top:4rem;background:rgba(0,0,0,0.3);backdrop-filter:blur(10px)}
-.footer-grid{display:grid;grid-template-columns:2fr 1fr;gap:3rem;margin-bottom:2.5rem}
-@media(max-width:700px){.footer-grid{grid-template-columns:1fr;gap:2rem}}
-.footer-brand p{margin-top:1rem;max-width:380px}
-.footer h4{font-size:1rem;margin-bottom:1rem;font-family:"JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:.15em}
-.footer-links{list-style:none;display:flex;flex-direction:column;gap:.6rem}
-.footer-links a{display:inline-flex;align-items:center;gap:.5rem;color:var(--muted);text-decoration:none;font-size:.9rem;transition:color .25s}
-.footer-links a:hover{color:var(--fg)}
-.footer-links a svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;opacity:.8}
-.footer-bottom{
-  padding-top:1.5rem;border-top:1px solid var(--glass-border);
-  display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
-  font-family:"JetBrains Mono",monospace;font-size:.75rem;color:var(--muted);
-}
-
-/* SCROLL REVEAL */
-.reveal{opacity:0;transform:translateY(40px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);will-change:opacity,transform}
-.reveal.in-view{opacity:1;transform:translateY(0)}
-.rev-left{transform:translateX(-50px)}.rev-left.in-view{transform:translateX(0)}
-.rev-right{transform:translateX(50px)}.rev-right.in-view{transform:translateX(0)}
-.rev-scale{transform:scale(.92)}.rev-scale.in-view{transform:scale(1)}
-.reveal[data-d="1"]{transition-delay:.08s}.reveal[data-d="2"]{transition-delay:.16s}
-.reveal[data-d="3"]{transition-delay:.24s}.reveal[data-d="4"]{transition-delay:.32s}
-.reveal[data-d="5"]{transition-delay:.40s}.reveal[data-d="6"]{transition-delay:.48s}
-@media(prefers-reduced-motion:reduce){.reveal,.rev-left,.rev-right,.rev-scale{opacity:1;transform:none;transition:none}}
-
-@media(max-width:600px){
-  .hero{padding:7rem 0 3.5rem}
-  .stats{gap:.6rem;max-width:100%}
-  .stat-card{padding:1rem .6rem}
-  .stat-v{font-size:1.4rem}
-  .stat-l{font-size:.5rem;letter-spacing:.12em}
-  .hero-title{font-size:clamp(1.8rem,8vw,3rem)}
-  .btn-primary{padding:.85rem 1.8rem;font-size:.75rem}
-}
-
 @keyframes blink{50%{opacity:0}}
-@keyframes fadeInDown{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fid{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+
+/* ════ GLARE SWEEP ON ENTER ════ */
+.glare-layer{position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:20;overflow:hidden}
+.glare-layer::after{
+  content:"";position:absolute;top:-60%;left:-80%;width:55%;height:220%;
+  background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,0.0) 40%,rgba(255,255,255,0.20) 47%,rgba(255,255,255,0.28) 50%,rgba(255,255,255,0.20) 53%,rgba(255,255,255,0.0) 60%,transparent 70%);
+  transform:translateX(-100%);will-change:transform;
+}
+.glare-layer.sweep::after{animation:glareSweep 0.72s cubic-bezier(0.25,0.46,0.45,0.94) forwards}
+@keyframes glareSweep{0%{transform:translateX(-100%)}100%{transform:translateX(340%)}}
+@media(prefers-reduced-motion:reduce){.glare-layer,.glare-layer::after{display:none}}
+
+/* ════ UI PREVIEW SHOWCASE ════ */
+.ui-showcase-wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.2rem,3vw,2.2rem);align-items:start;max-width:960px;margin:0 auto}
+@media(max-width:700px){.ui-showcase-wrap{grid-template-columns:1fr}}
+.sc-left{display:flex;flex-direction:column;gap:1rem}
+.feat-tags{display:flex;flex-wrap:wrap;gap:.4rem;padding:.05rem 0}
+.feat-tag{font-family:"JetBrains Mono",monospace;font-size:.52rem;letter-spacing:.09em;padding:.2rem .5rem;border-radius:5px;border:1px solid rgba(255,255,255,0.09);color:rgba(255,255,255,0.42)}
+.feat-tag.hi{background:rgba(74,222,128,0.08);border-color:rgba(74,222,128,0.22);color:rgba(74,222,128,0.85)}
+
+/* UI Mockup frame */
+.ui-mock{
+  background:linear-gradient(135deg,rgba(28,30,38,1) 0%,rgba(10,10,13,1) 55%,rgba(0,0,0,1) 100%);
+  border-top:1px solid rgba(180,210,230,0.45);
+  border-left:1px solid rgba(160,190,210,0.30);
+  border-right:1px solid rgba(18,18,20,0.98);
+  border-bottom:1px solid rgba(12,12,14,0.98);
+  border-radius:16px;
+  box-shadow:0 0 0 1px rgba(0,0,0,0.9),0 20px 55px rgba(0,0,0,0.95);
+  overflow:hidden;position:relative;
+}
+.ui-mock::before{content:"";position:absolute;inset:0;background:linear-gradient(128deg,rgba(255,255,255,0.07) 0%,rgba(255,255,255,0.02) 28%,transparent 50%,rgba(0,0,0,0.22) 100%);pointer-events:none;z-index:0;border-radius:inherit}
+
+/* Titlebar */
+.ui-titlebar{display:flex;align-items:center;justify-content:space-between;padding:.4rem .65rem;background:rgba(0,0,0,0.5);border-bottom:1px solid rgba(255,255,255,0.06);position:relative;z-index:2}
+.ui-title{font-family:"JetBrains Mono",monospace;font-size:.62rem;font-weight:700;color:#fff;letter-spacing:.07em}
+.ui-dots-row{display:flex;gap:4px;align-items:center}
+.ui-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.15);transition:background .2s}
+.ui-dot.active{background:#fff;box-shadow:0 0 5px rgba(255,255,255,0.7)}
+.ui-minbtn{width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.5);font-size:10px;display:grid;place-items:center;cursor:default}
+
+/* Tabs */
+.ui-tabs{display:flex;background:rgba(0,0,0,0.28);border-bottom:1px solid rgba(255,255,255,0.055);overflow-x:auto;scrollbar-width:none;position:relative;z-index:2}
+.ui-tabs::-webkit-scrollbar{display:none}
+.ui-tab{flex:1;min-width:0;padding:.3rem .25rem;font-family:"JetBrains Mono",monospace;font-size:.5rem;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,0.32);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;transition:color .2s,border-color .2s;white-space:nowrap;text-align:center}
+.ui-tab.active{color:#fff;border-bottom-color:rgba(255,255,255,0.55)}
+.ui-tab:hover:not(.active){color:rgba(255,255,255,0.6)}
+
+/* Scrollable content */
+.ui-body{padding:.55rem .6rem .65rem;max-height:310px;overflow-y:auto;display:flex;flex-direction:column;gap:.32rem;position:relative;z-index:2;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,0.1) transparent}
+.ui-body::-webkit-scrollbar{width:3px}
+.ui-body::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.12);border-radius:2px}
+
+/* Page visibility */
+.ui-pg{display:none;flex-direction:column;gap:.32rem}
+.ui-pg.active{display:flex}
+
+/* Section header */
+.ui-sec{font-family:"JetBrains Mono",monospace;font-size:.46rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,0.22);padding:.14rem 0 .04rem;border-bottom:1px solid rgba(255,255,255,0.05);margin-bottom:.04rem}
+
+/* Toggle row */
+.ui-row{display:flex;align-items:center;justify-content:space-between;padding:.28rem .44rem;border-radius:7px;background:rgba(255,255,255,0.028);border:1px solid rgba(255,255,255,0.05);cursor:pointer;transition:background .16s,border-color .16s;-webkit-tap-highlight-color:transparent}
+.ui-row:hover{background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.1)}
+.ui-row:active{transform:scale(0.98)}
+.ui-lbl{font-family:"JetBrains Mono",monospace;font-size:.57rem;color:rgba(255,255,255,0.65);letter-spacing:.03em;pointer-events:none}
+.ui-pill{width:26px;height:13px;border-radius:7px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);position:relative;flex-shrink:0;transition:background .2s,border-color .2s;pointer-events:none}
+.ui-pill::after{content:"";position:absolute;top:2px;left:2px;width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.45);transition:transform .2s,background .2s}
+.ui-row.on .ui-pill{background:rgba(74,222,128,0.32);border-color:rgba(74,222,128,0.55)}
+.ui-row.on .ui-pill::after{transform:translateX(13px);background:#4ade80;box-shadow:0 0 5px rgba(74,222,128,0.8)}
+.ui-row.on .ui-lbl{color:#fff}
+
+/* Slider */
+.ui-slrow{display:flex;flex-direction:column;gap:.24rem;padding:.3rem .44rem;border-radius:7px;background:rgba(255,255,255,0.028);border:1px solid rgba(255,255,255,0.05)}
+.ui-slhead{display:flex;justify-content:space-between}
+.ui-sllbl{font-family:"JetBrains Mono",monospace;font-size:.57rem;color:rgba(255,255,255,0.65)}
+.ui-slval{font-family:"JetBrains Mono",monospace;font-size:.55rem;color:rgba(255,255,255,0.38)}
+.ui-sltrack{height:4px;border-radius:2px;background:rgba(255,255,255,0.09);position:relative;cursor:pointer;touch-action:none}
+.ui-slfill{height:100%;border-radius:2px;background:linear-gradient(90deg,rgba(255,255,255,0.35),rgba(255,255,255,0.7));position:relative;transition:width .08s}
+.ui-slfill::after{content:"";position:absolute;right:-4px;top:50%;transform:translateY(-50%);width:8px;height:8px;border-radius:50%;background:#fff;box-shadow:0 0 5px rgba(255,255,255,0.6)}
+
+/* Input row */
+.ui-inp{display:flex;gap:.3rem;padding:.28rem .44rem;border-radius:7px;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.065)}
+.ui-inp span{font-family:"JetBrains Mono",monospace;font-size:.53rem;color:rgba(255,255,255,0.2);flex:1;font-style:italic}
+.ui-inp button{padding:.15rem .38rem;border-radius:4px;font-family:"JetBrains Mono",monospace;font-size:.48rem;letter-spacing:.04em;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.5);cursor:pointer;transition:background .16s}
+.ui-inp button:hover{background:rgba(255,255,255,0.15);color:#fff}
+
+/* Info box */
+.ui-info{padding:.26rem .44rem;border-radius:7px;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.05);font-family:"JetBrains Mono",monospace;font-size:.52rem;color:rgba(255,255,255,0.28);font-style:italic}
+
+/* Dropdown */
+.ui-drop{display:flex;align-items:center;justify-content:space-between;padding:.28rem .44rem;border-radius:7px;background:rgba(0,0,0,0.28);border:1px solid rgba(255,255,255,0.06);cursor:pointer;transition:border-color .16s}
+.ui-drop:hover{border-color:rgba(255,255,255,0.15)}
+.ui-drop span{font-family:"JetBrains Mono",monospace;font-size:.53rem;color:rgba(255,255,255,0.28);font-style:italic}
+.ui-drop svg{width:8px;height:8px;stroke:rgba(255,255,255,0.25);fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+
+/* Button row */
+.ui-btnrow{display:flex;gap:.3rem}
+.ui-btn{flex:1;padding:.28rem .2rem;border-radius:7px;text-align:center;cursor:pointer;font-family:"JetBrains Mono",monospace;font-size:.5rem;letter-spacing:.05em;text-transform:uppercase;border:1px solid rgba(255,255,255,0.09);background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.45);transition:background .16s,color .16s}
+.ui-btn:hover{background:rgba(255,255,255,0.1);color:#fff}
+.ui-btn.g{border-color:rgba(74,222,128,0.28);color:rgba(74,222,128,0.7)}.ui-btn.g:hover{background:rgba(74,222,128,0.1);color:#4ade80}
+.ui-btn.r{border-color:rgba(220,50,50,0.28);color:rgba(220,80,80,0.65)}.ui-btn.r:hover{background:rgba(220,50,50,0.12);color:rgba(255,100,100,1)}
+
+/* Music row */
+.ui-mrow{display:flex;align-items:center;gap:.44rem;padding:.28rem .44rem;border-radius:7px;background:rgba(255,255,255,0.028);border:1px solid rgba(255,255,255,0.05)}
+.ui-mico{width:22px;height:22px;border-radius:5px;background:rgba(255,255,255,0.065);display:grid;place-items:center;flex-shrink:0}
+.ui-mico svg{width:10px;height:10px;stroke:rgba(255,255,255,0.45);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ui-minfo{flex:1;min-width:0}
+.ui-mname{font-family:"JetBrains Mono",monospace;font-size:.54rem;color:rgba(255,255,255,0.65);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ui-msub{font-family:"JetBrains Mono",monospace;font-size:.46rem;color:rgba(255,255,255,0.25);margin-top:.04rem}
+.ui-play{width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.16);display:grid;place-items:center;cursor:pointer;flex-shrink:0;transition:background .16s}
+.ui-play svg{width:7px;height:7px;stroke:#fff;fill:#fff;stroke-width:2;margin-left:1px}
+.ui-play:hover{background:rgba(255,255,255,0.2)}
+
+/* Keybind badge */
+.ui-kbd{font-family:"JetBrains Mono",monospace;font-size:.52rem;color:rgba(255,255,255,0.45);padding:.08rem .28rem;border:1px solid rgba(255,255,255,0.16);border-radius:4px}
+
+/* Hint text below mock */
+.ui-hint{text-align:center;font-family:"JetBrains Mono",monospace;font-size:.52rem;color:var(--muted);margin-top:.6rem;letter-spacing:.09em}
 </style>
 </head>
 <body>
 <div class="grid-bg"></div>
 <div class="scanline"></div>
 
-<!-- NAVBAR -->
+<!-- ═══ NAVBAR ═══ -->
 <header class="navbar">
-  <div class="container">
-    <nav class="nav glass-strong">
+  <div class="wrap">
+    <nav class="nav-in gnav">
       <a href="#home" class="brand">
-        <div class="brand-icon">
+        <div class="bico">
           <svg viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
         </div>
-        <div class="brand-text">
-          <span class="brand-name neon-text">kkkkkk-dev</span>
-          <span class="brand-sub">zero exploiters</span>
+        <div class="btxt">
+          <span class="bname neon"><span class="glitch" data-text="kkkkkk-dev" style="font-size:inherit;font-family:inherit;font-weight:inherit;letter-spacing:inherit">kkkkkk-dev</span></span>
+          <span class="bsub">zero exploiters</span>
         </div>
       </a>
-      <ul class="nav-links">
-        <li><a href="#home"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Home</a></li>
-        <li><a href="#scripts"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg> Scripts</a></li>
-        <li><a href="https://discord.gg/Cu9acdzn4v"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Contact Me</a></li>
+      <ul class="navlinks">
+        <li><a href="#home"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home</a></li>
+        <li><a href="#scripts"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>Scripts</a></li>
+        <li><a href="https://discord.gg/Cu9acdzn4v"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Contact</a></li>
       </ul>
-      <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">
+      <button class="ham" id="ham" aria-label="Menu">
         <svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
     </nav>
-    <div class="mobile-menu glass" id="mobileMenu">
+    <div class="mob glass" id="mob">
       <ul>
-        <li><a href="#home"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Home</a></li>
-        <li><a href="#scripts"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg> Scripts</a></li>
-        <li><a href="https://discord.gg/Cu9acdzn4v"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Contact Me</a></li>
+        <li><a href="#home"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home</a></li>
+        <li><a href="#scripts"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>Scripts</a></li>
+        <li><a href="https://discord.gg/Cu9acdzn4v"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Contact</a></li>
       </ul>
     </div>
   </div>
 </header>
 
-<main>
-<!-- HERO -->
+<div class="page">
+
+<!-- ═══ HERO ═══ -->
 <section id="home" class="hero">
-  <div class="container hero-inner">
-    <div class="status-badge reveal">
-      <span class="status-dot"></span>
-      STATUS: <strong style="color:#fff;margin-left:.25rem">ONLINE</strong>
+  <div class="wrap hero-in">
+    <div class="spill rv"><span class="sdot"></span>STATUS:&nbsp;<strong style="color:#4ade80;letter-spacing:.04em;text-shadow:0 0 8px rgba(74,222,128,0.6)">ONLINE</strong></div>
+    <p class="hlabel rv" data-d="1"><span class="glitch" data-text="kkkkkk-dev">kkkkkk-dev</span></p>
+    <h1 class="htitle rv" data-d="2">The Best Universal<br>Roblox Script Exploits</h1>
+    <p class="htag rv" data-d="3">UNDETECTED SCRIPTS &nbsp;•&nbsp; DAILY UPDATES &nbsp;•&nbsp; ZERO EXPLOITERS</p>
+    <p class="hdesc rv" data-d="4">Dark. Fast. Undetected. The premium scripting destination engineered for elite Roblox operators.</p>
+    <div class="ctaw rv" data-d="5">
+      <a href="#scripts" class="cta shim">&gt;_ GET SCRIPTS &nbsp;&gt;</a>
     </div>
-    <p class="hero-brand-label reveal" data-d="1">kkkkkk-dev</p>
-    <h1 class="hero-title reveal" data-d="2">The Best Universal<br>Roblox Script Exploits</h1>
-    <p class="hero-tag reveal" data-d="3">UNDETECTED SCRIPTS &nbsp;•&nbsp; DAILY UPDATES &nbsp;•&nbsp; ZERO EXPLOITERS</p>
-    <p class="hero-desc reveal" data-d="4">Dark. Fast. Undetected. The premium scripting destination engineered for elite Roblox operators.</p>
-    <div class="hero-actions reveal" data-d="5">
-      <a href="#scripts" class="btn-primary shimmer">&gt;_ GET SCRIPTS &nbsp;&gt;</a>
-    </div>
-    <div class="stats reveal" data-d="6">
-      <div class="stat-card">
-        <div class="stat-v">12K+</div>
-        <div class="stat-l">ACTIVE<br>USERS</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-v">98.7%</div>
-        <div class="stat-l">UNDETECT<br>RATE</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-v">24/7</div>
-        <div class="stat-l">UPDATES</div>
-      </div>
+    <div class="stats rv" data-d="6">
+      <div class="stat"><div class="sv">12K+</div><div class="sl">ACTIVE<br>USERS</div></div>
+      <div class="stat"><div class="sv">98.7%</div><div class="sl">UNDETECT<br>RATE</div></div>
+      <div class="stat"><div class="sv">24/7</div><div class="sl">UPDATES</div></div>
     </div>
   </div>
 </section>
 
-<!-- FEATURES -->
-<section class="section">
-  <div class="container">
-    <div class="sec-head reveal">
-      <h2 class="text-grad">Built For The Underground</h2>
-      <p>Every line of code engineered for performance, stealth, and that premium feel.</p>
-    </div>
-    <div class="grid-3">
-      <div class="card glass glow-hover reveal" data-d="1">
-        <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-        <h3>Undetected</h3><p>Bypass anti-cheat with bleeding-edge obfuscation and stealth injection.</p>
-      </div>
-      <div class="card glass glow-hover reveal" data-d="2">
-        <div class="card-icon"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
-        <h3>Lightning Fast</h3><p>Optimized execution path. Zero lag, instant load, maximum throughput.</p>
-      </div>
-      <div class="card glass glow-hover reveal" data-d="3">
-        <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>
-        <h3>Elegant GUI</h3><p>Frosted glass UI with neon accents. Built for control & speed.</p>
-      </div>
-      <div class="card glass glow-hover reveal" data-d="4">
-        <div class="card-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
-        <h3>Daily Updates</h3><p>Patches pushed within hours of every Roblox engine update.</p>
-      </div>
-      <div class="card glass glow-hover reveal" data-d="5">
-        <div class="card-icon"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
-        <h3>Secure Vault</h3><p>Encrypted delivery. No key-loggers, no malware, no compromise.</p>
-      </div>
-      <div class="card glass glow-hover reveal" data-d="6">
-        <div class="card-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
-        <h3>Premium Tools</h3><p>Animation Changer, Music Player, Accessories Changer — all in one universal hub.</p>
-      </div>
+<!-- ═══ FEATURES ═══ -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sech rv"><h2 class="grad">Built For The Underground</h2><p>Every line of code engineered for performance, stealth, and that premium feel.</p></div>
+    <div class="g3">
+      <div class="fc glass hov rv" data-d="1"><div class="fci"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Undetected</h3><p>Bypass anti-cheat with bleeding-edge obfuscation and stealth injection.</p></div>
+      <div class="fc glass hov rv" data-d="2"><div class="fci"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><h3>Lightning Fast</h3><p>Optimized execution path. Zero lag, instant load, maximum throughput.</p></div>
+      <div class="fc glass hov rv" data-d="3"><div class="fci"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div><h3>Elegant GUI</h3><p>Frosted glass UI with neon accents. Built for control & speed.</p></div>
+      <div class="fc glass hov rv" data-d="4"><div class="fci"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div><h3>Daily Updates</h3><p>Patches pushed within hours of every Roblox engine update.</p></div>
+      <div class="fc glass hov rv" data-d="5"><div class="fci"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><h3>Secure Vault</h3><p>Encrypted delivery. No key-loggers, no malware, no compromise.</p></div>
+      <div class="fc glass hov rv" data-d="6"><div class="fci"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><h3>Premium Tools</h3><p>Animation Changer, Music Player, Accessories Changer — all in one universal hub.</p></div>
     </div>
   </div>
 </section>
 
-<!-- SCRIPTS -->
-<section id="scripts" class="section">
-  <div class="container">
-    <div class="sec-head reveal">
-      <h2 class="text-grad">Scripts Showcase</h2>
-      <p>Click <strong>Copy Code</strong> to grab the latest undetected build. Updated daily.</p>
-    </div>
-    <div class="script-grid">
-      <div class="script-card glass glow-hover reveal rev-scale">
-        <div class="script-head">
-          <div>
-            <div class="script-game">
-              <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-              UNIVERSAL
+<!-- ═══ SCRIPTS ═══ -->
+<section id="scripts" class="sec">
+  <div class="wrap">
+    <div class="sech rv"><h2 class="grad">Scripts Showcase</h2><p>Click <strong>Copy Code</strong> to grab the latest undetected build. Updated daily.</p></div>
+    <div class="ui-showcase-wrap">
+
+      <!-- LEFT: script card -->
+      <div class="sc-left rv rl">
+        <div class="sc glass hov rs">
+          <div class="sctp">
+            <div>
+              <div class="sclbl"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>UNIVERSAL</div>
+              <h3>Zero Exploiters</h3>
             </div>
-            <h3>Zero Exploiters</h3>
+            <span class="badge">ONLINE</span>
           </div>
-          <span class="badge">ONLINE</span>
+          <pre class="code"><code id="code1">loadstring(game:HttpGet("https://raw.githubusercontent.com/kkkkkk-dev/ZeroExploits/main/ZeroUniversal.lua"))()</code></pre>
+          <button class="bcopy shim" onclick="copyCode('code1',this)">
+            <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            COPY CODE
+          </button>
         </div>
-        <pre class="code-block"><code id="code1">loadstring(game:HttpGet("https://raw.githubusercontent.com/kkkkkk-dev/ZeroExploits/main/ZeroUniversal.lua"))()</code></pre>
-        <button class="btn-copy shimmer" onclick="copyCode('code1',this)">
-          <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-          COPY CODE
-        </button>
+        <div class="feat-tags">
+          <span class="feat-tag hi">✓ NOCLIP</span>
+          <span class="feat-tag">✓ GOD MODE</span>
+          <span class="feat-tag">✓ FLY</span>
+          <span class="feat-tag">✓ INF JUMP</span>
+          <span class="feat-tag">✓ NAME ESP</span>
+          <span class="feat-tag">✓ INVISIBLE</span>
+          <span class="feat-tag">✓ ANTI-KICK</span>
+          <span class="feat-tag">✓ ANTI-LAG</span>
+          <span class="feat-tag">✓ SPY MODE</span>
+          <span class="feat-tag">✓ ANIM CHANGER</span>
+          <span class="feat-tag">✓ MUSIC PLAYER</span>
+          <span class="feat-tag">✓ AVATAR</span>
+          <span class="feat-tag">✓ ACCESSORIES</span>
+          <span class="feat-tag">✓ CLOTHES</span>
+          <span class="feat-tag">✓ MULTIFLING</span>
+        </div>
       </div>
+
+      <!-- RIGHT: Interactive UI Mockup -->
+      <div class="rv rr">
+        <div class="ui-mock" id="uiMock">
+          <div class="ui-titlebar">
+            <span class="ui-title" id="uiTitle">Zero Exploiters</span>
+            <div class="ui-dots-row">
+              <div class="ui-dot active" id="d0"></div>
+              <div class="ui-dot" id="d1"></div>
+              <div class="ui-dot" id="d2"></div>
+              <div class="ui-dot" id="d3"></div>
+              <div class="ui-dot" id="d4"></div>
+              <div class="ui-dot" id="d5"></div>
+            </div>
+            <div class="ui-minbtn">−</div>
+          </div>
+          <div class="ui-tabs">
+            <button class="ui-tab active" onclick="uiPage(0,this)">Player</button>
+            <button class="ui-tab" onclick="uiPage(1,this)">Anim</button>
+            <button class="ui-tab" onclick="uiPage(2,this)">Music</button>
+            <button class="ui-tab" onclick="uiPage(3,this)">Avatar</button>
+            <button class="ui-tab" onclick="uiPage(4,this)">Clothes</button>
+            <button class="ui-tab" onclick="uiPage(5,this)">Fling</button>
+          </div>
+          <div class="ui-body">
+
+            <!-- PAGE 0: Player -->
+            <div class="ui-pg active" id="pg0">
+              <div class="ui-sec">Movement</div>
+              <div class="ui-slrow">
+                <div class="ui-slhead"><span class="ui-sllbl">WalkSpeed</span><span class="ui-slval" id="ws">16</span></div>
+                <div class="ui-sltrack" id="wst"><div class="ui-slfill" style="width:0%"></div></div>
+              </div>
+              <div class="ui-slrow">
+                <div class="ui-slhead"><span class="ui-sllbl">JumpPower</span><span class="ui-slval" id="jp">50</span></div>
+                <div class="ui-sltrack" id="jpt"><div class="ui-slfill" style="width:0%"></div></div>
+              </div>
+              <div class="ui-sec">Hacks</div>
+              <div class="ui-row" onclick="this.classList.toggle('on')"><span class="ui-lbl">Noclip</span><div class="ui-pill"></div></div>
+              <div class="ui-row" onclick="this.classList.toggle('on')"><span class="ui-lbl">God Mode</span><div class="ui-pill"></div></div>
+              <div class="ui-row" onclick="this.classList.toggle('on')"><span class="ui-lbl">Flying Mode</span><div class="ui-pill"></div></div>
+              <div class="ui-row" onclick="this.classList.toggle('on')"><span class="ui-lbl">Infinite Jump</span><div class="ui-pill"></div></div>
+              <div class="ui-sec">Utility</div>
+              <div class="ui-row" onclick="this.classList.toggle('on')"><span class="ui-lbl">Anti-Kick</span><div class="ui-pill"></div></div>
+              <div class="ui-row" onclick="this.classList.toggle('on')"><span class="ui-lbl">Name ESP</span><div class="ui-pill"></div></div>
+              <div class="ui-row" onclick="this.classList.toggle('on')"><span class="ui-lbl">Checkpoint ESP</span><div class="ui-pill"></div></div>
+              <div class="ui-row" onclick="this.classList.toggle('on')"><span class="ui-lbl">Invisible</span><div class="ui-pill"></div></div>
+              <div class="ui-row" onclick="this.classList.toggle('on')"><span class="ui-lbl">Anti-Lag</span><div class="ui-pill"></div></div>
+              <div class="ui-sec">Spy Mode</div>
+              <div class="ui-inp"><span>Username / DisplayName...</span><button>SPY</button></div>
+            </div>
+
+            <!-- PAGE 1: Animation -->
+            <div class="ui-pg" id="pg1">
+              <div class="ui-sec">Animation Changer</div>
+              <div class="ui-row" onclick="this.classList.toggle('on')"><span class="ui-lbl">Enable Anim Changer</span><div class="ui-pill"></div></div>
+              <div class="ui-drop"><span>Select Animation...</span><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+              <div class="ui-inp"><span>Search animation...</span><button>GO</button></div>
+              <div class="ui-sec">Animation Slots</div>
+              <div class="ui-row" style="cursor:default"><span class="ui-lbl">Run</span><span style="font-family:'JetBrains Mono',monospace;font-size:.5rem;color:rgba(255,255,255,0.25)">not set</span></div>
+              <div class="ui-row" style="cursor:default"><span class="ui-lbl">Idle</span><span style="font-family:'JetBrains Mono',monospace;font-size:.5rem;color:rgba(255,255,255,0.25)">not set</span></div>
+              <div class="ui-row" style="cursor:default"><span class="ui-lbl">Jump</span><span style="font-family:'JetBrains Mono',monospace;font-size:.5rem;color:rgba(255,255,255,0.25)">not set</span></div>
+              <div class="ui-sec">Presets</div>
+              <div class="ui-drop"><span>Select preset...</span><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+              <div class="ui-btnrow">
+                <div class="ui-btn g">Save</div>
+                <div class="ui-btn">Load</div>
+                <div class="ui-btn r">Delete</div>
+              </div>
+              <div class="ui-info">Status: Select animation first!</div>
+            </div>
+
+            <!-- PAGE 2: Music -->
+            <div class="ui-pg" id="pg2">
+              <div class="ui-sec">Music Player</div>
+              <div class="ui-mrow">
+                <div class="ui-mico"><svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
+                <div class="ui-minfo"><div class="ui-mname">No song selected</div><div class="ui-msub">Zero Music Player</div></div>
+                <div class="ui-play"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+              </div>
+              <div class="ui-drop"><span>Playlist...</span><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+              <div class="ui-sec">Folder</div>
+              <div class="ui-info" style="font-style:normal;color:rgba(255,255,255,0.38)">📁  ZERO MUSIC FOLDER</div>
+              <div class="ui-info">Place .mp3 / .ogg files in: Zero Music/</div>
+              <div class="ui-sec">Controls</div>
+              <div class="ui-btnrow">
+                <div class="ui-btn g">▶ Play</div>
+                <div class="ui-btn">⏹ Stop</div>
+                <div class="ui-btn">⏭ Skip</div>
+              </div>
+              <div class="ui-slrow">
+                <div class="ui-slhead"><span class="ui-sllbl">Volume</span><span class="ui-slval" id="vol">50</span></div>
+                <div class="ui-sltrack" id="volt"><div class="ui-slfill" style="width:50%"></div></div>
+              </div>
+            </div>
+
+            <!-- PAGE 3: Avatar -->
+            <div class="ui-pg" id="pg3">
+              <div class="ui-sec">Avatar Changer</div>
+              <div class="ui-inp"><span>Username / User ID...</span><button>APPLY</button></div>
+              <div class="ui-info">Status: Idle</div>
+              <div class="ui-sec">Accessories</div>
+              <div class="ui-inp"><span>Asset ID...</span><button>+ ADD</button></div>
+              <div class="ui-row" onclick="this.classList.toggle('on')"><span class="ui-lbl">Headless & Korblox</span><div class="ui-pill"></div></div>
+              <div class="ui-row" onclick="this.classList.toggle('on')"><span class="ui-lbl">Avatar RGB</span><div class="ui-pill"></div></div>
+              <div class="ui-sec">Presets</div>
+              <div class="ui-drop"><span>Select preset...</span><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+              <div class="ui-btnrow">
+                <div class="ui-btn g">Save Preset</div>
+                <div class="ui-btn r">Remove All</div>
+              </div>
+            </div>
+
+            <!-- PAGE 4: Clothes -->
+            <div class="ui-pg" id="pg4">
+              <div class="ui-sec">Clothes Changer</div>
+              <div class="ui-inp"><span>Shirt Asset ID...</span><button>APPLY</button></div>
+              <div class="ui-inp"><span>Pants Asset ID...</span><button>APPLY</button></div>
+              <div class="ui-sec">Teleport to Player</div>
+              <div class="ui-drop"><span>Select Player...</span><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+              <div class="ui-btn g" style="text-align:center;padding:.3rem">Teleport ▶</div>
+              <div class="ui-sec">Emote Changer</div>
+              <div class="ui-drop"><span>Select Emote...</span><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+              <div class="ui-btnrow">
+                <div class="ui-btn g">▶ Play</div>
+                <div class="ui-btn r">⏹ Stop</div>
+              </div>
+            </div>
+
+            <!-- PAGE 5: MultiFling -->
+            <div class="ui-pg" id="pg5">
+              <div class="ui-sec">Zero MultiFling</div>
+              <div class="ui-row" onclick="this.classList.toggle('on')"><span class="ui-lbl">Fling All</span><div class="ui-pill"></div></div>
+              <div class="ui-row" onclick="this.classList.toggle('on')"><span class="ui-lbl">Smart Fling</span><div class="ui-pill"></div></div>
+              <div class="ui-sec">Players</div>
+              <div class="ui-inp"><span>Search players...</span><button>🔍</button></div>
+              <div class="ui-info" id="flingStatus">Fling system disengaged</div>
+              <div class="ui-btnrow">
+                <div class="ui-btn g" onclick="document.getElementById('flingStatus').textContent='Fling system engaged'">START</div>
+                <div class="ui-btn r" onclick="document.getElementById('flingStatus').textContent='Fling system disengaged'">STOP</div>
+                <div class="ui-btn">ALL</div>
+              </div>
+              <div class="ui-btnrow">
+                <div class="ui-btn">Deselect</div>
+                <div class="ui-btn">Refresh</div>
+              </div>
+              <div class="ui-sec">Keybind</div>
+              <div class="ui-row" style="cursor:default"><span class="ui-lbl">Fling Key</span><span class="ui-kbd">E</span></div>
+              <div class="ui-row" style="cursor:default"><span class="ui-lbl">Toggle UI</span><span class="ui-kbd">RightShift</span></div>
+            </div>
+
+          </div><!-- /ui-body -->
+        </div><!-- /ui-mock -->
+        <p class="ui-hint">↑ INTERACTIVE PREVIEW — CLICK TOGGLES &amp; TABS</p>
+      </div>
+
     </div>
   </div>
 </section>
 
-<!-- WHY CHOOSE -->
-<section class="section">
-  <div class="container grid-2">
-    <div class="reveal rev-left">
-      <h2 class="text-grad">Why Choose <span class="neon-text">kkkkkk-dev</span></h2>
-      <p class="muted" style="margin-top:.75rem">We don't just ship scripts — we engineer the standard. Every release is audited, obfuscated, and battle-tested before it touches your client.</p>
-      <ul class="reasons">
-        <li class="glass reveal" data-d="1"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Zero downtime — 99.9% uptime SLA on all delivery endpoints</li>
-        <li class="glass reveal" data-d="2"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Active dev team pushing patches within hours of Roblox updates</li>
-        <li class="glass reveal" data-d="3"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Trusted by 12,000+ scripters across the global underground</li>
-        <li class="glass reveal" data-d="4"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Encrypted obfuscation layers — your sessions stay invisible</li>
-        <li class="glass reveal" data-d="5"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Premium support inside our private Discord vault</li>
-        <li class="glass reveal" data-d="6"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Free tier available — no credit card, no hidden traps</li>
+<!-- ═══ WHY CHOOSE ═══ -->
+<section class="sec">
+  <div class="wrap g2">
+    <div class="whtxt rv rl">
+      <h2 class="grad">Why Choose <span class="neon">kkkkkk-dev</span></h2>
+      <p>We don't just ship scripts — we engineer the standard. Every release is audited, obfuscated, and battle-tested before it touches your client.</p>
+      <ul class="reas">
+        <li class="glass rv" data-d="1"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Zero downtime — 99.9% uptime SLA on all delivery endpoints</li>
+        <li class="glass rv" data-d="2"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Active dev team pushing patches within hours of Roblox updates</li>
+        <li class="glass rv" data-d="3"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Trusted by 12,000+ scripters across the global underground</li>
+        <li class="glass rv" data-d="4"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Encrypted obfuscation layers — your sessions stay invisible</li>
+        <li class="glass rv" data-d="5"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Premium support inside our private Discord vault</li>
+        <li class="glass rv" data-d="6"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Free tier available — no credit card, no hidden traps</li>
       </ul>
     </div>
-    <div class="terminal glass neon-border reveal rev-right">
-      <div class="terminal-head"><span class="t-dot"></span> terminal://kkkkkk-dev</div>
-      <div class="terminal-body">
-        <p><span class="prompt">$</span> auth --vault</p>
-        <p class="t-out">&gt; handshake established · OK</p>
-        <p><span class="prompt">$</span> inject --stealth</p>
-        <p class="t-out">&gt; payload obfuscated</p>
-        <p class="t-out">&gt; bypass: ✓ undetected</p>
-        <p><span class="prompt">$</span> status</p>
-        <p class="neon-text">&gt; ALL SYSTEMS OPERATIONAL</p>
-        <p class="cursor">▊</p>
+    <div class="term glass nb rv rr">
+      <div class="termh"><span class="tdot"></span>terminal://kkkkkk-dev</div>
+      <div class="termb">
+        <p><span class="pr">$</span> auth --vault</p>
+        <p class="to">&gt; handshake established · OK</p>
+        <p><span class="pr">$</span> inject --stealth</p>
+        <p class="to">&gt; payload obfuscated</p>
+        <p class="to">&gt; bypass: ✓ undetected</p>
+        <p><span class="pr">$</span> status</p>
+        <p class="neon">&gt; ALL SYSTEMS OPERATIONAL</p>
+        <p class="cur">▊</p>
       </div>
     </div>
   </div>
 </section>
-</main>
 
-<!-- FOOTER -->
+</div><!-- /page -->
+
+<!-- ═══ FOOTER ═══ -->
 <footer class="footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-brand reveal">
+  <div class="wrap">
+    <div class="ftgrid">
+      <div class="rv">
         <a href="#home" class="brand" style="text-decoration:none">
-          <div class="brand-icon">
-            <svg viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
-          </div>
-          <div class="brand-text">
-            <span class="brand-name neon-text">kkkkkk-dev</span>
-            <span class="brand-sub">zero exploiters</span>
-          </div>
+          <div class="bico"><svg viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg></div>
+          <div class="btxt" style="margin-left:.55rem"><span class="bname neon"><span class="glitch" data-text="kkkkkk-dev" style="font-size:inherit;font-family:inherit;font-weight:inherit;letter-spacing:inherit">kkkkkk-dev</span></span><span class="bsub">zero exploiters</span></div>
         </a>
-        <p class="muted">The premium destination for elite Roblox scripters. Dark. Fast. Undetected.</p>
+        <p class="ftbp">The premium destination for elite Roblox scripters. Dark. Fast. Undetected.</p>
       </div>
-      <div class="reveal" data-d="2">
+      <div class="rv" data-d="2">
         <h4>Navigate</h4>
-        <ul class="footer-links">
-          <li><a href="#home"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Home</a></li>
-          <li><a href="#scripts"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg> Scripts</a></li>
-          <li><a href="https://discord.gg/Cu9acdzn4v"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Contact Me</a></li>
+        <ul class="flinks">
+          <li><a href="#home"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home</a></li>
+          <li><a href="#scripts"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>Scripts</a></li>
+          <li><a href="https://discord.gg/Cu9acdzn4v"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Contact Me</a></li>
         </ul>
       </div>
     </div>
-    <div class="footer-bottom">
+    <div class="ftbot">
       <p>© <span id="yr"></span> kkkkkk-dev. All rights reserved.</p>
       <p>Built in the dark</p>
     </div>
@@ -531,33 +791,105 @@ h1,h2,h3,h4{font-family:"Rajdhani",sans-serif;font-weight:700;line-height:1.12}
 <script>
 document.getElementById('yr').textContent = new Date().getFullYear();
 
-// Mobile menu
-document.getElementById('menuBtn').addEventListener('click',()=>{
-  document.getElementById('mobileMenu').classList.toggle('open');
-});
+// ── Ham menu
+const ham = document.getElementById('ham'), mob = document.getElementById('mob');
+ham.addEventListener('click', () => mob.classList.toggle('open'));
+mob.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mob.classList.remove('open')));
 
-// Navbar scroll
-window.addEventListener('scroll',()=>{
-  document.querySelector('.navbar').classList.toggle('scrolled', window.scrollY > 12);
-});
+// ── Sticky nav
+window.addEventListener('scroll', () => document.querySelector('.navbar').classList.toggle('stuck', scrollY > 8), {passive:true});
 
-// Copy code
-function copyCode(id, btn){
+// ── Copy code
+function copyCode(id, btn) {
   const txt = document.getElementById(id).innerText;
-  navigator.clipboard.writeText(txt).then(()=>{
-    const old = btn.innerHTML;
-    btn.innerHTML = '<svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><polyline points="20 6 9 17 4 12"/></svg> COPIED!';
-    setTimeout(()=>{ btn.innerHTML = old; }, 1800);
-  });
+  const orig = btn.innerHTML;
+  const ok = '<svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><polyline points="20 6 9 17 4 12"/></svg> COPIED!';
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(txt).then(() => { btn.innerHTML = ok; setTimeout(() => btn.innerHTML = orig, 1800); });
+  } else {
+    const t = document.createElement('textarea'); t.value = txt; document.body.appendChild(t); t.select(); document.execCommand('copy'); document.body.removeChild(t);
+    btn.innerHTML = ok; setTimeout(() => btn.innerHTML = orig, 1800);
+  }
 }
 
-// Scroll reveal
-const io = new IntersectionObserver((entries)=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){ e.target.classList.add('in-view'); io.unobserve(e.target); }
+// ── UI Mockup: page switcher
+const uiTitles = ['Zero Exploiters','Animation','Music Player','Avatar','Clothes','MultiFling'];
+function uiPage(idx, btn) {
+  document.querySelectorAll('.ui-tab').forEach((b,i) => b.classList.toggle('active', i===idx));
+  document.querySelectorAll('.ui-pg').forEach((p,i) => p.classList.toggle('active', i===idx));
+  document.querySelectorAll('.ui-dot').forEach((d,i) => d.classList.toggle('active', i===idx));
+  document.getElementById('uiTitle').textContent = uiTitles[idx];
+}
+
+// ── UI Mockup: sliders (drag + click, touch + mouse)
+function makeSlider(trackId, valId, min, max) {
+  const track = document.getElementById(trackId);
+  if (!track) return;
+  const fill = track.querySelector('.ui-slfill');
+  const valEl = document.getElementById(valId);
+  let active = false;
+
+  function setVal(clientX) {
+    const rect = track.getBoundingClientRect();
+    const x = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+    fill.style.width = (x * 100) + '%';
+    valEl.textContent = Math.round(min + x * (max - min));
+  }
+
+  track.addEventListener('mousedown', e => { active = true; setVal(e.clientX); e.preventDefault(); });
+  track.addEventListener('touchstart', e => { active = true; setVal(e.touches[0].clientX); }, {passive:true});
+  window.addEventListener('mousemove', e => { if (active) setVal(e.clientX); });
+  window.addEventListener('touchmove', e => { if (active) setVal(e.touches[0].clientX); }, {passive:true});
+  window.addEventListener('mouseup', () => active = false);
+  window.addEventListener('touchend', () => active = false);
+}
+makeSlider('wst', 'ws', 16, 200);
+makeSlider('jpt', 'jp', 50, 300);
+makeSlider('volt', 'vol', 0, 100);
+
+// ── Glare sweep on scroll reveal
+const noMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function addGlare(el) {
+  if (el.querySelector('.glare-layer')) return;
+  const g = document.createElement('div');
+  g.className = 'glare-layer';
+  el.appendChild(g);
+}
+
+function fireGlare(el) {
+  if (noMotion) return;
+  const g = el.querySelector('.glare-layer');
+  if (!g) return;
+  g.classList.remove('sweep');
+  void g.offsetWidth; // reflow to restart animation
+  const delay = parseFloat(getComputedStyle(el).transitionDelay || 0) * 1000;
+  setTimeout(() => { if (document.contains(g)) g.classList.add('sweep'); }, delay + 100);
+}
+
+// Inject glare into all glass + stat cards
+document.querySelectorAll('.glass, .stat').forEach(addGlare);
+
+// Scroll reveal observer
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('on');
+      fireGlare(e.target);
+      revealObs.unobserve(e.target);
+    }
   });
-},{threshold:0.12, rootMargin:'0px 0px -60px 0px'});
-document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+}, { threshold: 0.08, rootMargin: '0px 0px -28px 0px' });
+
+document.querySelectorAll('.rv').forEach(el => {
+  const r = el.getBoundingClientRect();
+  if (r.top < window.innerHeight && r.bottom > 0) {
+    el.classList.add('on');
+    fireGlare(el);
+  } else {
+    revealObs.observe(el);
+  }
+});
 </script>
 </body>
 </html>
