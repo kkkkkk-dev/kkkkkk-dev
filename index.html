@@ -366,6 +366,185 @@ h1,h2,h3,h4{font-family:"Rajdhani",sans-serif;font-weight:700;line-height:1.1}
 @media(prefers-reduced-motion:reduce){
   .glare-layer,.glare-layer::after{display:none}
 }
+
+/* ════ ZE UI CARD — matches index-2 style ════ */
+.ze-card{
+  width:520px;max-width:100%;
+  background:linear-gradient(135deg,rgba(28,30,42,0.98) 0%,rgba(10,11,16,0.99) 60%,rgba(0,0,0,1) 100%);
+  border-radius:28px;
+  border-top:1px solid rgba(180,210,230,0.35);
+  border-left:1px solid rgba(160,190,210,0.22);
+  border-right:1px solid rgba(18,18,20,0.98);
+  border-bottom:1px solid rgba(12,12,14,0.98);
+  box-shadow:0 0 0 1px rgba(0,0,0,0.85),0 20px 50px rgba(0,0,0,0.9),inset 0 1px 0 rgba(255,255,255,0.05);
+  overflow:hidden;
+  user-select:none;
+}
+.ze-header{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:12px 18px;
+  background:rgba(0,0,0,0.55);
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.ze-title{
+  font-family:"JetBrains Mono",monospace;
+  font-weight:700;font-size:.78rem;letter-spacing:.18em;
+  color:var(--fg);text-transform:uppercase;
+  text-shadow:0 0 12px rgba(255,255,255,0.2);
+}
+.ze-dots{display:flex;gap:7px;background:rgba(0,0,0,0.4);padding:5px 11px;border-radius:40px;}
+.ze-dot{width:7px;height:7px;background:rgba(255,255,255,0.18);border-radius:10px;cursor:pointer;transition:all .2s cubic-bezier(.2,.9,.4,1.1);}
+.ze-dot-active,.ze-dot.ze-dot-active{background:#fff;width:20px;box-shadow:0 0 6px rgba(255,255,255,0.5);}
+
+.ze-wrapper{position:relative;overflow:hidden;height:min(400px,62vh);cursor:grab;}
+.ze-wrapper.dragging{cursor:grabbing;}
+.ze-track{display:flex;align-items:flex-start;transition:transform .32s cubic-bezier(.4,0,.2,1);will-change:transform;}
+.ze-track.no-trans{transition:none;}
+.ze-page{
+  flex:0 0 100%;width:100%;
+  height:min(400px,62vh);
+  overflow-y:auto;overflow-x:hidden;
+  scrollbar-width:thin;
+  padding:10px 12px 14px;
+  display:flex;flex-direction:column;gap:10px;
+  box-sizing:border-box;
+}
+.ze-page::-webkit-scrollbar{width:3px;}
+.ze-page::-webkit-scrollbar-track{background:rgba(255,255,255,0.03);border-radius:10px;}
+.ze-page::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.18);border-radius:10px;}
+
+.ze-group{
+  background:rgba(255,255,255,0.025);
+  border-radius:16px;padding:10px 12px;
+  border:1px solid rgba(255,255,255,0.055);
+}
+.ze-row{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:9px;flex-wrap:wrap;gap:6px;
+}
+.ze-row:last-child{margin-bottom:0;}
+.ze-label{
+  font-family:"JetBrains Mono",monospace;
+  font-size:.65rem;font-weight:500;letter-spacing:.06em;
+  color:var(--muted);text-transform:uppercase;
+  white-space:nowrap;
+}
+.ze-toggle{
+  width:40px;height:20px;background:rgba(255,255,255,0.1);
+  border-radius:40px;position:relative;cursor:pointer;
+  transition:.2s;box-shadow:inset 0 1px 2px rgba(0,0,0,0.4);
+  flex-shrink:0;border:1px solid rgba(255,255,255,0.08);
+}
+.ze-toggle.ze-on{background:rgba(74,222,128,0.25);border-color:rgba(74,222,128,0.3);}
+.ze-knob{
+  width:16px;height:16px;background:#fff;border-radius:50%;
+  position:absolute;top:1px;left:2px;transition:.2s;
+  box-shadow:0 1px 3px rgba(0,0,0,0.4);
+}
+.ze-toggle.ze-on .ze-knob{left:21px;background:#4ade80;box-shadow:0 0 5px rgba(74,222,128,0.6);}
+
+.ze-slider{
+  flex:1;min-width:110px;height:3px;
+  -webkit-appearance:none;appearance:none;
+  background:rgba(255,255,255,0.12);border-radius:10px;cursor:pointer;
+}
+.ze-slider:focus{outline:none;}
+.ze-slider::-webkit-slider-thumb{
+  -webkit-appearance:none;width:12px;height:12px;
+  background:var(--fg);border-radius:50%;cursor:pointer;
+  box-shadow:0 0 5px rgba(255,255,255,0.4);
+}
+.ze-slider::-moz-range-thumb{
+  width:12px;height:12px;background:var(--fg);border-radius:50%;
+  cursor:pointer;border:none;box-shadow:0 0 5px rgba(255,255,255,0.4);
+}
+.ze-badge{
+  background:rgba(255,255,255,0.06);padding:3px 8px;border-radius:20px;
+  font-family:"JetBrains Mono",monospace;font-size:.6rem;font-weight:600;
+  color:var(--muted);min-width:32px;text-align:center;
+  border:1px solid rgba(255,255,255,0.08);
+}
+.ze-input{
+  background:rgba(0,0,0,0.5);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:10px;padding:6px 10px;
+  color:var(--fg);
+  font-family:"JetBrains Mono",monospace;
+  font-size:.65rem;font-weight:500;
+  outline:none;transition:border-color .2s;
+  pointer-events:none;cursor:default;
+}
+.ze-input::placeholder{color:rgba(255,255,255,0.2);}
+.ze-input:focus{border-color:rgba(255,255,255,0.1);}
+
+.ze-btn{
+  background:rgba(255,255,255,0.07);
+  border:1px solid rgba(255,255,255,0.14);
+  border-radius:40px;padding:5px 13px;
+  color:var(--fg);font-family:"JetBrains Mono",monospace;
+  font-weight:500;font-size:.62rem;letter-spacing:.07em;
+  cursor:pointer;transition:.18s;text-transform:uppercase;
+}
+.ze-btn:hover{background:rgba(255,255,255,0.12);transform:translateY(-1px);}
+.ze-btn-primary{background:rgba(74,222,128,0.15);border-color:rgba(74,222,128,0.3);color:#4ade80;}
+.ze-btn-primary:hover{background:rgba(74,222,128,0.22);box-shadow:0 0 12px rgba(74,222,128,0.2);}
+.ze-btn-sm{padding:3px 10px;font-size:.6rem;}
+.ze-btn-disabled{pointer-events:none;cursor:not-allowed;}
+
+.ze-plus{
+  background:rgba(74,222,128,0.15);border-radius:30px;
+  width:26px;height:26px;
+  display:inline-flex;align-items:center;justify-content:center;
+  font-weight:bold;cursor:not-allowed;color:#4ade80;
+  font-size:.9rem;flex-shrink:0;transition:.15s;
+  border:1px solid rgba(74,222,128,0.28);
+  pointer-events:none;
+}
+.ze-plus:hover{background:rgba(74,222,128,0.15);box-shadow:none;}
+
+.ze-acc-row{display:flex;align-items:center;gap:7px;margin-bottom:8px;}
+.ze-acc-row .ze-input{flex:1;}
+.ze-acc-row:last-child{margin-bottom:0;}
+
+.ze-sel-wrap{position:relative;pointer-events:none;flex:1;}
+.ze-select{
+  background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.1);
+  border-radius:25px;padding:6px 24px 6px 10px;
+  color:var(--muted);font-family:"JetBrains Mono",monospace;
+  font-size:.62rem;width:100%;cursor:default;
+  -webkit-appearance:none;appearance:none;outline:none;
+}
+.ze-sel-wrap::after{
+  content:'';position:absolute;right:10px;top:50%;transform:translateY(-50%);
+  width:0;height:0;
+  border-left:4px solid transparent;border-right:4px solid transparent;
+  border-top:5px solid var(--muted);pointer-events:none;
+}
+.ze-flex-between{display:flex;justify-content:space-between;align-items:center;gap:7px;}
+.ze-hr{border:none;border-top:1px solid rgba(255,255,255,0.07);margin:7px 0;}
+
+.ze-music{background:rgba(0,0,0,0.45);border-radius:18px;padding:11px;margin-bottom:0;}
+.ze-progress-bar{height:3px;background:rgba(255,255,255,0.1);border-radius:4px;margin:10px 0;cursor:pointer;}
+.ze-progress-fill{width:45%;height:3px;background:var(--fg);border-radius:4px;transition:width .3s;box-shadow:0 0 6px rgba(255,255,255,0.3);}
+
+.ze-badge-icon{
+  font-family:"JetBrains Mono",monospace;font-size:.6rem;
+  background:rgba(255,255,255,0.06);border-radius:20px;
+  padding:2px 8px;color:var(--muted);display:inline-block;margin:2px;
+  border:1px solid rgba(255,255,255,0.09);
+}
+.ze-scan-btn{
+  display:flex;align-items:center;justify-content:center;gap:6px;width:100%;
+  background:rgba(255,255,255,0.04);
+  border:1px dashed rgba(255,255,255,0.16);
+  border-radius:10px;padding:8px 12px;
+  color:var(--muted);
+  font-family:"JetBrains Mono",monospace;font-size:.62rem;font-weight:500;
+  cursor:not-allowed;transition:.15s;
+  pointer-events:none;
+}
+.ze-scan-btn:hover{background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.16);color:var(--muted);}
+
 </style>
 </head>
 <body>
@@ -460,6 +639,170 @@ h1,h2,h3,h4{font-family:"Rajdhani",sans-serif;font-weight:700;line-height:1.1}
         </button>
       </div>
     </div>
+
+    <!-- ── UI PREVIEW HEADING ── -->
+    <div class="sech rv" style="margin-top:clamp(2.5rem,5vw,4rem);margin-bottom:clamp(1.2rem,2.5vw,1.8rem)">
+      <h2 class="grad">Preview</h2>
+      <p>Explore the full Zero Exploiters interface — swipe or drag between pages.</p>
+    </div>
+
+    <!-- ── ZE UI CARD ── -->
+    <div class="rv rs" style="display:flex;justify-content:center;">
+      <div class="ze-card">
+        <div class="ze-header">
+          <span class="ze-title">ZERO EXPLOITERS</span>
+          <div class="ze-dots" id="zeDots">
+            <div class="ze-dot ze-dot-active" data-page="0"></div>
+            <div class="ze-dot" data-page="1"></div>
+            <div class="ze-dot" data-page="2"></div>
+            <div class="ze-dot" data-page="3"></div>
+            <div class="ze-dot" data-page="4"></div>
+            <div class="ze-dot" data-page="5"></div>
+          </div>
+        </div>
+        <div class="ze-wrapper" id="zeWrapper">
+          <div class="ze-track" id="zeTrack">
+
+            <!-- PAGE 1 -->
+            <div class="ze-page" id="zepage0">
+              <div class="ze-group">
+                <div class="ze-row"><span class="ze-label">Zero Extension</span><div class="ze-toggle ze-on"><div class="ze-knob"></div></div></div>
+                <div class="ze-row"><span class="ze-label">Infinity Jump</span><div class="ze-toggle"><div class="ze-knob"></div></div></div>
+                <div class="ze-row"><span class="ze-label">Emotes</span><div class="ze-sel-wrap"><select class="ze-select"><option value="" disabled selected>Select Emotes</option><option>Gojo Aura Farming</option><option>Floating on Clouds</option><option>Sukuna Aura</option><option>Dance Moves</option></select></div></div>
+                <div class="ze-row"><span class="ze-label">Teleport to Player</span><div class="ze-sel-wrap"><select class="ze-select"><option value="" disabled selected>Select Player</option><option>Player_Kai</option><option>Mira_Dev</option><option>Rex_Legend</option><option>Zero_Admin</option></select></div></div>
+                <div class="ze-row"><span class="ze-label">WalkSpeed</span><input type="range" class="ze-slider" id="zeWsSlider" min="16" max="200" value="16"><span class="ze-badge" id="zeWsVal">16</span></div>
+                <div class="ze-row"><span class="ze-label">JumpPower</span><input type="range" class="ze-slider" id="zeJpSlider" min="50" max="300" value="50"><span class="ze-badge" id="zeJpVal">50</span></div>
+                <div class="ze-row"><span class="ze-label">God Mode</span><div class="ze-toggle"><div class="ze-knob"></div></div></div>
+                <div class="ze-row"><span class="ze-label">Flying Mode</span><div class="ze-toggle"><div class="ze-knob"></div></div></div>
+                <div class="ze-row"><span class="ze-label">Anti-Kick</span><div class="ze-toggle ze-on"><div class="ze-knob"></div></div></div>
+                <div class="ze-row"><span class="ze-label">Name ESP</span><div class="ze-toggle"><div class="ze-knob"></div></div></div>
+                <div class="ze-row"><span class="ze-label">Checkpoint ESP</span><div class="ze-toggle"><div class="ze-knob"></div></div></div>
+                <div class="ze-row"><span class="ze-label">Invisible</span><div class="ze-toggle"><div class="ze-knob"></div></div></div>
+                <div class="ze-row"><span class="ze-label">Anti-Lag</span><div class="ze-toggle ze-on"><div class="ze-knob"></div></div></div>
+                <div class="ze-row"><span class="ze-label">Spy Player</span><input class="ze-input" placeholder="Username / Display" style="width:155px;"></div>
+              </div>
+            </div>
+
+            <!-- PAGE 2 -->
+            <div class="ze-page" id="zepage1">
+              <div class="ze-group">
+                <div class="ze-row"><input class="ze-input" placeholder="User ID / Username" style="width:100%"></div>
+                <div class="ze-row"><input class="ze-input" placeholder="Target (Username)" style="width:100%"></div>
+                <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:6px;">
+                  <button class="ze-btn ze-btn-primary" style="width:100%;">Apply Avatar</button>
+                  <button class="ze-btn ze-btn-primary" style="width:100%;">Apply to Player</button>
+                  <button class="ze-btn" style="width:100%;">Random Avatar</button>
+                  <button class="ze-btn" style="width:100%;">Add Favorite</button>
+                  <button class="ze-btn" style="width:100%;">Reset to Original</button>
+                </div>
+                <hr class="ze-hr">
+                <div class="ze-flex-between"><span class="ze-label">Favorites Openbox</span><button class="ze-btn ze-btn-sm" id="zeFavBtn">&#9660; Open</button></div>
+                <div id="zeFavPanel" style="display:none;background:rgba(0,0,0,0.5);border-radius:10px;padding:8px;margin-top:8px;">
+                  <span class="ze-badge-icon">Kitsune</span><span class="ze-badge-icon">Wizard_Zero</span><span class="ze-badge-icon">Cyber_Punk</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- PAGE 3 -->
+            <div class="ze-page" id="zepage2">
+              <div class="ze-group">
+                <div class="ze-acc-row"><span class="ze-label" style="width:70px;">Head</span><input class="ze-input" placeholder="Asset ID"><div class="ze-plus">+</div></div>
+                <div class="ze-acc-row"><span class="ze-label" style="width:70px;">Hat</span><input class="ze-input" placeholder="Asset ID"><div class="ze-plus">+</div></div>
+                <div class="ze-acc-row"><span class="ze-label" style="width:70px;">Hair</span><input class="ze-input" placeholder="Asset ID"><div class="ze-plus">+</div></div>
+                <div class="ze-acc-row"><span class="ze-label" style="width:70px;">Face acc</span><input class="ze-input" placeholder="Asset ID"><div class="ze-plus">+</div></div>
+                <div class="ze-acc-row"><span class="ze-label" style="width:70px;">Neck</span><input class="ze-input" placeholder="Asset ID"><div class="ze-plus">+</div></div>
+                <div class="ze-acc-row"><span class="ze-label" style="width:70px;">Back</span><input class="ze-input" placeholder="Asset ID"><div class="ze-plus">+</div></div>
+                <div class="ze-acc-row"><span class="ze-label" style="width:70px;">Waist</span><input class="ze-input" placeholder="Asset ID"><div class="ze-plus">+</div></div>
+                <div class="ze-acc-row"><span class="ze-label" style="width:70px;">Shoulder</span><input class="ze-input" placeholder="Asset ID"><div class="ze-plus">+</div></div>
+                <div class="ze-acc-row"><span class="ze-label" style="width:70px;">Front</span><input class="ze-input" placeholder="Asset ID"><div class="ze-plus">+</div></div>
+              </div>
+              <div class="ze-group">
+                <div class="ze-flex-between"><span class="ze-label">Edit Position Accessories</span><div class="ze-sel-wrap" style="width:100px;"><select class="ze-select"><option>Hat</option><option>Hair</option></select></div><button class="ze-btn ze-btn-sm">Edit</button></div>
+                <div class="ze-row" style="margin-top:8px;"><span class="ze-label">Headless &amp; Korblox</span><div class="ze-toggle ze-on"><div class="ze-knob"></div></div></div>
+                <div class="ze-row"><span class="ze-label">Avatar RGB</span><div class="ze-toggle"><div class="ze-knob"></div></div></div>
+              </div>
+              <div class="ze-group">
+                <input class="ze-input" placeholder="Save preset name" style="margin-bottom:8px;width:100%;">
+                <div class="ze-flex-between"><span class="ze-label">Preset list</span><div class="ze-sel-wrap" style="width:130px;"><select class="ze-select"><option value="" disabled selected>Select Preset</option><option>Preset 1</option><option>Preset 2</option></select></div><button class="ze-btn ze-btn-primary ze-btn-sm">Load</button></div>
+              </div>
+            </div>
+
+            <!-- PAGE 4 -->
+            <div class="ze-page" id="zepage3">
+              <div class="ze-group">
+                <div class="ze-acc-row"><span class="ze-label" style="width:100px;">Classic Shirt</span><input class="ze-input" placeholder="Asset ID"><div class="ze-plus">+</div></div>
+                <div class="ze-acc-row"><span class="ze-label" style="width:100px;">Classic Pants</span><input class="ze-input" placeholder="Asset ID"><div class="ze-plus">+</div></div>
+                <div class="ze-acc-row"><span class="ze-label" style="width:100px;">Shirt</span><input class="ze-input" placeholder="Asset ID"><div class="ze-plus">+</div></div>
+                <div class="ze-acc-row"><span class="ze-label" style="width:100px;">T-shirt</span><input class="ze-input" placeholder="Asset ID"><div class="ze-plus">+</div></div>
+                <div class="ze-acc-row"><span class="ze-label" style="width:100px;">Sweater</span><input class="ze-input" placeholder="Asset ID"><div class="ze-plus">+</div></div>
+                <div class="ze-acc-row"><span class="ze-label" style="width:100px;">Jacket</span><input class="ze-input" placeholder="Asset ID"><div class="ze-plus">+</div></div>
+                <div class="ze-acc-row"><span class="ze-label" style="width:100px;">Pants</span><input class="ze-input" placeholder="Asset ID"><div class="ze-plus">+</div></div>
+                <div class="ze-acc-row"><span class="ze-label" style="width:100px;">Shoes</span><input class="ze-input" placeholder="Asset ID"><div class="ze-plus">+</div></div>
+              </div>
+              <div class="ze-group">
+                <input class="ze-input" placeholder="Save preset name" style="margin-bottom:8px;width:100%;">
+                <div class="ze-flex-between"><span class="ze-label">Preset list</span><div class="ze-sel-wrap" style="width:130px;"><select class="ze-select"><option value="" disabled selected>Select Preset</option><option>Winter Pack</option><option>Streetwear</option></select></div><button class="ze-btn ze-btn-primary ze-btn-sm">Load</button></div>
+              </div>
+            </div>
+
+            <!-- PAGE 5 -->
+            <div class="ze-page" id="zepage4">
+              <div class="ze-group">
+                <div class="ze-row"><span class="ze-label">Enable Animation Changer</span><div class="ze-toggle"><div class="ze-knob"></div></div></div>
+                <div class="ze-row"><span class="ze-label">Animation Changer</span><div class="ze-sel-wrap"><select class="ze-select"><option value="" disabled selected>Select Animation</option><option>Default</option><option>Cartoony</option><option>Knight</option><option>Ninja</option></select></div></div>
+                <hr class="ze-hr">
+                <div style="text-align:center;margin-bottom:8px;"><span class="ze-label">Custom Animation</span></div>
+                <div style="display:flex;flex-direction:column;gap:6px;">
+                  <div class="ze-acc-row" style="margin-bottom:0;"><span class="ze-label" style="width:50px;">Run</span><input class="ze-input" placeholder="Name" style="flex:1;"><button class="ze-btn ze-btn-sm ze-btn-disabled">Set</button></div>
+                  <div class="ze-acc-row" style="margin-bottom:0;"><span class="ze-label" style="width:50px;">Walk</span><input class="ze-input" placeholder="Name" style="flex:1;"><button class="ze-btn ze-btn-sm ze-btn-disabled">Set</button></div>
+                  <div class="ze-acc-row" style="margin-bottom:0;"><span class="ze-label" style="width:50px;">Fall</span><input class="ze-input" placeholder="Name" style="flex:1;"><button class="ze-btn ze-btn-sm ze-btn-disabled">Set</button></div>
+                  <div class="ze-acc-row" style="margin-bottom:0;"><span class="ze-label" style="width:50px;">Jump</span><input class="ze-input" placeholder="Name" style="flex:1;"><button class="ze-btn ze-btn-sm ze-btn-disabled">Set</button></div>
+                  <div class="ze-acc-row" style="margin-bottom:0;"><span class="ze-label" style="width:50px;">Idle</span><input class="ze-input" placeholder="Name" style="flex:1;"><button class="ze-btn ze-btn-sm ze-btn-disabled">Set</button></div>
+                  <div class="ze-acc-row" style="margin-bottom:0;"><span class="ze-label" style="width:50px;">Swim</span><input class="ze-input" placeholder="Name" style="flex:1;"><button class="ze-btn ze-btn-sm ze-btn-disabled">Set</button></div>
+                  <div class="ze-acc-row" style="margin-bottom:0;"><span class="ze-label" style="width:50px;">Climb</span><input class="ze-input" placeholder="Name" style="flex:1;"><button class="ze-btn ze-btn-sm ze-btn-disabled">Set</button></div>
+                </div>
+                <hr class="ze-hr">
+                <div class="ze-group" style="background:rgba(0,0,0,0.3);">
+                  <input class="ze-input" placeholder="Save preset name" style="margin-bottom:8px;width:100%;">
+                  <div class="ze-flex-between"><span class="ze-label">Preset list</span><div class="ze-sel-wrap" style="width:130px;"><select class="ze-select"><option value="" disabled selected>Select Preset</option><option>Ninja Pack</option><option>Smooth Walk</option></select></div><button class="ze-btn ze-btn-primary ze-btn-sm">Load</button></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- PAGE 6 -->
+            <div class="ze-page" id="zepage5">
+              <div class="ze-music">
+                <div class="ze-flex-between"><span class="ze-label">NOW PLAYING</span><span class="ze-badge-icon">Lofi Vibes</span></div>
+                <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1rem;margin:8px 0;color:var(--fg);">Nightfall Echoes</div>
+                <div class="ze-progress-bar"><div class="ze-progress-fill" id="zeProgressFill"></div></div>
+                <div class="ze-flex-between" style="margin-bottom:8px;">
+                  <button class="ze-btn ze-btn-sm" id="zePrevBtn">&#9198;</button>
+                  <button class="ze-btn ze-btn-primary" id="zePlayBtn">&#9654; Play</button>
+                  <button class="ze-btn ze-btn-sm" id="zeNextBtn">&#9197;</button>
+                </div>
+                <div class="ze-row"><span class="ze-label">Volume</span><input type="range" class="ze-slider" id="zeVolSlider" min="0" max="100" value="55"><span class="ze-badge" id="zeVolBadge">55%</span></div>
+              </div>
+              <div class="ze-group">
+                <div class="ze-sel-wrap" style="margin-bottom:8px;"><select class="ze-select"><option value="" disabled selected>Select Track</option><option>Midnight Rain</option><option>City Lights</option><option>Distant Stars</option></select></div>
+                <div style="display:flex;gap:6px;align-items:center;margin-bottom:8px;">
+                  <input class="ze-input" placeholder="Song name" style="flex:1;min-width:0;">
+                  <input class="ze-input" placeholder="Sound ID" style="flex:1;min-width:0;">
+                  <button class="ze-btn ze-btn-primary ze-btn-sm ze-btn-disabled" style="flex-shrink:0;white-space:nowrap;">+ Add</button>
+                </div>
+                <button class="ze-scan-btn" id="zeScanBtn">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 15v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  Scan local file (MP3 / OGG)
+                </button>
+                <div id="zeScannedFile" style="display:none;margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--green);text-align:center;"></div>
+                <input type="file" id="zeFileInput" accept=".mp3,.ogg,audio/mpeg,audio/ogg" style="display:none;">
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -518,7 +861,7 @@ h1,h2,h3,h4{font-family:"Rajdhani",sans-serif;font-weight:700;line-height:1.1}
     </div>
     <div class="ftbot">
       <p>© <span id="yr"></span> kkkkkk-dev. All rights reserved.</p>
-      <p>Built in the dark</p>
+      
     </div>
   </div>
 </footer>
@@ -592,6 +935,111 @@ document.querySelectorAll('.rv').forEach(el => {
     revealObs.observe(el);
   }
 });
+
+// ── ZE UI CARD ──────────────────────────────────────────
+(function(){
+  const ZE_PAGES = 6;
+  let zeCurrent = 0;
+  const zeTrack   = document.getElementById('zeTrack');
+  const zeWrapper = document.getElementById('zeWrapper');
+  const zeDotEls  = document.querySelectorAll('.ze-dot');
+
+  function zeGo(idx, animated=true){
+    idx = Math.max(0,Math.min(ZE_PAGES-1,idx));
+    zeCurrent = idx;
+    if(!animated) zeTrack.classList.add('no-trans');
+    zeTrack.style.transform = `translateX(-${idx*100}%)`;
+    if(!animated) requestAnimationFrame(()=>requestAnimationFrame(()=>zeTrack.classList.remove('no-trans')));
+    zeDotEls.forEach((d,i)=>d.classList.toggle('ze-dot-active',i===idx));
+  }
+  zeDotEls.forEach((d,i)=>d.addEventListener('click',()=>zeGo(i)));
+
+  // mouse drag
+  let msx=0,msy=0,mdrag=false,mdelta=0,mHoriz=null;
+  zeWrapper.addEventListener('mousedown',e=>{msx=e.clientX;msy=e.clientY;mdrag=true;mHoriz=null;mdelta=0;zeWrapper.classList.add('dragging');});
+  window.addEventListener('mousemove',e=>{
+    if(!mdrag)return;
+    const dx=e.clientX-msx,dy=e.clientY-msy;
+    if(mHoriz===null&&(Math.abs(dx)>5||Math.abs(dy)>5)) mHoriz=Math.abs(dx)>=Math.abs(dy);
+    if(!mHoriz)return;
+    mdelta=dx;zeTrack.classList.add('no-trans');
+    zeTrack.style.transform=`translateX(calc(-${zeCurrent*100}% + ${dx}px))`;
+  });
+  window.addEventListener('mouseup',()=>{
+    if(!mdrag)return;mdrag=false;zeWrapper.classList.remove('dragging');zeTrack.classList.remove('no-trans');
+    if(mHoriz&&Math.abs(mdelta)>50) zeGo(mdelta<0?zeCurrent+1:zeCurrent-1);
+    else zeGo(zeCurrent);
+    mdelta=0;mHoriz=null;
+  });
+
+  // touch
+  let tsx=0,tsy=0,tHoriz=null;
+  zeWrapper.addEventListener('touchstart',e=>{tsx=e.touches[0].clientX;tsy=e.touches[0].clientY;tHoriz=null;},{passive:true});
+  zeWrapper.addEventListener('touchmove',e=>{
+    const dx=e.touches[0].clientX-tsx,dy=e.touches[0].clientY-tsy;
+    if(tHoriz===null&&(Math.abs(dx)>5||Math.abs(dy)>5)) tHoriz=Math.abs(dx)>=Math.abs(dy);
+    if(!tHoriz)return;e.preventDefault();
+    zeTrack.classList.add('no-trans');
+    zeTrack.style.transform=`translateX(calc(-${zeCurrent*100}% + ${dx}px))`;
+  },{passive:false});
+  zeWrapper.addEventListener('touchend',e=>{
+    const dx=e.changedTouches[0].clientX-tsx;
+    zeTrack.classList.remove('no-trans');
+    if(tHoriz&&Math.abs(dx)>50) zeGo(dx<0?zeCurrent+1:zeCurrent-1);
+    else zeGo(zeCurrent);
+    tHoriz=null;
+  });
+
+  // toggles
+  document.querySelectorAll('.ze-toggle').forEach(t=>t.addEventListener('click',e=>{e.stopPropagation();t.classList.toggle('ze-on');}));
+
+  // sliders
+  const zeWsS=document.getElementById('zeWsSlider'),zeWsV=document.getElementById('zeWsVal');
+  const zeJpS=document.getElementById('zeJpSlider'),zeJpV=document.getElementById('zeJpVal');
+  const zeVoS=document.getElementById('zeVolSlider'),zeVoV=document.getElementById('zeVolBadge');
+  if(zeWsS) zeWsS.addEventListener('input',e=>zeWsV.textContent=e.target.value);
+  if(zeJpS) zeJpS.addEventListener('input',e=>zeJpV.textContent=e.target.value);
+  if(zeVoS) zeVoS.addEventListener('input',e=>zeVoV.textContent=e.target.value+'%');
+
+  // fav panel
+  const zeFavBtn=document.getElementById('zeFavBtn'),zeFavPanel=document.getElementById('zeFavPanel');
+  if(zeFavBtn) zeFavBtn.addEventListener('click',()=>{
+    const open=zeFavPanel.style.display==='none';
+    zeFavPanel.style.display=open?'block':'none';
+    zeFavBtn.innerHTML=open?'&#9650; Close':'&#9660; Open';
+  });
+
+  // music player
+  const zePlay=document.getElementById('zePlayBtn'),zePrev=document.getElementById('zePrevBtn'),zeNext=document.getElementById('zeNextBtn'),zePFill=document.getElementById('zeProgressFill');
+  let playing=false,prog=45,timer=null;
+  function zeSetPlay(s){
+    playing=s;
+    if(zePlay) zePlay.innerHTML=playing?'&#9646;&#9646; Pause':'&#9654; Play';
+    if(playing){timer=setInterval(()=>{prog=Math.min(100,prog+0.5);if(zePFill)zePFill.style.width=prog+'%';if(prog>=100){zeSetPlay(false);prog=0;}},300);}
+    else clearInterval(timer);
+  }
+  if(zePlay) zePlay.addEventListener('click',()=>zeSetPlay(!playing));
+  if(zePrev) zePrev.addEventListener('click',()=>{prog=0;if(zePFill)zePFill.style.width='0%';});
+  if(zeNext) zeNext.addEventListener('click',()=>{prog=0;if(zePFill)zePFill.style.width='0%';zeSetPlay(false);});
+
+  // scan file
+  const zeScanBtn=document.getElementById('zeScanBtn'),zeFileInput=document.getElementById('zeFileInput'),zeScanned=document.getElementById('zeScannedFile');
+  if(zeScanBtn) zeScanBtn.addEventListener('click',()=>zeFileInput.click());
+  if(zeFileInput) zeFileInput.addEventListener('change',()=>{
+    const f=zeFileInput.files[0];
+    if(f){zeScanned.style.display='block';zeScanned.textContent='Loaded: '+f.name+' ('+(f.size/1024).toFixed(1)+' KB)';}
+  });
+
+  // plus buttons
+  document.querySelectorAll('.ze-plus').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const inp=btn.previousElementSibling;
+      if(inp&&inp.tagName==='INPUT') alert('Applied asset ID: '+(inp.value||'(empty)'));
+    });
+  });
+})();
+
 </script>
 </body>
 </html>
+l>
