@@ -79,13 +79,11 @@ h1,h2,h3,h4{font-family:"Rajdhani",sans-serif;font-weight:700;line-height:1.1}
   -webkit-tap-highlight-color:transparent;
   transition:box-shadow .3s,transform .2s;
 }
-/* Diagonal gloss shine - top-left reflection */
 .glass::before{
   content:"";position:absolute;inset:0;
   background:linear-gradient(128deg,rgba(255,255,255,0.11) 0%,rgba(255,255,255,0.05) 22%,rgba(255,255,255,0.01) 38%,transparent 52%,rgba(0,0,0,0.18) 78%,rgba(0,0,0,0.32) 100%);
   pointer-events:none;z-index:1;border-radius:inherit;
 }
-/* Inner highlight line top+left */
 .glass::after{
   content:"";position:absolute;inset:1px;
   border-radius:calc(var(--r) - 2px);
@@ -99,7 +97,6 @@ h1,h2,h3,h4{font-family:"Rajdhani",sans-serif;font-weight:700;line-height:1.1}
   box-shadow:0 0 0 1px rgba(255,255,255,0.28),0 0 20px rgba(255,255,255,0.12),0 0 48px rgba(255,255,255,0.05),0 4px 14px rgba(0,0,0,0.95);
   transform:scale(0.98);
 }
-/* CRITICAL: children must be above pseudo elements */
 .glass>*{position:relative;z-index:4}
 .gnav{
   background:rgba(5,6,10,0.88);
@@ -338,122 +335,37 @@ h1,h2,h3,h4{font-family:"Rajdhani",sans-serif;font-weight:700;line-height:1.1}
 @keyframes fid{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
 
 /* ════ GLARE SWEEP ON ENTER ════ */
-.glare-layer{position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:20;overflow:hidden}
+.glare-layer{
+  position:absolute;inset:0;border-radius:inherit;
+  pointer-events:none;z-index:20;overflow:hidden;
+}
 .glare-layer::after{
-  content:"";position:absolute;top:-60%;left:-80%;width:55%;height:220%;
-  background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,0.0) 40%,rgba(255,255,255,0.20) 47%,rgba(255,255,255,0.28) 50%,rgba(255,255,255,0.20) 53%,rgba(255,255,255,0.0) 60%,transparent 70%);
-  transform:translateX(-100%);will-change:transform;
+  content:"";
+  position:absolute;top:-60%;left:-80%;
+  width:55%;height:220%;
+  background:linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(255,255,255,0.0) 40%,
+    rgba(255,255,255,0.20) 47%,
+    rgba(255,255,255,0.28) 50%,
+    rgba(255,255,255,0.20) 53%,
+    rgba(255,255,255,0.0) 60%,
+    transparent 70%
+  );
+  transform:translateX(-100%);
+  will-change:transform;
 }
-.glare-layer.sweep::after{animation:glareSweep 0.72s cubic-bezier(0.25,0.46,0.45,0.94) forwards}
-@keyframes glareSweep{0%{transform:translateX(-100%)}100%{transform:translateX(340%)}}
-@media(prefers-reduced-motion:reduce){.glare-layer,.glare-layer::after{display:none}}
-
-/* ════ UI PREVIEW SHOWCASE ════ */
-.ui-showcase-wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.2rem,3vw,2.2rem);align-items:start;max-width:960px;margin:0 auto}
-@media(max-width:700px){.ui-showcase-wrap{grid-template-columns:1fr}}
-.sc-left{display:flex;flex-direction:column;gap:1rem}
-.feat-tags{display:flex;flex-wrap:wrap;gap:.4rem;padding:.05rem 0}
-.feat-tag{font-family:"JetBrains Mono",monospace;font-size:.52rem;letter-spacing:.09em;padding:.2rem .5rem;border-radius:5px;border:1px solid rgba(255,255,255,0.09);color:rgba(255,255,255,0.42)}
-.feat-tag.hi{background:rgba(74,222,128,0.08);border-color:rgba(74,222,128,0.22);color:rgba(74,222,128,0.85)}
-
-/* UI Mockup frame */
-.ui-mock{
-  background:linear-gradient(135deg,rgba(28,30,38,1) 0%,rgba(10,10,13,1) 55%,rgba(0,0,0,1) 100%);
-  border-top:1px solid rgba(180,210,230,0.45);
-  border-left:1px solid rgba(160,190,210,0.30);
-  border-right:1px solid rgba(18,18,20,0.98);
-  border-bottom:1px solid rgba(12,12,14,0.98);
-  border-radius:16px;
-  box-shadow:0 0 0 1px rgba(0,0,0,0.9),0 20px 55px rgba(0,0,0,0.95);
-  overflow:hidden;position:relative;
+.glare-layer.sweep::after{
+  animation:glareSweep 0.72s cubic-bezier(0.25,0.46,0.45,0.94) forwards;
 }
-.ui-mock::before{content:"";position:absolute;inset:0;background:linear-gradient(128deg,rgba(255,255,255,0.07) 0%,rgba(255,255,255,0.02) 28%,transparent 50%,rgba(0,0,0,0.22) 100%);pointer-events:none;z-index:0;border-radius:inherit}
-
-/* Titlebar */
-.ui-titlebar{display:flex;align-items:center;justify-content:space-between;padding:.4rem .65rem;background:rgba(0,0,0,0.5);border-bottom:1px solid rgba(255,255,255,0.06);position:relative;z-index:2}
-.ui-title{font-family:"JetBrains Mono",monospace;font-size:.62rem;font-weight:700;color:#fff;letter-spacing:.07em}
-.ui-dots-row{display:flex;gap:4px;align-items:center}
-.ui-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.15);transition:background .2s}
-.ui-dot.active{background:#fff;box-shadow:0 0 5px rgba(255,255,255,0.7)}
-.ui-minbtn{width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.5);font-size:10px;display:grid;place-items:center;cursor:default}
-
-/* Tabs */
-.ui-tabs{display:flex;background:rgba(0,0,0,0.28);border-bottom:1px solid rgba(255,255,255,0.055);overflow-x:auto;scrollbar-width:none;position:relative;z-index:2}
-.ui-tabs::-webkit-scrollbar{display:none}
-.ui-tab{flex:1;min-width:0;padding:.3rem .25rem;font-family:"JetBrains Mono",monospace;font-size:.5rem;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,0.32);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;transition:color .2s,border-color .2s;white-space:nowrap;text-align:center}
-.ui-tab.active{color:#fff;border-bottom-color:rgba(255,255,255,0.55)}
-.ui-tab:hover:not(.active){color:rgba(255,255,255,0.6)}
-
-/* Scrollable content */
-.ui-body{padding:.55rem .6rem .65rem;max-height:310px;overflow-y:auto;display:flex;flex-direction:column;gap:.32rem;position:relative;z-index:2;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,0.1) transparent}
-.ui-body::-webkit-scrollbar{width:3px}
-.ui-body::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.12);border-radius:2px}
-
-/* Page visibility */
-.ui-pg{display:none;flex-direction:column;gap:.32rem}
-.ui-pg.active{display:flex}
-
-/* Section header */
-.ui-sec{font-family:"JetBrains Mono",monospace;font-size:.46rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,0.22);padding:.14rem 0 .04rem;border-bottom:1px solid rgba(255,255,255,0.05);margin-bottom:.04rem}
-
-/* Toggle row */
-.ui-row{display:flex;align-items:center;justify-content:space-between;padding:.28rem .44rem;border-radius:7px;background:rgba(255,255,255,0.028);border:1px solid rgba(255,255,255,0.05);cursor:pointer;transition:background .16s,border-color .16s;-webkit-tap-highlight-color:transparent}
-.ui-row:hover{background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.1)}
-.ui-row:active{transform:scale(0.98)}
-.ui-lbl{font-family:"JetBrains Mono",monospace;font-size:.57rem;color:rgba(255,255,255,0.65);letter-spacing:.03em;pointer-events:none}
-.ui-pill{width:26px;height:13px;border-radius:7px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);position:relative;flex-shrink:0;transition:background .2s,border-color .2s;pointer-events:none}
-.ui-pill::after{content:"";position:absolute;top:2px;left:2px;width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.45);transition:transform .2s,background .2s}
-.ui-row.on .ui-pill{background:rgba(74,222,128,0.32);border-color:rgba(74,222,128,0.55)}
-.ui-row.on .ui-pill::after{transform:translateX(13px);background:#4ade80;box-shadow:0 0 5px rgba(74,222,128,0.8)}
-.ui-row.on .ui-lbl{color:#fff}
-
-/* Slider */
-.ui-slrow{display:flex;flex-direction:column;gap:.24rem;padding:.3rem .44rem;border-radius:7px;background:rgba(255,255,255,0.028);border:1px solid rgba(255,255,255,0.05)}
-.ui-slhead{display:flex;justify-content:space-between}
-.ui-sllbl{font-family:"JetBrains Mono",monospace;font-size:.57rem;color:rgba(255,255,255,0.65)}
-.ui-slval{font-family:"JetBrains Mono",monospace;font-size:.55rem;color:rgba(255,255,255,0.38)}
-.ui-sltrack{height:4px;border-radius:2px;background:rgba(255,255,255,0.09);position:relative;cursor:pointer;touch-action:none}
-.ui-slfill{height:100%;border-radius:2px;background:linear-gradient(90deg,rgba(255,255,255,0.35),rgba(255,255,255,0.7));position:relative;transition:width .08s}
-.ui-slfill::after{content:"";position:absolute;right:-4px;top:50%;transform:translateY(-50%);width:8px;height:8px;border-radius:50%;background:#fff;box-shadow:0 0 5px rgba(255,255,255,0.6)}
-
-/* Input row */
-.ui-inp{display:flex;gap:.3rem;padding:.28rem .44rem;border-radius:7px;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.065)}
-.ui-inp span{font-family:"JetBrains Mono",monospace;font-size:.53rem;color:rgba(255,255,255,0.2);flex:1;font-style:italic}
-.ui-inp button{padding:.15rem .38rem;border-radius:4px;font-family:"JetBrains Mono",monospace;font-size:.48rem;letter-spacing:.04em;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.5);cursor:pointer;transition:background .16s}
-.ui-inp button:hover{background:rgba(255,255,255,0.15);color:#fff}
-
-/* Info box */
-.ui-info{padding:.26rem .44rem;border-radius:7px;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.05);font-family:"JetBrains Mono",monospace;font-size:.52rem;color:rgba(255,255,255,0.28);font-style:italic}
-
-/* Dropdown */
-.ui-drop{display:flex;align-items:center;justify-content:space-between;padding:.28rem .44rem;border-radius:7px;background:rgba(0,0,0,0.28);border:1px solid rgba(255,255,255,0.06);cursor:pointer;transition:border-color .16s}
-.ui-drop:hover{border-color:rgba(255,255,255,0.15)}
-.ui-drop span{font-family:"JetBrains Mono",monospace;font-size:.53rem;color:rgba(255,255,255,0.28);font-style:italic}
-.ui-drop svg{width:8px;height:8px;stroke:rgba(255,255,255,0.25);fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
-
-/* Button row */
-.ui-btnrow{display:flex;gap:.3rem}
-.ui-btn{flex:1;padding:.28rem .2rem;border-radius:7px;text-align:center;cursor:pointer;font-family:"JetBrains Mono",monospace;font-size:.5rem;letter-spacing:.05em;text-transform:uppercase;border:1px solid rgba(255,255,255,0.09);background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.45);transition:background .16s,color .16s}
-.ui-btn:hover{background:rgba(255,255,255,0.1);color:#fff}
-.ui-btn.g{border-color:rgba(74,222,128,0.28);color:rgba(74,222,128,0.7)}.ui-btn.g:hover{background:rgba(74,222,128,0.1);color:#4ade80}
-.ui-btn.r{border-color:rgba(220,50,50,0.28);color:rgba(220,80,80,0.65)}.ui-btn.r:hover{background:rgba(220,50,50,0.12);color:rgba(255,100,100,1)}
-
-/* Music row */
-.ui-mrow{display:flex;align-items:center;gap:.44rem;padding:.28rem .44rem;border-radius:7px;background:rgba(255,255,255,0.028);border:1px solid rgba(255,255,255,0.05)}
-.ui-mico{width:22px;height:22px;border-radius:5px;background:rgba(255,255,255,0.065);display:grid;place-items:center;flex-shrink:0}
-.ui-mico svg{width:10px;height:10px;stroke:rgba(255,255,255,0.45);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.ui-minfo{flex:1;min-width:0}
-.ui-mname{font-family:"JetBrains Mono",monospace;font-size:.54rem;color:rgba(255,255,255,0.65);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.ui-msub{font-family:"JetBrains Mono",monospace;font-size:.46rem;color:rgba(255,255,255,0.25);margin-top:.04rem}
-.ui-play{width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.16);display:grid;place-items:center;cursor:pointer;flex-shrink:0;transition:background .16s}
-.ui-play svg{width:7px;height:7px;stroke:#fff;fill:#fff;stroke-width:2;margin-left:1px}
-.ui-play:hover{background:rgba(255,255,255,0.2)}
-
-/* Keybind badge */
-.ui-kbd{font-family:"JetBrains Mono",monospace;font-size:.52rem;color:rgba(255,255,255,0.45);padding:.08rem .28rem;border:1px solid rgba(255,255,255,0.16);border-radius:4px}
-
-/* Hint text below mock */
-.ui-hint{text-align:center;font-family:"JetBrains Mono",monospace;font-size:.52rem;color:var(--muted);margin-top:.6rem;letter-spacing:.09em}
+@keyframes glareSweep{
+  0%  {transform:translateX(-100%)}
+  100%{transform:translateX(340%)}
+}
+@media(prefers-reduced-motion:reduce){
+  .glare-layer,.glare-layer::after{display:none}
+}
 </style>
 </head>
 <body>
@@ -532,198 +444,21 @@ h1,h2,h3,h4{font-family:"Rajdhani",sans-serif;font-weight:700;line-height:1.1}
 <section id="scripts" class="sec">
   <div class="wrap">
     <div class="sech rv"><h2 class="grad">Scripts Showcase</h2><p>Click <strong>Copy Code</strong> to grab the latest undetected build. Updated daily.</p></div>
-    <div class="ui-showcase-wrap">
-
-      <!-- LEFT: script card -->
-      <div class="sc-left rv rl">
-        <div class="sc glass hov rs">
-          <div class="sctp">
-            <div>
-              <div class="sclbl"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>UNIVERSAL</div>
-              <h3>Zero Exploiters</h3>
-            </div>
-            <span class="badge">ONLINE</span>
+    <div class="sgrid">
+      <div class="sc glass hov rv rs">
+        <div class="sctp">
+          <div>
+            <div class="sclbl"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>UNIVERSAL</div>
+            <h3>Zero Exploiters</h3>
           </div>
-          <pre class="code"><code id="code1">loadstring(game:HttpGet("https://raw.githubusercontent.com/kkkkkk-dev/ZeroExploits/main/ZeroUniversal.lua"))()</code></pre>
-          <button class="bcopy shim" onclick="copyCode('code1',this)">
-            <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            COPY CODE
-          </button>
+          <span class="badge">ONLINE</span>
         </div>
-        <div class="feat-tags">
-          <span class="feat-tag hi">✓ NOCLIP</span>
-          <span class="feat-tag">✓ GOD MODE</span>
-          <span class="feat-tag">✓ FLY</span>
-          <span class="feat-tag">✓ INF JUMP</span>
-          <span class="feat-tag">✓ NAME ESP</span>
-          <span class="feat-tag">✓ INVISIBLE</span>
-          <span class="feat-tag">✓ ANTI-KICK</span>
-          <span class="feat-tag">✓ ANTI-LAG</span>
-          <span class="feat-tag">✓ SPY MODE</span>
-          <span class="feat-tag">✓ ANIM CHANGER</span>
-          <span class="feat-tag">✓ MUSIC PLAYER</span>
-          <span class="feat-tag">✓ AVATAR</span>
-          <span class="feat-tag">✓ ACCESSORIES</span>
-          <span class="feat-tag">✓ CLOTHES</span>
-          <span class="feat-tag">✓ MULTIFLING</span>
-        </div>
+        <pre class="code"><code id="code1">loadstring(game:HttpGet("https://raw.githubusercontent.com/kkkkkk-dev/ZeroExploits/main/ZeroUniversal.lua"))()</code></pre>
+        <button class="bcopy shim" onclick="copyCode('code1',this)">
+          <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          COPY CODE
+        </button>
       </div>
-
-      <!-- RIGHT: Interactive UI Mockup -->
-      <div class="rv rr">
-        <div class="ui-mock" id="uiMock">
-          <div class="ui-titlebar">
-            <span class="ui-title" id="uiTitle">Zero Exploiters</span>
-            <div class="ui-dots-row">
-              <div class="ui-dot active" id="d0"></div>
-              <div class="ui-dot" id="d1"></div>
-              <div class="ui-dot" id="d2"></div>
-              <div class="ui-dot" id="d3"></div>
-              <div class="ui-dot" id="d4"></div>
-              <div class="ui-dot" id="d5"></div>
-            </div>
-            <div class="ui-minbtn">−</div>
-          </div>
-          <div class="ui-tabs">
-            <button class="ui-tab active" onclick="uiPage(0,this)">Player</button>
-            <button class="ui-tab" onclick="uiPage(1,this)">Anim</button>
-            <button class="ui-tab" onclick="uiPage(2,this)">Music</button>
-            <button class="ui-tab" onclick="uiPage(3,this)">Avatar</button>
-            <button class="ui-tab" onclick="uiPage(4,this)">Clothes</button>
-            <button class="ui-tab" onclick="uiPage(5,this)">Fling</button>
-          </div>
-          <div class="ui-body">
-
-            <!-- PAGE 0: Player -->
-            <div class="ui-pg active" id="pg0">
-              <div class="ui-sec">Movement</div>
-              <div class="ui-slrow">
-                <div class="ui-slhead"><span class="ui-sllbl">WalkSpeed</span><span class="ui-slval" id="ws">16</span></div>
-                <div class="ui-sltrack" id="wst"><div class="ui-slfill" style="width:0%"></div></div>
-              </div>
-              <div class="ui-slrow">
-                <div class="ui-slhead"><span class="ui-sllbl">JumpPower</span><span class="ui-slval" id="jp">50</span></div>
-                <div class="ui-sltrack" id="jpt"><div class="ui-slfill" style="width:0%"></div></div>
-              </div>
-              <div class="ui-sec">Hacks</div>
-              <div class="ui-row" onclick="this.classList.toggle('on')"><span class="ui-lbl">Noclip</span><div class="ui-pill"></div></div>
-              <div class="ui-row" onclick="this.classList.toggle('on')"><span class="ui-lbl">God Mode</span><div class="ui-pill"></div></div>
-              <div class="ui-row" onclick="this.classList.toggle('on')"><span class="ui-lbl">Flying Mode</span><div class="ui-pill"></div></div>
-              <div class="ui-row" onclick="this.classList.toggle('on')"><span class="ui-lbl">Infinite Jump</span><div class="ui-pill"></div></div>
-              <div class="ui-sec">Utility</div>
-              <div class="ui-row" onclick="this.classList.toggle('on')"><span class="ui-lbl">Anti-Kick</span><div class="ui-pill"></div></div>
-              <div class="ui-row" onclick="this.classList.toggle('on')"><span class="ui-lbl">Name ESP</span><div class="ui-pill"></div></div>
-              <div class="ui-row" onclick="this.classList.toggle('on')"><span class="ui-lbl">Checkpoint ESP</span><div class="ui-pill"></div></div>
-              <div class="ui-row" onclick="this.classList.toggle('on')"><span class="ui-lbl">Invisible</span><div class="ui-pill"></div></div>
-              <div class="ui-row" onclick="this.classList.toggle('on')"><span class="ui-lbl">Anti-Lag</span><div class="ui-pill"></div></div>
-              <div class="ui-sec">Spy Mode</div>
-              <div class="ui-inp"><span>Username / DisplayName...</span><button>SPY</button></div>
-            </div>
-
-            <!-- PAGE 1: Animation -->
-            <div class="ui-pg" id="pg1">
-              <div class="ui-sec">Animation Changer</div>
-              <div class="ui-row" onclick="this.classList.toggle('on')"><span class="ui-lbl">Enable Anim Changer</span><div class="ui-pill"></div></div>
-              <div class="ui-drop"><span>Select Animation...</span><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
-              <div class="ui-inp"><span>Search animation...</span><button>GO</button></div>
-              <div class="ui-sec">Animation Slots</div>
-              <div class="ui-row" style="cursor:default"><span class="ui-lbl">Run</span><span style="font-family:'JetBrains Mono',monospace;font-size:.5rem;color:rgba(255,255,255,0.25)">not set</span></div>
-              <div class="ui-row" style="cursor:default"><span class="ui-lbl">Idle</span><span style="font-family:'JetBrains Mono',monospace;font-size:.5rem;color:rgba(255,255,255,0.25)">not set</span></div>
-              <div class="ui-row" style="cursor:default"><span class="ui-lbl">Jump</span><span style="font-family:'JetBrains Mono',monospace;font-size:.5rem;color:rgba(255,255,255,0.25)">not set</span></div>
-              <div class="ui-sec">Presets</div>
-              <div class="ui-drop"><span>Select preset...</span><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
-              <div class="ui-btnrow">
-                <div class="ui-btn g">Save</div>
-                <div class="ui-btn">Load</div>
-                <div class="ui-btn r">Delete</div>
-              </div>
-              <div class="ui-info">Status: Select animation first!</div>
-            </div>
-
-            <!-- PAGE 2: Music -->
-            <div class="ui-pg" id="pg2">
-              <div class="ui-sec">Music Player</div>
-              <div class="ui-mrow">
-                <div class="ui-mico"><svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
-                <div class="ui-minfo"><div class="ui-mname">No song selected</div><div class="ui-msub">Zero Music Player</div></div>
-                <div class="ui-play"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
-              </div>
-              <div class="ui-drop"><span>Playlist...</span><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
-              <div class="ui-sec">Folder</div>
-              <div class="ui-info" style="font-style:normal;color:rgba(255,255,255,0.38)">📁  ZERO MUSIC FOLDER</div>
-              <div class="ui-info">Place .mp3 / .ogg files in: Zero Music/</div>
-              <div class="ui-sec">Controls</div>
-              <div class="ui-btnrow">
-                <div class="ui-btn g">▶ Play</div>
-                <div class="ui-btn">⏹ Stop</div>
-                <div class="ui-btn">⏭ Skip</div>
-              </div>
-              <div class="ui-slrow">
-                <div class="ui-slhead"><span class="ui-sllbl">Volume</span><span class="ui-slval" id="vol">50</span></div>
-                <div class="ui-sltrack" id="volt"><div class="ui-slfill" style="width:50%"></div></div>
-              </div>
-            </div>
-
-            <!-- PAGE 3: Avatar -->
-            <div class="ui-pg" id="pg3">
-              <div class="ui-sec">Avatar Changer</div>
-              <div class="ui-inp"><span>Username / User ID...</span><button>APPLY</button></div>
-              <div class="ui-info">Status: Idle</div>
-              <div class="ui-sec">Accessories</div>
-              <div class="ui-inp"><span>Asset ID...</span><button>+ ADD</button></div>
-              <div class="ui-row" onclick="this.classList.toggle('on')"><span class="ui-lbl">Headless & Korblox</span><div class="ui-pill"></div></div>
-              <div class="ui-row" onclick="this.classList.toggle('on')"><span class="ui-lbl">Avatar RGB</span><div class="ui-pill"></div></div>
-              <div class="ui-sec">Presets</div>
-              <div class="ui-drop"><span>Select preset...</span><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
-              <div class="ui-btnrow">
-                <div class="ui-btn g">Save Preset</div>
-                <div class="ui-btn r">Remove All</div>
-              </div>
-            </div>
-
-            <!-- PAGE 4: Clothes -->
-            <div class="ui-pg" id="pg4">
-              <div class="ui-sec">Clothes Changer</div>
-              <div class="ui-inp"><span>Shirt Asset ID...</span><button>APPLY</button></div>
-              <div class="ui-inp"><span>Pants Asset ID...</span><button>APPLY</button></div>
-              <div class="ui-sec">Teleport to Player</div>
-              <div class="ui-drop"><span>Select Player...</span><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
-              <div class="ui-btn g" style="text-align:center;padding:.3rem">Teleport ▶</div>
-              <div class="ui-sec">Emote Changer</div>
-              <div class="ui-drop"><span>Select Emote...</span><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
-              <div class="ui-btnrow">
-                <div class="ui-btn g">▶ Play</div>
-                <div class="ui-btn r">⏹ Stop</div>
-              </div>
-            </div>
-
-            <!-- PAGE 5: MultiFling -->
-            <div class="ui-pg" id="pg5">
-              <div class="ui-sec">Zero MultiFling</div>
-              <div class="ui-row" onclick="this.classList.toggle('on')"><span class="ui-lbl">Fling All</span><div class="ui-pill"></div></div>
-              <div class="ui-row" onclick="this.classList.toggle('on')"><span class="ui-lbl">Smart Fling</span><div class="ui-pill"></div></div>
-              <div class="ui-sec">Players</div>
-              <div class="ui-inp"><span>Search players...</span><button>🔍</button></div>
-              <div class="ui-info" id="flingStatus">Fling system disengaged</div>
-              <div class="ui-btnrow">
-                <div class="ui-btn g" onclick="document.getElementById('flingStatus').textContent='Fling system engaged'">START</div>
-                <div class="ui-btn r" onclick="document.getElementById('flingStatus').textContent='Fling system disengaged'">STOP</div>
-                <div class="ui-btn">ALL</div>
-              </div>
-              <div class="ui-btnrow">
-                <div class="ui-btn">Deselect</div>
-                <div class="ui-btn">Refresh</div>
-              </div>
-              <div class="ui-sec">Keybind</div>
-              <div class="ui-row" style="cursor:default"><span class="ui-lbl">Fling Key</span><span class="ui-kbd">E</span></div>
-              <div class="ui-row" style="cursor:default"><span class="ui-lbl">Toggle UI</span><span class="ui-kbd">RightShift</span></div>
-            </div>
-
-          </div><!-- /ui-body -->
-        </div><!-- /ui-mock -->
-        <p class="ui-hint">↑ INTERACTIVE PREVIEW — CLICK TOGGLES &amp; TABS</p>
-      </div>
-
     </div>
   </div>
 </section>
@@ -777,7 +512,7 @@ h1,h2,h3,h4{font-family:"Rajdhani",sans-serif;font-weight:700;line-height:1.1}
         <ul class="flinks">
           <li><a href="#home"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home</a></li>
           <li><a href="#scripts"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>Scripts</a></li>
-          <li><a href="https://discord.gg/Cu9acdzn4v"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Contact Me</a></li>
+          <li><a href="https://discord.gg/Cu9acdzn4v"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Contact</a></li>
         </ul>
       </div>
     </div>
@@ -812,42 +547,8 @@ function copyCode(id, btn) {
   }
 }
 
-// ── UI Mockup: page switcher
-const uiTitles = ['Zero Exploiters','Animation','Music Player','Avatar','Clothes','MultiFling'];
-function uiPage(idx, btn) {
-  document.querySelectorAll('.ui-tab').forEach((b,i) => b.classList.toggle('active', i===idx));
-  document.querySelectorAll('.ui-pg').forEach((p,i) => p.classList.toggle('active', i===idx));
-  document.querySelectorAll('.ui-dot').forEach((d,i) => d.classList.toggle('active', i===idx));
-  document.getElementById('uiTitle').textContent = uiTitles[idx];
-}
-
-// ── UI Mockup: sliders (drag + click, touch + mouse)
-function makeSlider(trackId, valId, min, max) {
-  const track = document.getElementById(trackId);
-  if (!track) return;
-  const fill = track.querySelector('.ui-slfill');
-  const valEl = document.getElementById(valId);
-  let active = false;
-
-  function setVal(clientX) {
-    const rect = track.getBoundingClientRect();
-    const x = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
-    fill.style.width = (x * 100) + '%';
-    valEl.textContent = Math.round(min + x * (max - min));
-  }
-
-  track.addEventListener('mousedown', e => { active = true; setVal(e.clientX); e.preventDefault(); });
-  track.addEventListener('touchstart', e => { active = true; setVal(e.touches[0].clientX); }, {passive:true});
-  window.addEventListener('mousemove', e => { if (active) setVal(e.clientX); });
-  window.addEventListener('touchmove', e => { if (active) setVal(e.touches[0].clientX); }, {passive:true});
-  window.addEventListener('mouseup', () => active = false);
-  window.addEventListener('touchend', () => active = false);
-}
-makeSlider('wst', 'ws', 16, 200);
-makeSlider('jpt', 'jp', 50, 300);
-makeSlider('volt', 'vol', 0, 100);
-
 // ── Glare sweep on scroll reveal
+// Anti-bug: inject once at load, fire via CSS class toggle, unobserve after trigger
 const noMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 function addGlare(el) {
@@ -862,25 +563,26 @@ function fireGlare(el) {
   const g = el.querySelector('.glare-layer');
   if (!g) return;
   g.classList.remove('sweep');
-  void g.offsetWidth; // reflow to restart animation
+  void g.offsetWidth; // force reflow so animation restarts clean
   const delay = parseFloat(getComputedStyle(el).transitionDelay || 0) * 1000;
-  setTimeout(() => { if (document.contains(g)) g.classList.add('sweep'); }, delay + 100);
+  setTimeout(() => { if (document.contains(g)) g.classList.add('sweep'); }, delay + 80);
 }
 
-// Inject glare into all glass + stat cards
+// Inject glare layer into all cards once at load
 document.querySelectorAll('.glass, .stat').forEach(addGlare);
 
-// Scroll reveal observer
+// Scroll reveal + glare observer
 const revealObs = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (e.isIntersecting) {
       e.target.classList.add('on');
       fireGlare(e.target);
-      revealObs.unobserve(e.target);
+      revealObs.unobserve(e.target); // fire once only — prevents double trigger on fast scroll
     }
   });
 }, { threshold: 0.08, rootMargin: '0px 0px -28px 0px' });
 
+// Elements already visible on load (above the fold) — trigger immediately
 document.querySelectorAll('.rv').forEach(el => {
   const r = el.getBoundingClientRect();
   if (r.top < window.innerHeight && r.bottom > 0) {
