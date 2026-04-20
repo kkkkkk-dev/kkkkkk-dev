@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 <title>kkkkkk-dev — Zero Exploiters | Premium Roblox Scripts</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;-webkit-text-size-adjust:100%;-moz-text-size-adjust:100%;text-size-adjust:100%}
 :root{
   --black:#000000;
   --fg:#f4f6fa;
@@ -30,17 +30,16 @@ body{
   color:var(--fg);
   min-height:100vh;
   position:relative;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
 }
 
-/* ── BACKGROUND: pure black + very subtle far glows ── */
+/* ── BACKGROUND: pure black ── */
 body::before{
   content:"";
   position:fixed;inset:0;z-index:0;pointer-events:none;
-  background:
-    radial-gradient(ellipse 70% 45% at 10% 0%,rgba(50,80,200,0.07) 0%,transparent 65%),
-    radial-gradient(ellipse 55% 40% at 90% 5%,rgba(120,50,200,0.055) 0%,transparent 65%),
-    radial-gradient(ellipse 50% 50% at 50% 105%,rgba(0,140,200,0.05) 0%,transparent 65%),
-    #000;
+  background:#000;
 }
 
 /* ── GRID ── */
@@ -149,7 +148,8 @@ h1,h2,h3,h4{font-family:"Rajdhani",sans-serif;font-weight:700;line-height:1.1}
 .hero-in{display:flex;flex-direction:column;align-items:center;text-align:center;gap:clamp(.8rem,2vw,1.15rem)}
 
 .spill{display:inline-flex;align-items:center;gap:.45rem;padding:.36rem .95rem;border-radius:999px;border:1px solid rgba(255,255,255,0.11);background:rgba(255,255,255,0.042);font-family:"JetBrains Mono",monospace;font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
-.sdot{width:6px;height:6px;border-radius:50%;background:#4ade80;box-shadow:0 0 7px rgba(74,222,128,0.9),0 0 14px rgba(74,222,128,0.5);animation:pu 2s ease infinite;flex-shrink:0}
+.sdot{width:6px;height:6px;border-radius:50%;background:#4ade80;box-shadow:0 0 7px rgba(74,222,128,0.9),0 0 14px rgba(74,222,128,0.5);-webkit-animation:pu 2s ease infinite;animation:pu 2s ease infinite;flex-shrink:0}
+@-webkit-keyframes pu{0%,100%{opacity:1;-webkit-transform:scale(1);transform:scale(1)}50%{opacity:.45;-webkit-transform:scale(.75);transform:scale(.75)}}
 @keyframes pu{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.75)}}
 
 .hlabel{font-family:"JetBrains Mono",monospace;font-size:clamp(.9rem,2vw,1.05rem);font-weight:700;letter-spacing:.08em;color:#fff;text-shadow:0 0 16px rgba(255,255,255,0.32)}
@@ -248,7 +248,7 @@ h1,h2,h3,h4{font-family:"Rajdhani",sans-serif;font-weight:700;line-height:1.1}
 .termb{padding:1.1rem 1.15rem;font-family:"JetBrains Mono",monospace;font-size:clamp(.75rem,1.3vw,.83rem);line-height:1.8}
 .pr{color:var(--green);margin-right:.4rem}
 .to{color:var(--muted)}
-.cur{animation:blink 1s steps(1) infinite;color:var(--fg)}
+.cur{-webkit-animation:blink 1s steps(1) infinite;animation:blink 1s steps(1) infinite;color:var(--fg)}
 .nb{box-shadow:0 0 0 1px rgba(255,255,255,0.11),0 0 24px rgba(255,255,255,0.07),inset 0 0 20px rgba(255,255,255,0.022)}
 
 /* ════ FOOTER ════ */
@@ -264,15 +264,24 @@ h1,h2,h3,h4{font-family:"Rajdhani",sans-serif;font-weight:700;line-height:1.1}
 .ftbot{padding-top:1.25rem;border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;flex-wrap:wrap;gap:.9rem;font-family:"JetBrains Mono",monospace;font-size:.68rem;color:var(--muted)}
 
 /* ════ SCROLL REVEAL ════ */
-.rv{opacity:0;transform:translateY(34px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1);will-change:opacity,transform}
-.rv.on{opacity:1;transform:none}
-.rl{transform:translateX(-42px)}.rl.on{transform:none}
-.rr{transform:translateX(42px)}.rr.on{transform:none}
-.rs{transform:scale(.93)}.rs.on{transform:none}
-.rv[data-d="1"]{transition-delay:.07s}.rv[data-d="2"]{transition-delay:.14s}
-.rv[data-d="3"]{transition-delay:.21s}.rv[data-d="4"]{transition-delay:.28s}
-.rv[data-d="5"]{transition-delay:.35s}.rv[data-d="6"]{transition-delay:.42s}
-@media(prefers-reduced-motion:reduce){.rv,.rl,.rr,.rs{opacity:1;transform:none;transition:none}}
+.rv{
+  opacity:0;
+  -webkit-transform:translateY(24px);
+  transform:translateY(24px);
+  -webkit-transition:opacity .6s cubic-bezier(.16,1,.3,1),-webkit-transform .6s cubic-bezier(.16,1,.3,1);
+  transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1);
+  will-change:opacity,transform;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+}
+.rv.on{opacity:1;-webkit-transform:none;transform:none}
+.rl{-webkit-transform:translateX(-28px);transform:translateX(-28px)}.rl.on{-webkit-transform:none;transform:none}
+.rr{-webkit-transform:translateX(28px);transform:translateX(28px)}.rr.on{-webkit-transform:none;transform:none}
+.rs{-webkit-transform:scale(.96);transform:scale(.96)}.rs.on{-webkit-transform:none;transform:none}
+.rv[data-d="1"]{transition-delay:.05s}.rv[data-d="2"]{transition-delay:.1s}
+.rv[data-d="3"]{transition-delay:.15s}.rv[data-d="4"]{transition-delay:.2s}
+.rv[data-d="5"]{transition-delay:.25s}.rv[data-d="6"]{transition-delay:.3s}
+@media(prefers-reduced-motion:reduce){.rv,.rl,.rr,.rs{opacity:1;-webkit-transform:none;transform:none;-webkit-transition:none;transition:none}}
 
 
 /* ════ GLITCH EFFECT ════ */
@@ -294,6 +303,7 @@ h1,h2,h3,h4{font-family:"Rajdhani",sans-serif;font-weight:700;line-height:1.1}
   left:2px;
   text-shadow:-1px 0 rgba(255,80,80,0.7);
   clip-path:polygon(0 0,100% 0,100% 35%,0 35%);
+  -webkit-animation:glitch-top 1.2s infinite linear;
   animation:glitch-top 1.2s infinite linear;
   opacity:0;
 }
@@ -301,8 +311,20 @@ h1,h2,h3,h4{font-family:"Rajdhani",sans-serif;font-weight:700;line-height:1.1}
   left:-2px;
   text-shadow:1px 0 rgba(80,180,255,0.7);
   clip-path:polygon(0 65%,100% 65%,100% 100%,0 100%);
+  -webkit-animation:glitch-bot 1.2s infinite linear;
   animation:glitch-bot 1.2s infinite linear;
   opacity:0;
+}
+@-webkit-keyframes glitch-top{
+  0%,89%,100%{opacity:0;-webkit-transform:none;transform:none}
+  90%{opacity:1;-webkit-transform:translate(-2px,-1px) skewX(-4deg);transform:translate(-2px,-1px) skewX(-4deg)}
+  91%{opacity:0}
+  92%{opacity:1;-webkit-transform:translate(2px,0) skewX(3deg);transform:translate(2px,0) skewX(3deg)}
+  93%,95%{opacity:0}
+  94%{opacity:1;-webkit-transform:translate(-1px,0);transform:translate(-1px,0)}
+  96%{opacity:1;-webkit-transform:translate(3px,-1px) skewX(-6deg);transform:translate(3px,-1px) skewX(-6deg)}
+  97%,99%{opacity:0}
+  98%{opacity:1;-webkit-transform:translate(-2px,1px);transform:translate(-2px,1px)}
 }
 @keyframes glitch-top{
   0%,89%,100%{opacity:0;transform:none}
@@ -314,6 +336,17 @@ h1,h2,h3,h4{font-family:"Rajdhani",sans-serif;font-weight:700;line-height:1.1}
   96%{opacity:1;transform:translate(3px,-1px) skewX(-6deg)}
   97%,99%{opacity:0}
   98%{opacity:1;transform:translate(-2px,1px)}
+}
+@-webkit-keyframes glitch-bot{
+  0%,89%,100%{opacity:0;-webkit-transform:none;transform:none}
+  90%{opacity:1;-webkit-transform:translate(2px,1px) skewX(4deg);transform:translate(2px,1px) skewX(4deg)}
+  91%{opacity:0}
+  92%{opacity:1;-webkit-transform:translate(-2px,0) skewX(-3deg);transform:translate(-2px,0) skewX(-3deg)}
+  93%,95%{opacity:0}
+  94%{opacity:1;-webkit-transform:translate(1px,0);transform:translate(1px,0)}
+  96%{opacity:1;-webkit-transform:translate(-3px,1px) skewX(6deg);transform:translate(-3px,1px) skewX(6deg)}
+  97%,99%{opacity:0}
+  98%{opacity:1;-webkit-transform:translate(2px,-1px);transform:translate(2px,-1px)}
 }
 @keyframes glitch-bot{
   0%,89%,100%{opacity:0;transform:none}
@@ -329,9 +362,12 @@ h1,h2,h3,h4{font-family:"Rajdhani",sans-serif;font-weight:700;line-height:1.1}
 
 /* hover triggers glitch faster */
 .glitch:hover::before,.glitch:hover::after{
+  -webkit-animation-duration:0.4s;
   animation-duration:0.4s;
 }
+@-webkit-keyframes blink{50%{opacity:0}}
 @keyframes blink{50%{opacity:0}}
+@-webkit-keyframes fid{from{opacity:0;-webkit-transform:translateY(-8px);transform:translateY(-8px)}to{opacity:1;-webkit-transform:none;transform:none}}
 @keyframes fid{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
 
 /* ════ GLARE SWEEP ON ENTER ════ */
@@ -357,7 +393,12 @@ h1,h2,h3,h4{font-family:"Rajdhani",sans-serif;font-weight:700;line-height:1.1}
   will-change:transform;
 }
 .glare-layer.sweep::after{
+  -webkit-animation:glareSweep 0.72s cubic-bezier(0.25,0.46,0.45,0.94) forwards;
   animation:glareSweep 0.72s cubic-bezier(0.25,0.46,0.45,0.94) forwards;
+}
+@-webkit-keyframes glareSweep{
+  0%  {-webkit-transform:translateX(-100%);transform:translateX(-100%)}
+  100%{-webkit-transform:translateX(340%);transform:translateX(340%)}
 }
 @keyframes glareSweep{
   0%  {transform:translateX(-100%)}
@@ -378,6 +419,8 @@ h1,h2,h3,h4{font-family:"Rajdhani",sans-serif;font-weight:700;line-height:1.1}
   border-bottom:1px solid rgba(12,12,14,0.98);
   box-shadow:0 0 0 1px rgba(0,0,0,0.85),0 20px 50px rgba(0,0,0,0.9),inset 0 1px 0 rgba(255,255,255,0.05);
   overflow:hidden;
+  -webkit-user-select:none;
+  -moz-user-select:none;
   user-select:none;
 }
 .ze-header{
@@ -396,13 +439,13 @@ h1,h2,h3,h4{font-family:"Rajdhani",sans-serif;font-weight:700;line-height:1.1}
 .ze-dot{width:7px;height:7px;background:rgba(255,255,255,0.18);border-radius:10px;cursor:pointer;transition:all .2s cubic-bezier(.2,.9,.4,1.1);}
 .ze-dot-active,.ze-dot.ze-dot-active{background:#fff;width:20px;box-shadow:0 0 6px rgba(255,255,255,0.5);}
 
-.ze-wrapper{position:relative;overflow:hidden;height:min(400px,62vh);cursor:grab;}
+.ze-wrapper{position:relative;overflow:hidden;height:320px;cursor:grab;}
 .ze-wrapper.dragging{cursor:grabbing;}
-.ze-track{display:flex;align-items:flex-start;transition:transform .32s cubic-bezier(.4,0,.2,1);will-change:transform;}
-.ze-track.no-trans{transition:none;}
+.ze-track{display:flex;align-items:flex-start;-webkit-transition:-webkit-transform .32s cubic-bezier(.4,0,.2,1);transition:transform .32s cubic-bezier(.4,0,.2,1);will-change:transform;}
+.ze-track.no-trans{-webkit-transition:none;transition:none;}
 .ze-page{
   flex:0 0 100%;width:100%;
-  height:min(400px,62vh);
+  height:320px;
   overflow-y:auto;overflow-x:hidden;
   scrollbar-width:thin;
   padding:10px 12px 14px;
@@ -509,7 +552,8 @@ h1,h2,h3,h4{font-family:"Rajdhani",sans-serif;font-weight:700;line-height:1.1}
 .ze-sel-wrap{position:relative;pointer-events:none;flex:1;}
 .ze-select{
   background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.1);
-  border-radius:25px;padding:6px 24px 6px 10px;
+  border-radius:25px;padding:0 24px 0 10px;
+  height:30px;
   color:var(--muted);font-family:"JetBrains Mono",monospace;
   font-size:.62rem;width:100%;cursor:default;
   -webkit-appearance:none;appearance:none;outline:none;
@@ -544,6 +588,27 @@ h1,h2,h3,h4{font-family:"Rajdhani",sans-serif;font-weight:700;line-height:1.1}
   pointer-events:none;
 }
 .ze-scan-btn:hover{background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.16);color:var(--muted);}
+
+.ze-action-btn{
+  background:rgba(60,62,75,0.95);
+  border:1px solid rgba(255,255,255,0.13);
+  border-radius:8px;
+  padding:0 14px;
+  height:30px;
+  color:var(--fg);
+  font-family:"Rajdhani",sans-serif;
+  font-weight:700;
+  font-size:.78rem;
+  letter-spacing:.04em;
+  cursor:pointer;
+  white-space:nowrap;
+  flex-shrink:0;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  transition:background .18s,border-color .18s;
+}
+.ze-action-btn:hover{background:rgba(80,82,100,0.95);border-color:rgba(255,255,255,0.22);}
 
 </style>
 </head>
@@ -668,8 +733,20 @@ h1,h2,h3,h4{font-family:"Rajdhani",sans-serif;font-weight:700;line-height:1.1}
               <div class="ze-group">
                 <div class="ze-row"><span class="ze-label">Zero Extension</span><div class="ze-toggle ze-on"><div class="ze-knob"></div></div></div>
                 <div class="ze-row"><span class="ze-label">Infinity Jump</span><div class="ze-toggle"><div class="ze-knob"></div></div></div>
-                <div class="ze-row"><span class="ze-label">Emotes</span><div class="ze-sel-wrap"><select class="ze-select"><option value="" disabled selected>Select Emotes</option><option>Gojo Aura Farming</option><option>Floating on Clouds</option><option>Sukuna Aura</option><option>Dance Moves</option></select></div></div>
-                <div class="ze-row"><span class="ze-label">Teleport to Player</span><div class="ze-sel-wrap"><select class="ze-select"><option value="" disabled selected>Select Player</option><option>Player_Kai</option><option>Mira_Dev</option><option>Rex_Legend</option><option>Zero_Admin</option></select></div></div>
+                <div style="margin-bottom:9px;">
+                  <div class="ze-label" style="margin-bottom:6px;display:block;">Emotes</div>
+                  <div style="display:flex;gap:6px;align-items:center;">
+                    <div class="ze-sel-wrap" style="flex:1;"><select class="ze-select"><option value="" disabled selected>Select Emote...</option><option>Gojo Aura Farming</option><option>Floating on Clouds</option><option>Sukuna Aura</option><option>Dance Moves</option></select></div>
+                    <button class="ze-action-btn" style="width:64px;">Play</button>
+                  </div>
+                </div>
+                <div style="margin-bottom:9px;">
+                  <div class="ze-label" style="margin-bottom:6px;display:block;">Teleport to Player</div>
+                  <div style="display:flex;gap:6px;align-items:center;">
+                    <div class="ze-sel-wrap" style="flex:1;"><select class="ze-select"><option value="" disabled selected>Select Player...</option><option>Player_Kai</option><option>Mira_Dev</option><option>Rex_Legend</option><option>Zero_Admin</option></select></div>
+                    <button class="ze-action-btn" style="width:64px;">Go!</button>
+                  </div>
+                </div>
                 <div class="ze-row"><span class="ze-label">WalkSpeed</span><input type="range" class="ze-slider" id="zeWsSlider" min="16" max="200" value="16"><span class="ze-badge" id="zeWsVal">16</span></div>
                 <div class="ze-row"><span class="ze-label">JumpPower</span><input type="range" class="ze-slider" id="zeJpSlider" min="50" max="300" value="50"><span class="ze-badge" id="zeJpVal">50</span></div>
                 <div class="ze-row"><span class="ze-label">God Mode</span><div class="ze-toggle"><div class="ze-knob"></div></div></div>
@@ -737,6 +814,8 @@ h1,h2,h3,h4{font-family:"Rajdhani",sans-serif;font-weight:700;line-height:1.1}
                 <div class="ze-acc-row"><span class="ze-label" style="width:100px;">Sweater</span><input class="ze-input" placeholder="Asset ID"><div class="ze-plus">+</div></div>
                 <div class="ze-acc-row"><span class="ze-label" style="width:100px;">Jacket</span><input class="ze-input" placeholder="Asset ID"><div class="ze-plus">+</div></div>
                 <div class="ze-acc-row"><span class="ze-label" style="width:100px;">Pants</span><input class="ze-input" placeholder="Asset ID"><div class="ze-plus">+</div></div>
+                <div class="ze-acc-row"><span class="ze-label" style="width:100px;">Short</span><input class="ze-input" placeholder="Asset ID"><div class="ze-plus">+</div></div>
+                <div class="ze-acc-row"><span class="ze-label" style="width:100px;">Bodysuit</span><input class="ze-input" placeholder="Asset ID"><div class="ze-plus">+</div></div>
                 <div class="ze-acc-row"><span class="ze-label" style="width:100px;">Shoes</span><input class="ze-input" placeholder="Asset ID"><div class="ze-plus">+</div></div>
               </div>
               <div class="ze-group">
@@ -891,7 +970,6 @@ function copyCode(id, btn) {
 }
 
 // ── Glare sweep on scroll reveal
-// Anti-bug: inject once at load, fire via CSS class toggle, unobserve after trigger
 const noMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 function addGlare(el) {
@@ -906,34 +984,53 @@ function fireGlare(el) {
   const g = el.querySelector('.glare-layer');
   if (!g) return;
   g.classList.remove('sweep');
-  void g.offsetWidth; // force reflow so animation restarts clean
+  void g.offsetWidth;
   const delay = parseFloat(getComputedStyle(el).transitionDelay || 0) * 1000;
-  setTimeout(() => { if (document.contains(g)) g.classList.add('sweep'); }, delay + 80);
+  setTimeout(() => { if (document.contains(g)) g.classList.add('sweep'); }, delay + 60);
 }
 
 // Inject glare layer into all cards once at load
 document.querySelectorAll('.glass, .stat').forEach(addGlare);
 
-// Scroll reveal + glare observer
+// ── Fast-scroll safe reveal observer
+// Uses rAF batching so rapid scroll doesn't cause partial renders or blue flashes
+const revealQueue = new Set();
+let rafPending = false;
+
+function flushRevealQueue() {
+  rafPending = false;
+  revealQueue.forEach(el => {
+    el.classList.add('on');
+    fireGlare(el);
+  });
+  revealQueue.clear();
+}
+
 const revealObs = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (e.isIntersecting) {
-      e.target.classList.add('on');
-      fireGlare(e.target);
-      revealObs.unobserve(e.target); // fire once only — prevents double trigger on fast scroll
+      revealQueue.add(e.target);
+      revealObs.unobserve(e.target);
+      if (!rafPending) {
+        rafPending = true;
+        requestAnimationFrame(flushRevealQueue);
+      }
     }
   });
-}, { threshold: 0.08, rootMargin: '0px 0px -28px 0px' });
+}, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
 
-// Elements already visible on load (above the fold) — trigger immediately
+// Elements already visible on load — trigger immediately via rAF
+const initialReveal = [];
 document.querySelectorAll('.rv').forEach(el => {
   const r = el.getBoundingClientRect();
   if (r.top < window.innerHeight && r.bottom > 0) {
-    el.classList.add('on');
-    fireGlare(el);
+    initialReveal.push(el);
   } else {
     revealObs.observe(el);
   }
+});
+requestAnimationFrame(() => {
+  initialReveal.forEach(el => { el.classList.add('on'); fireGlare(el); });
 });
 
 // ── ZE UI CARD ──────────────────────────────────────────
