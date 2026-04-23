@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;-webkit-text-size-adjust:100%;-moz-text-size-adjust:100%;text-size-adjust:100%}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;-webkit-text-size-adjust:100%;-moz-text-size-adjust:100%;text-size-adjust:100%;overflow-y:scroll}
 :root{
   --black:#000000;
   --fg:#f4f6fa;
@@ -26,7 +26,7 @@ html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;-moz-osx-font-smo
 }
 section[id]{scroll-margin-top:72px}
 html,body{width:100%;overflow-x:clip}
-html{height:100%;height:-webkit-fill-available;-webkit-overflow-scrolling:touch}
+html{height:100%;}
 body{
   font-family:"Rajdhani",system-ui,sans-serif;
   background:#000;
@@ -36,6 +36,8 @@ body{
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
   text-rendering:optimizeLegibility;
+  overscroll-behavior-y:none;
+  -webkit-overflow-scrolling:auto;
 }
 
 /* ── BACKGROUND: custom image ── */
@@ -80,7 +82,13 @@ h1,h2,h3,h4{font-family:"Rajdhani",sans-serif;font-weight:700;line-height:1.1}
   position:relative;overflow:hidden;
   cursor:default;
   -webkit-tap-highlight-color:transparent;
-  transition:box-shadow .3s,background .3s;
+  transition:box-shadow .3s,background .3s,opacity .55s,transform .55s;
+  /* Always-on backdrop-filter — no conditional class needed */
+  backdrop-filter:blur(18px) saturate(160%);
+  -webkit-backdrop-filter:blur(18px) saturate(160%);
+  /* Contain paint for mobile perf */
+  contain:layout style;
+  will-change:auto;
 }
 /* backdrop-filter hanya aktif saat elemen sudah visible (tidak sedang animasi) */
 .glass.on, .glass:not(.rv){
@@ -198,8 +206,10 @@ h1,h2,h3,h4{font-family:"Rajdhani",sans-serif;font-weight:700;line-height:1.1}
   cursor:pointer;
   border:1px solid rgba(255,255,255,0.10);
   box-shadow:0 8px 24px rgba(0,0,0,0.35),inset 0 1px 0 rgba(255,255,255,0.08);
-  transition:box-shadow .2s,transform .15s,background .2s;
+  transition:box-shadow .2s,transform .15s,background .2s,opacity .55s;
   -webkit-tap-highlight-color:transparent;
+  contain:layout style;
+  will-change:auto;
 }
 .stat::before{
   content:"";position:absolute;inset:0;
@@ -292,20 +302,22 @@ h1,h2,h3,h4{font-family:"Rajdhani",sans-serif;font-weight:700;line-height:1.1}
 /* ════ SCROLL REVEAL ════ */
 .rv{
   opacity:0;
-  -webkit-transform:translateY(24px);
-  transform:translateY(24px);
-  -webkit-transition:opacity .6s cubic-bezier(.16,1,.3,1),-webkit-transform .6s cubic-bezier(.16,1,.3,1);
-  transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1);
+  -webkit-transform:translateY(22px);
+  transform:translateY(22px);
+  /* Only animate opacity + transform — never backdrop-filter */
+  -webkit-transition:opacity .55s cubic-bezier(.16,1,.3,1),-webkit-transform .55s cubic-bezier(.16,1,.3,1);
+  transition:opacity .55s cubic-bezier(.16,1,.3,1),transform .55s cubic-bezier(.16,1,.3,1);
+  will-change:opacity,transform;
 }
-.rv.on{opacity:1;-webkit-transform:none;transform:none}
-.rl{-webkit-transform:translateX(-28px);transform:translateX(-28px)}.rl.on{-webkit-transform:none;transform:none}
-.rr{-webkit-transform:translateX(28px);transform:translateX(28px)}.rr.on{-webkit-transform:none;transform:none}
+.rv.on{opacity:1;-webkit-transform:none;transform:none;will-change:auto;}
+.rl{-webkit-transform:translateX(-26px);transform:translateX(-26px)}.rl.on{-webkit-transform:none;transform:none}
+.rr{-webkit-transform:translateX(26px);transform:translateX(26px)}.rr.on{-webkit-transform:none;transform:none}
 .rs{-webkit-transform:scale(.96);transform:scale(.96)}.rs.on{-webkit-transform:none;transform:none}
 .rv[data-d="1"]{transition-delay:.05s}.rv[data-d="2"]{transition-delay:.1s}
 .rv[data-d="3"]{transition-delay:.15s}.rv[data-d="4"]{transition-delay:.2s}
 .rv[data-d="5"]{transition-delay:.25s}.rv[data-d="6"]{transition-delay:.3s}
 .rv[data-d="7"]{transition-delay:.35s}.rv[data-d="8"]{transition-delay:.4s}
-@media(prefers-reduced-motion:reduce){.rv,.rl,.rr,.rs{opacity:1;-webkit-transform:none;transform:none;-webkit-transition:none;transition:none}}
+@media(prefers-reduced-motion:reduce){.rv,.rl,.rr,.rs{opacity:1;-webkit-transform:none;transform:none;-webkit-transition:none;transition:none;will-change:auto;}}
 
 
 /* ════ GLITCH EFFECT ════ */
@@ -434,20 +446,21 @@ h1,h2,h3,h4{font-family:"Rajdhani",sans-serif;font-weight:700;line-height:1.1}
 
 /* ════ ZE CARD REVEAL ════ */
 .ze-reveal-wrap{
+  padding-top: 4px;
+}
+.ze-reveal-wrap > .ze-card{
   opacity:0;
-  -webkit-transform:translateY(20px);
-  transform:translateY(20px);
+  -webkit-transform:translateY(18px);
+  transform:translateY(18px);
   -webkit-transition:opacity .55s cubic-bezier(.16,1,.3,1), -webkit-transform .55s cubic-bezier(.16,1,.3,1);
   transition:opacity .55s cubic-bezier(.16,1,.3,1), transform .55s cubic-bezier(.16,1,.3,1);
-  padding-top: 4px;
-  /* Blur selalu aktif sejak awal — tidak menunggu reveal */
-  backdrop-filter:blur(24px) saturate(160%);
-  -webkit-backdrop-filter:blur(24px) saturate(160%);
+  will-change:opacity,transform;
 }
-.ze-reveal-wrap.ze-on{
+.ze-reveal-wrap.ze-on > .ze-card{
   opacity:1;
   -webkit-transform:translateY(0);
   transform:translateY(0);
+  will-change:auto;
 }
 
 
@@ -465,8 +478,11 @@ h1,h2,h3,h4{font-family:"Rajdhani",sans-serif;font-weight:700;line-height:1.1}
   -webkit-user-select:none;
   -moz-user-select:none;
   user-select:none;
-  /* Pastikan shadow header tidak terpotong */
-  transform: translateZ(0);
+  isolation:isolate;
+  /* Stabilize paint — prevents flicker on fast scroll */
+  contain:layout style paint;
+  transform:translateZ(0);
+  -webkit-transform:translateZ(0);
 }
 .ze-header{
   display:flex;justify-content:space-between;align-items:center;
@@ -502,11 +518,11 @@ h1,h2,h3,h4{font-family:"Rajdhani",sans-serif;font-weight:700;line-height:1.1}
 .ze-page::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.18);border-radius:10px;}
 
 .ze-group{
-  background:rgba(255,255,255,0.03);
-  backdrop-filter:blur(8px);
-  -webkit-backdrop-filter:blur(8px);
+  background:rgba(255,255,255,0.05);
+  /* Tidak pakai backdrop-filter di sini — parent .ze-card sudah blur.
+     Child backdrop-filter bisa bocor keluar batas glassmorphism. */
   border-radius:16px;padding:10px 12px;
-  border:1px solid rgba(255,255,255,0.07);
+  border:1px solid rgba(255,255,255,0.09);
 }
 .ze-row{
   display:flex;align-items:center;justify-content:space-between;
@@ -994,10 +1010,35 @@ h1,h2,h3,h4{font-family:"Rajdhani",sans-serif;font-weight:700;line-height:1.1}
 
 <script>
 document.getElementById('yr').textContent = new Date().getFullYear();
+
+// ── Smooth scroll — polyfill for all browsers including iOS Safari
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', function(e) {
-    const el = document.getElementById(this.getAttribute('href').slice(1));
-    if (el) { e.preventDefault(); el.scrollIntoView({behavior:'smooth'}); document.getElementById('mob').classList.remove('open'); }
+    const id = this.getAttribute('href').slice(1);
+    const el = document.getElementById(id);
+    if (!el) return;
+    e.preventDefault();
+    // Close mobile menu
+    document.getElementById('mob').classList.remove('open');
+    // Native smooth scroll with fallback
+    const top = el.getBoundingClientRect().top + window.pageYOffset - 72;
+    if ('scrollBehavior' in document.documentElement.style) {
+      window.scrollTo({ top, behavior: 'smooth' });
+    } else {
+      // Manual smooth scroll fallback (iOS < 15.4)
+      const start = window.pageYOffset;
+      const dist = top - start;
+      const dur = Math.min(600, Math.abs(dist) * 0.4);
+      let startT = null;
+      function step(t) {
+        if (!startT) startT = t;
+        const prog = Math.min(1, (t - startT) / dur);
+        const ease = prog < 0.5 ? 2*prog*prog : -1+(4-2*prog)*prog;
+        window.scrollTo(0, start + dist * ease);
+        if (prog < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
   });
 });
 
@@ -1007,7 +1048,9 @@ ham.addEventListener('click', () => mob.classList.toggle('open'));
 mob.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mob.classList.remove('open')));
 
 // ── Sticky nav
-window.addEventListener('scroll', () => document.querySelector('.navbar').classList.toggle('stuck', scrollY > 8), {passive:true});
+window.addEventListener('scroll', () => {
+  document.querySelector('.navbar').classList.toggle('stuck', window.pageYOffset > 8);
+}, {passive: true});
 
 // ── Copy code
 function copyCode(id, btn) {
@@ -1043,7 +1086,6 @@ function fireGlare(el) {
   setTimeout(() => {
     if (document.contains(g)) {
       g.classList.add('sweep');
-      // Reset setelah animasi selesai agar bisa trigger ulang
       g.addEventListener('animationend', () => g.classList.remove('sweep'), { once: true });
     }
   }, delay + 60);
@@ -1052,20 +1094,27 @@ function fireGlare(el) {
 // Inject glare layer into all cards once at load
 document.querySelectorAll('.glass, .stat').forEach(el => { if (!el.closest('.reas')) addGlare(el); });
 
-// ── Fast-scroll safe reveal observer
-// Uses rAF batching so rapid scroll doesn't cause partial renders or blue flashes
+// ── BULLETPROOF fast-scroll reveal
+// Key insight: backdrop-filter is ALWAYS applied via CSS.
+// We only animate opacity + transform. No backdrop-filter toggling.
+// rAF batching prevents partial renders on fast scroll.
+
 const revealQueue = new Set();
 let rafPending = false;
 
 function flushRevealQueue() {
   rafPending = false;
-  revealQueue.forEach(el => {
-    el.classList.add('on');
-    fireGlare(el);
+  // Double rAF: first frame for layout, second for paint — prevents blue flash
+  requestAnimationFrame(() => {
+    revealQueue.forEach(el => {
+      el.classList.add('on');
+      fireGlare(el);
+    });
+    revealQueue.clear();
   });
-  revealQueue.clear();
 }
 
+const REVEAL_THRESHOLD = 0.04;
 const revealObs = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (e.isIntersecting) {
@@ -1077,36 +1126,40 @@ const revealObs = new IntersectionObserver(entries => {
       }
     }
   });
-}, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
+}, { threshold: REVEAL_THRESHOLD, rootMargin: '0px 0px -10px 0px' });
 
-// Elements already visible on load — trigger immediately via rAF
-const initialReveal = [];
+// Split: elements visible on load vs those needing observation
+const vw = window.innerWidth, vh = window.innerHeight;
 document.querySelectorAll('.rv').forEach(el => {
   const r = el.getBoundingClientRect();
-  if (r.top < window.innerHeight && r.bottom > 0) {
-    initialReveal.push(el);
+  if (r.top < vh && r.bottom > 0) {
+    // Visible immediately — reveal in next rAF to avoid initial paint jank
+    requestAnimationFrame(() => {
+      el.classList.add('on');
+      fireGlare(el);
+    });
   } else {
     revealObs.observe(el);
   }
 });
-requestAnimationFrame(() => {
-  initialReveal.forEach(el => { el.classList.add('on'); fireGlare(el); });
-});
 
-// Ze card reveal — observer terpisah, pakai ze-on class
+// Ze card reveal — separate observer
 const zeWrapObs = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (e.isIntersecting) {
-      e.target.classList.add('ze-on');
+      // Double rAF for stable glass on mobile
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        e.target.classList.add('ze-on');
+      }));
       zeWrapObs.unobserve(e.target);
     }
   });
-}, { threshold: 0.1 });
+}, { threshold: 0.08 });
 
 document.querySelectorAll('.ze-reveal-wrap').forEach(el => {
   const r = el.getBoundingClientRect();
-  if (r.top < window.innerHeight && r.bottom > 0) {
-    requestAnimationFrame(() => el.classList.add('ze-on'));
+  if (r.top < vh && r.bottom > 0) {
+    requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('ze-on')));
   } else {
     zeWrapObs.observe(el);
   }
@@ -1148,61 +1201,67 @@ document.querySelectorAll('.ze-reveal-wrap').forEach(el => {
     mdelta=0;mHoriz=null;
   });
 
-  // touch
-  let tsx=0,tsy=0,tHoriz=null;
-  zeWrapper.addEventListener('touchstart',e=>{tsx=e.touches[0].clientX;tsy=e.touches[0].clientY;tHoriz=null;},{passive:true});
+  // touch — stable horizontal detection, prevent vertical scroll conflict
+  let tsx=0,tsy=0,tHoriz=null,tActive=false;
+  zeWrapper.addEventListener('touchstart',e=>{
+    tsx=e.touches[0].clientX;tsy=e.touches[0].clientY;tHoriz=null;tActive=true;
+  },{passive:true});
   zeWrapper.addEventListener('touchmove',e=>{
+    if(!tActive)return;
     const dx=e.touches[0].clientX-tsx,dy=e.touches[0].clientY-tsy;
-    if(tHoriz===null&&(Math.abs(dx)>5||Math.abs(dy)>5)) tHoriz=Math.abs(dx)>=Math.abs(dy);
-    if(!tHoriz)return;e.preventDefault();
+    if(tHoriz===null&&(Math.abs(dx)>8||Math.abs(dy)>8)){
+      tHoriz=Math.abs(dx)>Math.abs(dy);
+    }
+    if(!tHoriz)return;
+    e.preventDefault();
     zeTrack.classList.add('no-trans');
     zeTrack.style.transform=`translateX(calc(-${zeCurrent*100}% + ${dx}px))`;
   },{passive:false});
   zeWrapper.addEventListener('touchend',e=>{
+    if(!tActive)return;tActive=false;
     const dx=e.changedTouches[0].clientX-tsx;
     zeTrack.classList.remove('no-trans');
-    if(tHoriz&&Math.abs(dx)>50) zeGo(dx<0?zeCurrent+1:zeCurrent-1);
+    if(tHoriz&&Math.abs(dx)>45) zeGo(dx<0?zeCurrent+1:zeCurrent-1);
     else zeGo(zeCurrent);
     tHoriz=null;
+  });
+  zeWrapper.addEventListener('touchcancel',()=>{
+    tActive=false;tHoriz=null;zeTrack.classList.remove('no-trans');zeGo(zeCurrent);
   });
 
   // toggles
   document.querySelectorAll('.ze-toggle').forEach(t=>t.addEventListener('click',e=>{e.stopPropagation();t.classList.toggle('ze-toggle-on');}));
 
-  // Fix background size on mobile scroll (address bar show/hide)
-(function(){
-  function setVh(){
-    var vh=window.innerHeight*0.01;
-    document.documentElement.style.setProperty('--vh',vh+'px');
-  }
-  setVh();
-  // Use visualViewport if available for more reliable mobile behavior
-  if(window.visualViewport){
-    window.visualViewport.addEventListener('resize',setVh);
-  } else {
-    window.addEventListener('orientationchange',setVh);
-  }
-  // Lock background dimensions so scroll/scrollbar never re-zooms it.
-  // We set both element size AND background-size to fixed pixel values,
-  // taking the max of screen vs innerWindow so desktop monitors are covered.
-  var gridBg=document.querySelector('.grid-bg');
-  function lockGridBg(){
-    if(!gridBg) return;
-    var w=Math.max(window.screen.width||0, window.innerWidth, document.documentElement.clientWidth);
-    var h=Math.max(window.screen.height||0, window.innerHeight, document.documentElement.clientHeight);
-    gridBg.style.width=w+'px';
-    gridBg.style.height=h+'px';
-    // Pin background-size to those exact dimensions so 'cover' won't recompute
-    gridBg.style.backgroundSize=w+'px '+h+'px';
-  }
-  lockGridBg();
-  // Re-lock only on real resize (orientation/window resize), NOT on scroll.
-  var _rzT=null;
-  window.addEventListener('resize',function(){
-    clearTimeout(_rzT);
-    _rzT=setTimeout(lockGridBg,120);
-  });
-})();
+  // viewport height fix for mobile address bar show/hide
+  (function(){
+    function setVh(){
+      var vh=window.innerHeight*0.01;
+      document.documentElement.style.setProperty('--vh',vh+'px');
+    }
+    setVh();
+    if(window.visualViewport){
+      window.visualViewport.addEventListener('resize',setVh,{passive:true});
+    } else {
+      window.addEventListener('orientationchange',setVh,{passive:true});
+    }
+    // Lock grid background size — prevents zoom on scroll
+    var gridBg=document.querySelector('.grid-bg');
+    function lockGridBg(){
+      if(!gridBg) return;
+      var w=Math.max(window.screen.width||0, window.innerWidth, document.documentElement.clientWidth);
+      var h=Math.max(window.screen.height||0, window.innerHeight, document.documentElement.clientHeight);
+      gridBg.style.width=w+'px';
+      gridBg.style.height=h+'px';
+      gridBg.style.backgroundSize=w+'px '+h+'px';
+    }
+    lockGridBg();
+    var _rzT=null;
+    window.addEventListener('resize',function(){
+      clearTimeout(_rzT);
+      _rzT=setTimeout(lockGridBg,150);
+    },{passive:true});
+  })();
+
   const zeWsS=document.getElementById('zeWsSlider'),zeWsV=document.getElementById('zeWsVal');
   const zeJpS=document.getElementById('zeJpSlider'),zeJpV=document.getElementById('zeJpVal');
   const zeVoS=document.getElementById('zeVolSlider'),zeVoV=document.getElementById('zeVolBadge');
@@ -1247,7 +1306,6 @@ document.querySelectorAll('.ze-reveal-wrap').forEach(el => {
     });
   });
 })();
-
 </script>
 </body>
 </html>
