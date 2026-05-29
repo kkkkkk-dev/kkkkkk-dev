@@ -1,46 +1,37 @@
 /* ══════════════════════════════════════════════
-   SCROLL PERFORMANCE — is-scrolling class
-   Strips backdrop-filter & transitions during
-   fast scroll to prevent Android flicker/stutter
+   GLASSMORPHISM FIX
+   Force new stacking context when scrolling up
 ══════════════════════════════════════════════ */
 (function(){
-  var body       = document.body;
-  var scrollTimer = null;
-  var STOP_DELAY  = 150; // ms after scroll stops to restore filters
+  var glassEls = Array.from(document.querySelectorAll(
+    '.glass, .stat, .gnav, .ze-card, .nav-in, .reas li'
+  ));
+  var lastY   = window.scrollY;
+  var ticking = false;
+  var wasDown = true;
+
+  function repaint(){
+    ticking = false;
+    var cur = window.scrollY;
+    var goingUp = cur < lastY;
+    lastY = cur;
+
+    if(goingUp && wasDown){
+      glassEls.forEach(function(el){ el.style.willChange = 'auto'; });
+      requestAnimationFrame(function(){
+        glassEls.forEach(function(el){
+          el.style.willChange = 'backdrop-filter, transform';
+        });
+      });
+      wasDown = false;
+    } else if(!goingUp){
+      wasDown = true;
+    }
+  }
 
   window.addEventListener('scroll', function(){
-    if(!body.classList.contains('is-scrolling')){
-      body.classList.add('is-scrolling');
-    }
-    clearTimeout(scrollTimer);
-    scrollTimer = setTimeout(function(){
-      body.classList.remove('is-scrolling');
-    }, STOP_DELAY);
+    if(!ticking){ ticking = true; requestAnimationFrame(repaint); }
   }, { passive: true });
-})();
-
-/* ══════════════════════════════════════════════
-   WILL-CHANGE — add only on hover, remove after
-   Avoids permanent layer promotion that causes
-   GPU memory pressure & Android black flash
-══════════════════════════════════════════════ */
-(function(){
-  var glassEls = document.querySelectorAll('.glass, .stat, .gnav');
-  glassEls.forEach(function(el){
-    el.addEventListener('mouseenter', function(){
-      el.style.willChange = 'transform, box-shadow';
-    });
-    el.addEventListener('mouseleave', function(){
-      el.style.willChange = 'auto';
-    });
-    // touch: set briefly then remove
-    el.addEventListener('touchstart', function(){
-      el.style.willChange = 'transform';
-    }, { passive: true });
-    el.addEventListener('touchend', function(){
-      setTimeout(function(){ el.style.willChange = 'auto'; }, 300);
-    }, { passive: true });
-  });
 })();
 
 /* ══════════════════════════════════════════════
