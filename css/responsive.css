@@ -30,62 +30,12 @@
   .ftgrid{grid-template-columns:1fr;gap:1.6rem}
 }
 
-/* old glass mobile rule removed — see ANDROID fix below */
-
 /* ══════════════════════════════════════════════
-   ANDROID / MOBILE SCROLL FLICKER FIX
-══════════════════════════════════════════════ */
-/* ══════════════════════════════════════════════
-   MOBILE ANDROID — BACKDROP-FILTER DISABLED
-   backdrop-filter + position:fixed background =
-   gray flash bug on Android Chrome fast scroll.
-   Solution: solid rgba fallback, no blur at all.
+   RESPONSIVE — GLASS PERFORMANCE (MOBILE)
 ══════════════════════════════════════════════ */
 @media(max-width:768px){
-
-  /* Kill all backdrop-filter on mobile */
-  .glass,
-  .mob.glass,
-  .stat,
-  .ze-card,
-  .reas li{
-    backdrop-filter:none!important;
-    -webkit-backdrop-filter:none!important;
-    background:rgba(10,12,18,0.88)!important;
-  }
-
-  /* Navbar: solid dark, no blur */
-  .gnav,
-  .nav-in{
-    backdrop-filter:none!important;
-    -webkit-backdrop-filter:none!important;
-    background:rgba(8,10,16,0.96)!important;
-  }
-
-  /* Background: hide fixed layer, put on body instead */
-  .grid-bg{
-    display:none;
-  }
-
-  /* Prevent inner scroll containers from fighting compositor */
-  .ze-page{
-    -webkit-overflow-scrolling:auto;
-    overscroll-behavior:contain;
-  }
-}
-
-/* ── Scroll performance: only reduce blur, do NOT pause transitions ── */
-body.is-scrolling .grid-bg{
-  opacity:0.12;
-}
-
-/* ── Body background fallback for mobile (replaces .grid-bg fixed) ── */
-@media(max-width:768px){
-  body{
-    background-image:url("../assets/bg/bg-main.webp");
-    background-size:cover;
-    background-position:center top;
-    background-repeat:no-repeat;
-    background-attachment:scroll;
+  .glass,.gnav,.ze-card{
+    backdrop-filter:blur(12px) saturate(130%)!important;
+    -webkit-backdrop-filter:blur(12px) saturate(130%)!important;
   }
 }
