@@ -18,7 +18,14 @@ html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;-webki
 }
 section[id]{scroll-margin-top:72px}
 html,body{width:100%;overflow-x:clip}
-html{height:100%;height:-webkit-fill-available;-webkit-overflow-scrolling:touch;scroll-behavior:auto!important}
+html{
+  height:100%;
+  scroll-behavior:auto!important;
+  /* prevent white bounce flash on Android */
+  overscroll-behavior-y:none;
+  -webkit-overscroll-behavior-y:none;
+  background:#000;
+}
 body{
   font-family:"Rajdhani",system-ui,sans-serif;
   background:#000;
@@ -28,31 +35,33 @@ body{
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
   text-rendering:optimizeLegibility;
+  /* isolate scroll stacking context */
+  overscroll-behavior-y:none;
+  -webkit-overscroll-behavior-y:none;
+  /* single GPU root layer — prevents black flicker */
+  -webkit-transform:translateZ(0);
+  transform:translateZ(0);
 }
 
 /* ══════════════════════════════════════════════
    BACKGROUND
+   NOTE: body::before fixed layer removed — was causing black flicker on Android
 ══════════════════════════════════════════════ */
-body::before{
-  content:"";
-  position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;
-  background:#000;
-}
 
 /* ── GRID / BG IMAGE ── */
 .grid-bg{
-  position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:1;pointer-events:none;
-  -webkit-transform:translateZ(0);transform:translateZ(0);
+  position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none;
+  /* translate3d = single composited GPU layer, no repaint on scroll */
+  -webkit-transform:translate3d(0,0,0);
+  transform:translate3d(0,0,0);
   -webkit-backface-visibility:hidden;backface-visibility:hidden;
-  will-change:auto;
-  min-height:100%;
-  min-height:-webkit-fill-available;
-  min-height:100dvh;
+  /* NO will-change — prevents layer explosion */
   background-image:url("../assets/bg/bg-main.webp");
   background-size:cover;
   background-position:center;
   background-repeat:no-repeat;
   opacity:0.18;
+  contain:strict;
 }
 #bgImg{display:none;}
 
@@ -77,9 +86,12 @@ h1,h2,h3,h4{font-family:"Rajdhani",sans-serif;font-weight:700;line-height:1.1}
   position:relative;overflow:hidden;
   cursor:default;
   -webkit-tap-highlight-color:transparent;
+  /* only transition box-shadow/bg — NOT backdrop-filter (causes stutter) */
   transition:box-shadow .3s,background .3s;
-  backdrop-filter:blur(18px) saturate(160%);
-  -webkit-backdrop-filter:blur(18px) saturate(160%);
+  backdrop-filter:blur(14px) saturate(140%);
+  -webkit-backdrop-filter:blur(14px) saturate(140%);
+  /* paint containment — stops repaints leaking out to parent */
+  contain:layout style paint;
 }
 .glass::before{
   content:"";position:absolute;inset:0;
@@ -104,11 +116,12 @@ h1,h2,h3,h4{font-family:"Rajdhani",sans-serif;font-weight:700;line-height:1.1}
 /* ── GNAV (navbar glass) ── */
 .gnav{
   background:rgba(255,255,255,0.04);
-  backdrop-filter:blur(28px) saturate(160%);
-  -webkit-backdrop-filter:blur(28px) saturate(160%);
+  backdrop-filter:blur(20px) saturate(140%);
+  -webkit-backdrop-filter:blur(20px) saturate(140%);
   border:1px solid rgba(255,255,255,0.10);
   box-shadow:0 8px 32px rgba(0,0,0,0.55),inset 0 1px 0 rgba(255,255,255,0.08);
   position:relative;overflow:hidden;
+  contain:layout style paint;
 }
 .gnav::before{
   content:"";position:absolute;inset:0;
@@ -178,8 +191,8 @@ h1,h2,h3,h4{font-family:"Rajdhani",sans-serif;font-weight:700;line-height:1.1}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.5rem,2vw,.85rem);margin-top:1.5rem;width:100%;max-width:560px}
 .stat{
   background:rgba(255,255,255,0.045);
-  backdrop-filter:blur(16px) saturate(150%);
-  -webkit-backdrop-filter:blur(16px) saturate(150%);
+  backdrop-filter:blur(12px) saturate(130%);
+  -webkit-backdrop-filter:blur(12px) saturate(130%);
   border-radius:clamp(12px,3vw,18px);
   padding:clamp(.85rem,2vw,1.25rem) clamp(.5rem,2vw,.85rem);
   text-align:center;position:relative;overflow:hidden;
@@ -188,6 +201,7 @@ h1,h2,h3,h4{font-family:"Rajdhani",sans-serif;font-weight:700;line-height:1.1}
   box-shadow:0 8px 24px rgba(0,0,0,0.35),inset 0 1px 0 rgba(255,255,255,0.08);
   transition:box-shadow .2s,transform .15s,background .2s;
   -webkit-tap-highlight-color:transparent;
+  contain:layout style paint;
 }
 .stat::before{
   content:"";position:absolute;inset:0;
@@ -392,10 +406,35 @@ h1,h2,h3,h4{font-family:"Rajdhani",sans-serif;font-weight:700;line-height:1.1}
 /* ══════════════════════════════════════════════
    GPU COMPOSITE — force GPU layer for glass
 ══════════════════════════════════════════════ */
+/* ── GPU COMPOSITE ──────────────────────────────
+   IMPORTANT: will-change:backdrop-filter removed — it was the #1 cause of
+   Android scroll flicker. We promote layers with translate3d instead, and
+   let JS add will-change only when a hover/animation actually starts.
+─────────────────────────────────────────────── */
 .glass,.stat,.ze-card,.gnav,.nav-in,.reas li{
-  transform:translateZ(0);-webkit-transform:translateZ(0);
-  backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  -webkit-transform:translate3d(0,0,0);
+  transform:translate3d(0,0,0);
+  -webkit-backface-visibility:hidden;
+  backface-visibility:hidden;
   isolation:isolate;
-  will-change:backdrop-filter,transform;
+  /* will-change intentionally omitted — added dynamically via JS only on hover */
 }
-.navbar{transform:translateZ(0);-webkit-transform:translateZ(0);will-change:transform;}
+.navbar{
+  -webkit-transform:translate3d(0,0,0);
+  transform:translate3d(0,0,0);
+  -webkit-backface-visibility:hidden;
+  backface-visibility:hidden;
+}
+
+/* ── SCROLL PERFORMANCE: strip expensive filters while scrolling ── */
+/* JS adds .is-scrolling to <body> on scroll, removes 150ms after stop   */
+.is-scrolling .glass,
+.is-scrolling .stat,
+.is-scrolling .ze-card,
+.is-scrolling .gnav,
+.is-scrolling .nav-in,
+.is-scrolling .reas li{
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+  transition:none!important;
+}
