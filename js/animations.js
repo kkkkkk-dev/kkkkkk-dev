@@ -1,38 +1,11 @@
 /* ══════════════════════════════════════════════
-   GLASSMORPHISM FIX
-   Force new stacking context when scrolling up
+   GLASSMORPHISM FIX — REMOVED
+   The grey-box artifacts were caused by excessive
+   will-change & isolation in CSS, not scroll direction.
+   Toggling will-change on every scroll was actually
+   making the GPU layer thrashing WORSE.
+   Fix applied in style.css (removed bulk GPU promotion).
 ══════════════════════════════════════════════ */
-(function(){
-  var glassEls = Array.from(document.querySelectorAll(
-    '.glass, .stat, .gnav, .ze-card, .nav-in, .reas li'
-  ));
-  var lastY   = window.scrollY;
-  var ticking = false;
-  var wasDown = true;
-
-  function repaint(){
-    ticking = false;
-    var cur = window.scrollY;
-    var goingUp = cur < lastY;
-    lastY = cur;
-
-    if(goingUp && wasDown){
-      glassEls.forEach(function(el){ el.style.willChange = 'auto'; });
-      requestAnimationFrame(function(){
-        glassEls.forEach(function(el){
-          el.style.willChange = 'backdrop-filter, transform';
-        });
-      });
-      wasDown = false;
-    } else if(!goingUp){
-      wasDown = true;
-    }
-  }
-
-  window.addEventListener('scroll', function(){
-    if(!ticking){ ticking = true; requestAnimationFrame(repaint); }
-  }, { passive: true });
-})();
 
 /* ══════════════════════════════════════════════
    GLARE SWEEP
