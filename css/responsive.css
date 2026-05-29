@@ -1,0 +1,41 @@
+/* ══════════════════════════════════════════════
+   RESPONSIVE — NAVBAR
+══════════════════════════════════════════════ */
+@media(max-width:700px){
+  .navlinks{display:none}
+  .ham{display:flex}
+  .sk-nav-links{display:none}
+}
+
+/* ══════════════════════════════════════════════
+   RESPONSIVE — GRID LAYOUTS
+══════════════════════════════════════════════ */
+@media(max-width:860px){
+  .g3{grid-template-columns:repeat(2,1fr)}
+  .sk-cards{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:520px){
+  .g3{grid-template-columns:1fr}
+  .sk-cards{grid-template-columns:1fr}
+}
+@media(max-width:800px){
+  .g2{grid-template-columns:1fr}
+  .sk-why{grid-template-columns:1fr}
+}
+
+/* ══════════════════════════════════════════════
+   RESPONSIVE — FOOTER
+══════════════════════════════════════════════ */
+@media(max-width:600px){
+  .ftgrid{grid-template-columns:1fr;gap:1.6rem}
+}
+
+/* ══════════════════════════════════════════════
+   RESPONSIVE — GLASS PERFORMANCE (MOBILE)
+══════════════════════════════════════════════ */
+@media(max-width:768px){
+  .glass,.gnav,.ze-card{
+    backdrop-filter:blur(12px) saturate(130%)!important;
+    -webkit-backdrop-filter:blur(12px) saturate(130%)!important;
+  }
+}
