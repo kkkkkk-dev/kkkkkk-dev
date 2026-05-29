@@ -1,9 +1,10 @@
 /* ══════════════════════════════════════════════
-   SKELETON DISMISS
+   SKELETON DISMISS — fast path
 ══════════════════════════════════════════════ */
 (function(){
-  const sk = document.getElementById('page-skeleton');
-  let fontsDone = false, imgDone = false;
+  var sk = document.getElementById('page-skeleton');
+  if(!sk) return;
+  var fontsDone = false, imgDone = false;
 
   function tryDismiss(){
     if(!fontsDone || !imgDone) return;
@@ -12,21 +13,24 @@
       sk.addEventListener('transitionend', function(){
         sk.remove();
       }, { once: true });
-    }, 120);
+      /* Safety: remove after animation in case transitionend doesn't fire */
+      setTimeout(function(){ if(sk.parentNode) sk.remove(); }, 600);
+    }, 60);
   }
 
   if(document.fonts && document.fonts.ready){
     document.fonts.ready.then(function(){ fontsDone=true; tryDismiss(); });
   } else { fontsDone=true; }
 
-  const bgImg = document.getElementById('bgImg');
-  if(bgImg.complete){ imgDone=true; tryDismiss(); }
-  else {
+  var bgImg = document.getElementById('bgImg');
+  if(bgImg && bgImg.complete){ imgDone=true; tryDismiss(); }
+  else if(bgImg) {
     bgImg.addEventListener('load',  function(){ imgDone=true; tryDismiss(); }, {once:true});
     bgImg.addEventListener('error', function(){ imgDone=true; tryDismiss(); }, {once:true});
-  }
+  } else { imgDone=true; tryDismiss(); }
 
-  setTimeout(function(){ fontsDone=true; imgDone=true; tryDismiss(); }, 2500);
+  /* Fallback — don't wait longer than 1.2s */
+  setTimeout(function(){ fontsDone=true; imgDone=true; tryDismiss(); }, 1200);
 })();
 
 /* ══════════════════════════════════════════════
