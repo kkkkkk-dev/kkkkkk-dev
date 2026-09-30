@@ -1,12 +1,9 @@
 .hov{transition:transform .35s,box-shadow .35s,border-color .3s}
-.hov:hover{transform:translateY(-4px);box-shadow:0 0 18px rgba(255,255,255,0.09),0 0 50px rgba(255,255,255,0.04);}
+@media (hover:hover){.hov:hover{transform:translateY(-4px);box-shadow:0 0 18px rgba(255,255,255,0.09),0 0 50px rgba(255,255,255,0.04);}}
 
 .shim{position:relative;overflow:hidden}
 .shim::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,0.15) 50%,transparent 70%);transform:translateX(-120%);transition:transform .75s}
-.shim:hover::after{transform:translateX(120%)}
-
-html,body{overflow-x:hidden}
-@supports (overflow:clip){html,body{overflow-x:clip}}
+@media (hover:hover){.shim:hover::after{transform:translateX(120%)}}
 
 .rv{
   opacity:0;
@@ -47,7 +44,7 @@ html,body{overflow-x:hidden}
   -webkit-animation:glitch-bot 1.2s infinite linear;
   animation:glitch-bot 1.2s infinite linear;opacity:0;
 }
-.glitch:hover::before,.glitch:hover::after{-webkit-animation-duration:0.4s;animation-duration:0.4s;}
+@media (hover:hover){.glitch:hover::before,.glitch:hover::after{-webkit-animation-duration:0.4s;animation-duration:0.4s;}}
 
 .glare-layer{
   position:absolute;inset:0;border-radius:inherit;
@@ -94,8 +91,9 @@ html,body{overflow-x:hidden}
     rgba(255,255,255,0.18) 50%,
     rgba(255,255,255,0.09) 60%,
     transparent 100%);
-  background-size:600px 100%;
-  animation:sk-shimmer 1.6s infinite linear;
+  -webkit-transform:translate3d(-100%,0,0);transform:translate3d(-100%,0,0);
+  -webkit-animation:sk-shimmer 1.4s infinite linear;
+  animation:sk-shimmer 1.4s infinite linear;
 }
 
 @-webkit-keyframes pu{0%,100%{opacity:1;-webkit-transform:scale(1);transform:scale(1)}50%{opacity:.45;-webkit-transform:scale(.75);transform:scale(.75)}}
@@ -162,10 +160,8 @@ html,body{overflow-x:hidden}
   100%{transform:translateX(340%)}
 }
 
-@keyframes sk-shimmer{
-  0%{background-position:-600px 0}
-  100%{background-position:600px 0}
-}
+@-webkit-keyframes sk-shimmer{to{-webkit-transform:translate3d(100%,0,0);transform:translate3d(100%,0,0)}}
+@keyframes sk-shimmer{to{transform:translate3d(100%,0,0)}}
 
 @media(prefers-reduced-motion:reduce){
   .rv,.rl,.rr,.rs{opacity:1;-webkit-transform:none;transform:none;-webkit-transition:none;transition:none}
