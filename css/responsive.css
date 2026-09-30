@@ -33,22 +33,6 @@
 /* ══════════════════════════════════════════════
    RESPONSIVE — GLASS PERFORMANCE (MOBILE)
 ══════════════════════════════════════════════ */
-@media(max-width:768px){
-  .glass,.gnav,.ze-card{
-    backdrop-filter:blur(8px) saturate(120%)!important;
-    -webkit-backdrop-filter:blur(8px) saturate(120%)!important;
-  }
-  .stat{
-    backdrop-filter:blur(6px) saturate(110%)!important;
-    -webkit-backdrop-filter:blur(6px) saturate(110%)!important;
-  }
-  .reas li{
-    backdrop-filter:blur(6px) saturate(110%)!important;
-    -webkit-backdrop-filter:blur(6px) saturate(110%)!important;
-  }
-  /* Speed up off-screen rendering */
-  .sec{
-    content-visibility:auto;
-    contain-intrinsic-size:auto 600px;
-  }
+@media(min-width:701px){
+  .mob,.mob.open{display:none}
 }
