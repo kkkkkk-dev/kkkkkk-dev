@@ -53,7 +53,7 @@ function initReveal(){
   function enqueue(el){
     pendingRv.delete(el); revealObs.unobserve(el);
     queue.add(el);
-    if(!rafPending){ rafPending = true; requestAnimationFrame(flush); }
+    if(!rafPending){ rafPending = true; Promise.resolve().then(flush); }
   }
 
   var revealObs = new IntersectionObserver(function(entries){
@@ -61,7 +61,7 @@ function initReveal(){
 
       if(e.isIntersecting || e.boundingClientRect.top < 0) enqueue(e.target);
     });
-  }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
+  }, { threshold: 0, rootMargin: '0px 0px 18% 0px' });
 
   var zeObs = new IntersectionObserver(function(entries){
     entries.forEach(function(e){
@@ -70,7 +70,7 @@ function initReveal(){
         pendingZe.delete(e.target); zeObs.unobserve(e.target);
       }
     });
-  }, { threshold: 0.1 });
+  }, { threshold: 0, rootMargin: '0px 0px 18% 0px' });
 
   var vh = window.innerHeight;
   var rvTop = rvEls.map(function(el){ return el.getBoundingClientRect().top; });
@@ -79,11 +79,11 @@ function initReveal(){
   var initialRv = [], initialZe = [];
   rvEls.forEach(function(el, i){
 
-    if(rvTop[i] < vh) initialRv.push(el);
+    if(rvTop[i] < vh * 1.18) initialRv.push(el);
     else { pendingRv.add(el); revealObs.observe(el); }
   });
   zeEls.forEach(function(el, i){
-    if(zeTop[i] < vh) initialZe.push(el);
+    if(zeTop[i] < vh * 1.18) initialZe.push(el);
     else { pendingZe.add(el); zeObs.observe(el); }
   });
 
@@ -94,7 +94,7 @@ function initReveal(){
   }); });
 
   function sweep(){
-    var h = window.innerHeight;
+    var h = window.innerHeight * 1.18;
     Array.from(pendingRv).forEach(function(el){ if(el.getBoundingClientRect().top < h) enqueue(el); });
     Array.from(pendingZe).forEach(function(el){
       if(el.getBoundingClientRect().top < h){ el.classList.add('ze-on'); pendingZe.delete(el); zeObs.unobserve(el); }
@@ -106,3 +106,4 @@ function initReveal(){
 
 if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initReveal);
 else initReveal();
+m
